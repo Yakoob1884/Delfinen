@@ -6,10 +6,10 @@ public class Competition {
     private String competitionName;
     private LocalDate date;
     private String location;
-    private SwimmingDisciplin disciplin;
+    private SwimmingDiscipline disciplin;
     private Duration timeRegister;
 
-    public Competition(String competitionTitel, LocalDate date, String location, SwimmingDisciplin disciplin, Duration timeRegister){
+    public Competition(String competitionTitel, LocalDate date, String location, SwimmingDiscipline disciplin, Duration timeRegister){
 
         this.competitionName = competitionTitel;
         this.date = date;

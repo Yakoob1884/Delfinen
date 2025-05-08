@@ -4,9 +4,9 @@ import java.util.Scanner;
 public class UI {
 
     private Scanner scanner;
-    private Controller controller;
+    private AppController controller;
 
-    public UI(Controller controller) {
+    public UI(AppController controller) {
         this.scanner = new Scanner(System.in);
         this.controller = controller;
 
@@ -14,7 +14,7 @@ public class UI {
 
 
 
-    public void menuOptions (Scanner scanner) {
+    public void menuOptions () {
 
 
 

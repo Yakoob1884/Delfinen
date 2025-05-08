@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ListOfSwimmers {
 
@@ -10,6 +11,11 @@ public class ListOfSwimmers {
 
     public void addSwimmer(Swimmer swimmer){
         listOfSwimmers.add(swimmer);
+    }
+
+    public void sortIsPaid() {
+        Collections.sort(listOfSwimmers, new ComparatorIsPaid());
+
     }
 
     public String toString() {

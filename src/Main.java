@@ -2,10 +2,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Controller controller = new Controller("collectionBackup.ser");
+        AppController controller = new AppController("collectionBackup.ser");
         UI uiConsoleMenu = new UI(controller);
 
-        uiConsoleMenu.run();
+        uiConsoleMenu.menuOptions();
 
 
 
@@ -19,9 +19,6 @@ public class Main {
     
 
     //Denne method skal vaere i ListOfSwimmers
-    public void sortIsPaid() {
-        Collections.sort(listOfSwimmers, new ComparatorIsPaid());
 
-    }
 
 }
