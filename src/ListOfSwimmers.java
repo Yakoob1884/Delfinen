@@ -48,8 +48,20 @@ public class ListOfSwimmers {
         return sb.toString();
     }
 
-    public Swimmer getSwimmer(int index) {
+    public Swimmer getSwimmerByIndex(int index) {
         return listOfSwimmers.get(index);
+    }
+
+    public List<Swimmer> getSwimmersAtOrAboveAge(int age) {
+        List<Swimmer> swimmersAtOrAboveAgeList = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            if (swimmer.calculateAge() >= age) {
+                swimmersAtOrAboveAgeList.add(swimmer);
+            }
+        }
+
+        return swimmersAtOrAboveAgeList;
     }
 
 
