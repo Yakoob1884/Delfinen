@@ -40,8 +40,10 @@ public class ListOfSwimmers {
 
     public String toString() {
         StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
+        int id = 1;
         for (Swimmer swimmer : listOfSwimmers) {
-            sb.append(swimmer).append("\n");
+            sb.append("ID " + id + ": " + swimmer).append("\n");
+            id++;
         }
         return sb.toString();
     }

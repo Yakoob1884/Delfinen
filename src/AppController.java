@@ -35,4 +35,11 @@ public class AppController {
 
     }
 
+    public double calculateFee(Swimmer swimmer) {
+        if (swimmer.getIsActive() == false) return PASSIVE_PRICE;
+        if (swimmer.calculateAge() < SENIOR_START_AGE) return JUNIOR_PRICE;
+        if (swimmer.calculateAge() >= EXTRA_DISCOUNT_START_AGE) return SENIOR_PRICE * EXTRA_DISCOUNT_PERCENTAGE;
+
+        return SENIOR_PRICE;
+    }
 }

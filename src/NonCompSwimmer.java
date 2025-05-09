@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.Period;
 
 public class NonCompSwimmer implements Swimmer {
     //Attributes
@@ -30,6 +31,21 @@ public class NonCompSwimmer implements Swimmer {
     @Override
     public String getLastName() {
         return lastName;
+    }
+
+    @Override
+    public LocalDate getBirthday(){ return birthday; }
+
+    @Override
+    public boolean getIsActive(){ return isActive; }
+
+    @Override
+    public int calculateAge () {
+        LocalDate currentDate = LocalDate.now();
+
+        Period period = Period.between(birthday, currentDate);
+
+        return period.getYears();
     }
 
     @Override
