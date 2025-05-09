@@ -1,4 +1,4 @@
-import java.lang.classfile.attribute.SourceDebugExtensionAttribute;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -34,28 +34,28 @@ public class UI {
             switch (choice) {
 
                 case 1:
-                    createSwimmer();
+                    //createSwimmer();
                     break;
                 case 2:
-                    viewSwimmers();
+                    //viewSwimmers();
                     break;
                 case 3:
-                    changeSwimmer();
+                    //changeSwimmer();
                     break;
                 case 4:
-                    viewTopFive();
+                    //viewTopFive();
                     break;
                 case 5:
-                    registerTimes();
+                    //registerTimes();
                     break;
                 case 6:
-                    viewRestance();
+                    printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
                     break;
                 case 7:
-                    registerPayment();
+                    //registerPayment();
                     break;
                 case 8:
-                    expectedRevenue();
+                    //expectedRevenue();
                     break;
                 default:
                     System.out.println("Fejl. Tast 1-8");
@@ -66,6 +66,18 @@ public class UI {
 
 
 
+    }
+
+    public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
+        System.out.println(title + ": ");
+
+        if (list.isEmpty()) {
+            System.out.println("Ingen data at vise");
+        } else {
+            for (Swimmer swimmer : list) {
+                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
+            }
+        }
     }
 
 

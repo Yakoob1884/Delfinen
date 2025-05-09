@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
+
 
 public class ListOfSwimmers {
 
@@ -13,8 +13,17 @@ public class ListOfSwimmers {
         listOfSwimmers.add(swimmer);
     }
 
-    public void sortIsPaid() {
-        Collections.sort(listOfSwimmers, new ComparatorIsPaid());
+    public List<Swimmer> getSwimmersIsPaidFalse() {
+
+        List<Swimmer> listSwimmersIsPaidFalse = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            if (!swimmer.getIsPaid()) {
+                listSwimmersIsPaidFalse.add(swimmer);
+            }
+        }
+
+        return listSwimmersIsPaidFalse;
 
     }
 
@@ -24,6 +33,10 @@ public class ListOfSwimmers {
             sb.append(swimmer).append("\n");
         }
         return sb.toString();
+    }
+
+    public Swimmer getSwimmer(int index) {
+        return listOfSwimmers.get(index);
     }
 
 }
