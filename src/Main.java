@@ -14,11 +14,6 @@ public class Main {
 
     }
 
-    //Denne method skal vaere i Controller
-
-    
-
-    //Denne method skal vaere i ListOfSwimmers
 
 
 }

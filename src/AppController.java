@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class AppController {
 
     private final int SENIOR_START_AGE = 18;
@@ -11,26 +13,17 @@ public class AppController {
     ListOfSwimmers listOfSwimmers;
 
     public AppController(String fileName) {
-        this.listOfSwimmers = new ListOfSwimmers;
+        this.listOfSwimmers = new ListOfSwimmers();
 
     }
 
-    public void printRestanceSwimmers() {
-        // call method i Collection class som sorterer efter getter til isPaid eller lign
+    public List<Swimmer> viewRestanceSwimmers() {
 
-        listOfSwimmers.sortIsPaid();
+        List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalse();
 
+        Collections.sort(listSwimmersIsPaidFalse, new ComparatorIsPaid());
 
-        // lav code som udskriver listen indtil den foerste som er paid
-
-        int index = 0;
-        while (true) {
-            if (listOfSwimmers.get(index).getIsPaid()) {
-                break;
-            } else {
-                System.out.println(listOfSwimmers.get(index));
-            }
-        }
+        return listSwimmersIsPaidFalse;
 
     }
 
