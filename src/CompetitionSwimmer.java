@@ -1,3 +1,3 @@
-public interface CompetitionSwimmer extends Swimmer{
+public interface CompetitionSwimmer extends Swimmer {
 
 }
