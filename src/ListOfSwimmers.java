@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -7,6 +9,7 @@ public class ListOfSwimmers {
 
     public ListOfSwimmers(){
         this.listOfSwimmers = new ArrayList<>();
+        dummieList();
     }
 
     public void addSwimmer(Swimmer swimmer){
@@ -52,6 +55,28 @@ public class ListOfSwimmers {
         return listOfSwimmers.get(index);
     }
 
+    public void dummieList(){
 
+        listOfSwimmers.add(new NonCompSwimmer("Peter", "Petersen", LocalDate.of(1985, 5, 9), true, true));
+        listOfSwimmers.add(new NonCompSwimmer("Niels", "Nielsen", LocalDate.of(1975, 1, 22), false, false));
+        listOfSwimmers.add(new CompSwimmer("Jakob", "Jakobsen", LocalDate.of(2000, 3, 9), true, false, new Training(SwimmingDiscipline.FREESTYLE, LocalDate.of(2025,5,9), Duration.parse("PT, 1M, 15S"))));
+
+
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new CompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new CompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new CompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new CompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+        listOfSwimmers.add(new CompSwimmer());
+        listOfSwimmers.add(new CompSwimmer());
+        listOfSwimmers.add(new NonCompSwimmer());
+
+    }
 
 }
