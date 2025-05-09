@@ -19,11 +19,19 @@ public class AppController {
 
     public List<Swimmer> viewRestanceSwimmers() {
 
-        List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalse();
+        List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalseList();
 
         Collections.sort(listSwimmersIsPaidFalse, new ComparatorIsPaid());
 
         return listSwimmersIsPaidFalse;
+
+    }
+
+    public List<Swimmer> viewCompetitionSwimmers() {
+
+        List<Swimmer> compSwimmersList = listOfSwimmers.getCompSwimmersList();
+        Collections.sort(compSwimmersList);
+        return compSwimmersList;
 
     }
 

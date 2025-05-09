@@ -29,6 +29,7 @@ public class UI {
             System.out.println("7. Registrer betaling");
             System.out.println("8. Se årets forventede omsætning");
 
+
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -50,6 +51,9 @@ public class UI {
                     break;
                 case 6:
                     printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
+                    printSwimmerListLastNameFirstName(controller.viewCompetitionSwimmers(), "Medlemmer som er konkurrencesvømmere");
+
+
                     break;
                 case 7:
                     //registerPayment();

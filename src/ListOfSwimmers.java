@@ -13,7 +13,7 @@ public class ListOfSwimmers {
         listOfSwimmers.add(swimmer);
     }
 
-    public List<Swimmer> getSwimmersIsPaidFalse() {
+    public List<Swimmer> getSwimmersIsPaidFalseList() {
 
         List<Swimmer> listSwimmersIsPaidFalse = new ArrayList<>();
 
@@ -25,6 +25,17 @@ public class ListOfSwimmers {
 
         return listSwimmersIsPaidFalse;
 
+    }
+
+    public List<Swimmer> getCompSwimmersList() {
+        List<Swimmer> compSwimmersList = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            if (swimmer instanceof CompSwimmer) {
+                compSwimmersList.add(swimmer);
+            }
+        }
+        return compSwimmersList;
     }
 
     public String toString() {
