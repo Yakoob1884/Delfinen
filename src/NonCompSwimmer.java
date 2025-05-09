@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class NonCompSwimmer implements Swimmer {
-        //Attributes
+    //Attributes
     String firstName;
     String lastName;
     LocalDate birthday;
@@ -9,8 +9,7 @@ public class NonCompSwimmer implements Swimmer {
     boolean isPaid;
 
 
-
-    public NonCompSwimmer (String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid){
+    public NonCompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
