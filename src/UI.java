@@ -16,6 +16,9 @@ public class UI {
 
     public void menuOptions () {
 
+        boolean run = true;
+
+        while(run) {
 
 
             System.out.println("Svømmeklubben Delfinen");
@@ -28,6 +31,7 @@ public class UI {
             System.out.println("6. Se medlemmer med restance");
             System.out.println("7. Registrer betaling");
             System.out.println("8. Se årets forventede omsætning");
+            System.out.println("9. For at afslutte programmet");
 
             int choice = scanner.nextInt();
 
@@ -57,11 +61,16 @@ public class UI {
                 case 8:
                     expectedRevenue();
                     break;
+                case 9:
+                    System.out.println("Programmet afslutter...");
+                    run = false;
+                    break;
                 default:
                     System.out.println("Fejl. Tast 1-8");
 
 
             }
+        }
 
 
 
