@@ -70,7 +70,8 @@ public class ListOfSwimmers {
     public void dummieList() {
 
         listOfSwimmers.add(new NonCompSwimmer("Peter", "Petersen", LocalDate.of(1985, 5, 9), true, true));
-        listOfSwimmers.add(new CompSwimmer("Anders", "Andersen", LocalDate.of(2001, 12, 12), false, true, new Training(SwimmingDiscipline.BREASTSTROKE, LocalDate.of(2024, 12, 17), Duration.parse("PT, 1M, 1S"))));
+        listOfSwimmers.add(new CompSwimmer("Anders", "Andersen", LocalDate.of(2001, 12, 12), false, true, new ArrayList<Training>(Arrays.asList(new Training(SwimmingDiscipline.BREASTSTROKE, LocalDate.of(2024, 12, 17), Duration.parse("PT, 1M, 1S")),
+                new Training(SwimmingDiscipline.BREASTSTROKE, LocalDate.of(2024, 10, 17), Duration.parse("PT, 1M, 5S"))))));
         listOfSwimmers.add(new NonCompSwimmer("Niels", "Nielsen", LocalDate.of(1975, 1, 22), false, false));
         listOfSwimmers.add(new CompSwimmer("Jakob", "Jakobsen", LocalDate.of(2000, 3, 9), true, false, new Training(SwimmingDiscipline.FREESTYLE, LocalDate.of(2025, 5, 9), Duration.parse("PT, 1M, 15S"))));
         listOfSwimmers.add(new NonCompSwimmer("Søren", "Sørensen", LocalDate.of(2012, 10, 17), false, true));
