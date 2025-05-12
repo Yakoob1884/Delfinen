@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface CompetitionSwimmer extends Swimmer {
 
-    List<Training> getTrainingTime();
+    Training getTrainingTime();
     List<Competition> getCompTime();
 
 }
