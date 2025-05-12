@@ -8,10 +8,10 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
 
     EnumSet<SwimmingDiscipline> discipline;
     ArrayList<Competition> compTime;
-    Training trainingTime;
+    ArrayList<Training> trainingTime;
 
 
-    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, Training trainingTime) {
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<Training> trainingTime) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = EnumSet.noneOf(SwimmingDiscipline.class);
         this.compTime = new ArrayList<>();
@@ -19,7 +19,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
     }
 
     @Override
-    public Training getTrainingTime() {
+    public List<Training> getTrainingTime() {
         return this.trainingTime;
     }
 
@@ -28,14 +28,8 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         return this.compTime;
     }
 
-//    @Override
-//    public boolean hasResults(SwimmingDiscipline discipline) {
-//        for (Competition competition : compTime) {
-//        }
-//    }
 
-
-
+    //Tjek om der er data på swimmer via getter fra Competition og Training
     @Override
     public Duration getFastestTimeCompetitionDiscipline(SwimmingDiscipline discipline) {
 
@@ -46,6 +40,18 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         }
 
         for (Competition competition : compTime) {
+            if (competition.getDiscipline().equals(discipline)) {
+                return true;
+            }
+        }
+
+        for (Training training : trainingTime) {
+            if(training.getDiscipline().equals(discipline)) {
+                return true;
+            }
+        }
+
+        return false;
             if (competition.getTimeRegister().compareTo(fastest) < 0) {
                 fastest = competition.getTimeRegister();
             }

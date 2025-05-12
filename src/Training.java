@@ -27,5 +27,10 @@ public class Training {
         return ("Træningsinfo: \nTrænings type: " + discipline + "\nDato: " + date + "\nRegistreret tid: " + timeRegister);
     }
 
+    //getter til discipline:
+    public SwimmingDiscipline getDiscipline() {
+        return discipline;
+    }
+
 
 }
