@@ -17,6 +17,13 @@ public class AppController {
 
     }
 
+    public List<Swimmer> viewAllSwimmers(){
+
+        List<Swimmer> listOfAllSwimmers = listOfSwimmers.getListOfAllSwimmers();
+
+        return listOfAllSwimmers;
+    }
+
     public List<Swimmer> viewRestanceSwimmers() {
 
         List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalseList();
@@ -42,4 +49,14 @@ public class AppController {
 
         return SENIOR_PRICE;
     }
+
+    public double calculateEstimatedRevenue() {
+        double estimatedRevenue = 0.00;
+        List<Swimmer> listOfAllSwimmers = viewAllSwimmers();
+        for (Swimmer swimmer : listOfAllSwimmers) {
+            estimatedRevenue += calculateFee(swimmer);
+        }
+        return estimatedRevenue;
+    }
+
 }
