@@ -8,10 +8,10 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
 
     EnumSet<SwimmingDiscipline> discipline;
     ArrayList<Competition> compTime;
-    Training trainingTime;
+    ArrayList<Training> trainingTime;
 
 
-    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, Training trainingTime) {
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<Training> trainingTime) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = EnumSet.noneOf(SwimmingDiscipline.class);
         this.compTime = new ArrayList<>();
@@ -70,6 +70,27 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         }
 
         return fastest;
+    }
+
+    //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten Competition eller Training:
+
+    public boolean hasResult(SwimmingDiscipline discipline) {
+
+
+        for (Competition competition : compTime) {
+            if (competition.getDiscipline().equals(discipline)) {
+                return true;
+            }
+        }
+
+        for (Training training : trainingTime) {
+            if (training.getDiscipline().equals(discipline)) {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
 
