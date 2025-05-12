@@ -17,4 +17,19 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         this.trainingTime = trainingTime;
     }
 
+    @Override
+    public Training getTrainingTime() {
+        return this.trainingTime;
+    }
+
+    @Override
+    public List<Competition> getCompTime() {
+        return this.compTime;
+    }
+
+    @Override
+    public boolean hasResults(SwimmingDiscipline discipline) {
+        for (Competition competition : compTime) {
+    }
+
 }

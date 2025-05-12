@@ -42,4 +42,44 @@ public class AppController {
 
         return SENIOR_PRICE;
     }
+
+    public List<Swimmer> getSwimmersMaxAge(List<Swimmer> startList, int maxAge) {
+        List<Swimmer> filteredList = new ArrayList<>();
+
+        for (Swimmer swimmer : startList) {
+            if (swimmer.calculateAge() <= maxAge) {
+                filteredList.add(swimmer);
+            }
+        }
+
+        return filteredList;
+    }
+
+    public List<Swimmer> getSwimmersMinAge(List<Swimmer> startList, int minAge) {
+        List<Swimmer> filteredList = new ArrayList<>();
+
+        for (Swimmer swimmer : startList) {
+            if (swimmer.calculateAge() >= minAge) {
+                filteredList.add(swimmer);
+            }
+        }
+
+        return filteredList;
+    }
+
+    public List<Swimmer> getSwimmersHavingResults(List<Swimmer> startList, SwimmingDiscipline discipline) {
+        List<Swimmer> filteredList = new ArrayList<>();
+
+        for (Swimmer swimmer : startList) {
+            if (swimmer instanceof CompSwimmer) {
+                ((CompSwimmer) swimmer).getTrainingTime();
+
+            }
+        }
+
+
+    }
+
+
+
 }

@@ -7,13 +7,6 @@ public class Main {
 
         uiConsoleMenu.menuOptions();
 
-
-
-
-
-
     }
-
-
 
 }
