@@ -29,6 +29,16 @@ public class ListOfSwimmers {
 
     }
 
+    public List<Swimmer> getListOfAllSwimmers() {
+
+        List<Swimmer> listOfAllSwimmers = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            listOfAllSwimmers.add(swimmer);
+        }
+        return listOfAllSwimmers;
+    }
+
     public List<Swimmer> getCompSwimmersList() {
         List<Swimmer> compSwimmersList = new ArrayList<>();
 
@@ -39,6 +49,8 @@ public class ListOfSwimmers {
         }
         return compSwimmersList;
     }
+
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
