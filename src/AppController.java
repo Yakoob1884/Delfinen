@@ -79,13 +79,16 @@ public class AppController {
 
         for (Swimmer swimmer : startList) {
             if (swimmer instanceof CompSwimmer) {
-                ((CompSwimmer) swimmer).getTrainingTime();
-
+                if (((CompSwimmer) swimmer).hasResults(discipline)) {
+                    startList.add(swimmer);
+                }
             }
         }
 
-
+        return filteredList;
     }
+
+
 
 
 

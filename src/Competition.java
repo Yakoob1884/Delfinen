@@ -19,6 +19,15 @@ public class Competition {
 
     }
 
+    public Duration getTimeRegister() {
+        return this.timeRegister;
+    }
+
+    public SwimmingDiscipline getDiscipline() {
+        return this.discipline;
+    }
+
+
     public String toString(){
         return ("Stævnets info: \nNavn: " + competitionName + "\nDato: " + date + "\nSted: " + location + "\nDisciplin: " + disciplin + "\nRegistreret tid: " + timeRegister);
     }

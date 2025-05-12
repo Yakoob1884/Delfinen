@@ -15,6 +15,14 @@ public class Training {
         this.timeRegister = timeRegister;
     }
 
+    public SwimmingDiscipline getDiscipline() {
+        return this.discipline;
+    }
+
+    public Duration getTimeRegister() {
+        return this.timeRegister;
+    }
+
     public String toString(){
         return ("Træningsinfo: \nTrænings type: " + discipline + "\nDato: " + date + "\nRegistreret tid: " + timeRegister);
     }

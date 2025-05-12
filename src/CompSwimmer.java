@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.*;
@@ -27,9 +28,55 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         return this.compTime;
     }
 
+//    @Override
+//    public boolean hasResults(SwimmingDiscipline discipline) {
+//        for (Competition competition : compTime) {
+//        }
+//    }
+
+
+
     @Override
-    public boolean hasResults(SwimmingDiscipline discipline) {
+    public Duration getFastestTimeCompetitionDiscipline(SwimmingDiscipline discipline) {
+
+        Duration fastest = Duration.parse("PT0H0M0S");
+
+        if (compTime.isEmpty()) {
+            return fastest;
+        }
+
         for (Competition competition : compTime) {
+            if (competition.getTimeRegister().compareTo(fastest) < 0) {
+                fastest = competition.getTimeRegister();
+            }
+        }
+
+        return fastest;
     }
 
-}
+    @Override
+    public Duration getFastestTimeTrainingDiscipline(SwimmingDiscipline discipline) {
+
+        Duration fastest = Duration.parse("PT0H0M0S");
+
+        if (trainingTime.isEmpty()) {
+            return fastest;
+        }
+
+        for (Training training : trainingTime) {
+            if (training.getTimeRegister().compareTo(fastest) < 0) {
+                fastest = training.getTimeRegister();
+            }
+        }
+
+        return fastest;
+    }
+
+
+
+
+
+
+
+
+    }
