@@ -1,10 +1,7 @@
 package delfin.controller;
 
-import delfin.model.CompSwimmer;
-import delfin.model.ListOfSwimmers;
-import delfin.model.Swimmer;
-import delfin.model.SwimmingDiscipline;
 
+import delfin.model.*;
 import java.time.Duration;
 import java.util.*;
 import java.time.LocalDate;
@@ -16,7 +13,7 @@ public class AppController {
     private final double SENIOR_PRICE = 1600;
     private final double PASSIVE_PRICE = 500;
     private final int EXTRA_DISCOUNT_START_AGE = 61;
-    private final double EXTRA_DISCOUNT_PERCENTAGE = 0.25;
+    private final double EXTRA_DISCOUNT_PERCENTAGE = 0.75;
 
 
     ListOfSwimmers listOfSwimmers;
@@ -196,6 +193,13 @@ public class AppController {
     }
 
     public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines){
+        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
+        listOfSwimmers.addSwimmer(swimmer);
+    }
+
+    public void addNonCompSwimmerToList(String firstName, String lastName, LocalDate birthday){
+        Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
+        listOfSwimmers.addSwimmer(swimmer);
 
     }
 }
