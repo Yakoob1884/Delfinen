@@ -50,8 +50,15 @@ public class NonCompSwimmer implements Swimmer {
 
     @Override
     public int compareTo(Swimmer otherSwimmer) {
-        return lastName.compareToIgnoreCase(otherSwimmer.getLastName());
-
+        if (lastName.equalsIgnoreCase(otherSwimmer.getLastName())) {
+            return firstName.compareToIgnoreCase(otherSwimmer.getFirstName());
+        }
+            return lastName.compareToIgnoreCase(otherSwimmer.getLastName());
     }
 
+    @Override
+    public String toString() {
+        return String.format("%-20s  %-20s  %20s  %5b  %5b", this.lastName, this.firstName, this.birthday, this.isActive, this.isPaid);
+
+    }
 }

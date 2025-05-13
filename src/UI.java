@@ -54,9 +54,10 @@ public class UI {
                     //registerTimes();
                     break;
                 case 6:
-                    printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
-                    printSwimmerListLastNameFirstName(controller.viewCompetitionSwimmers(), "Medlemmer som er konkurrencesvømmere");
-
+                    //printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
+                    //printSwimmerListLastNameFirstName(controller.viewCompetitionSwimmers(), "Medlemmer som er konkurrencesvømmere");
+                    //controller.printAllTestToRemoveAgain();
+                    controller.top5();
 
                     break;
                 case 7:
@@ -82,15 +83,18 @@ public class UI {
     }
 
     public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
-        System.out.println(title + ": ");
+        System.out.println("\n" + title + ": ");
 
-        if (list.isEmpty()) {
-            System.out.println("Ingen data at vise");
-        } else {
-            for (Swimmer swimmer : list) {
-                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
-            }
-        }
+//        if (list.isEmpty()) {
+//            System.out.println("Ingen data at vise");
+//        } else {
+//            for (Swimmer swimmer : list) {
+//                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
+//            }
+//        }
+        list.forEach(System.out::println);
+
+
     }
 
 

@@ -2,6 +2,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.*;
+import java.util.EnumSet;
+
 
 public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
     //Attribute
@@ -11,15 +13,22 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
     ArrayList<Training> trainingTime;
 
 
-    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<Training> trainingTime) {
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, List<Training> trainingTime, EnumSet<SwimmingDiscipline> enums) {
         super(firstName, lastName, birthday, isActive, isPaid);
-        this.discipline = EnumSet.noneOf(SwimmingDiscipline.class);
+        this.discipline = enums;
         this.compTime = new ArrayList<>();
-        this.trainingTime = trainingTime;
+        this.trainingTime = new ArrayList<>(trainingTime);
+    }
+
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<Competition> compTime, EnumSet<SwimmingDiscipline> enums) {
+        super(firstName, lastName, birthday, isActive, isPaid);
+        this.discipline = enums;
+        this.compTime = new ArrayList<>(compTime);
+        this.trainingTime = new ArrayList<>();
     }
 
     @Override
-    public Training getTrainingTime() {
+    public List<Training> getTrainingTime() {
         return this.trainingTime;
     }
 
@@ -28,11 +37,73 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         return this.compTime;
     }
 
-//    @Override
-//    public boolean hasResults(SwimmingDiscipline discipline) {
-//        for (Competition competition : compTime) {
-//        }
-//    }
+    @Override
+    public Duration getFastestTrainingTimeBreastStroke() {
+
+
+        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
+
+
+        for (Training training : trainingTime) {
+            if (training.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && training.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = training.getTimeRegister();
+            }
+        }
+    return tempDuration;
+
+    }
+
+    @Override
+    public Duration getFastestCompetitionTimeBreastStroke() {
+
+        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
+
+
+        for (Competition competition : compTime) {
+            if (competition.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && competition.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = competition.getTimeRegister();
+            }
+        }
+        return tempDuration;
+
+    }
+
+    @Override
+    public Training getFastestTrainingBreastStroke() {
+
+        Training tempTraining = null;
+        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
+
+
+        for (Training training : trainingTime) {
+            if (training.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && training.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = training.getTimeRegister();
+                tempTraining = training;
+            }
+        }
+        return tempTraining;
+    }
+
+    @Override
+    public Competition getFastestCompetitionBreastStroke() {
+
+        Competition tempCompetition = null;
+        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
+
+
+        for (Competition competition : compTime) {
+            if (competition.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && competition.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = competition.getTimeRegister();
+                tempCompetition = competition;
+            }
+        }
+        return tempCompetition;
+    }
+
+
+
+
+
 
 
 
@@ -90,6 +161,19 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         }
 
         return false;
+
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder tempString = new StringBuilder();
+        tempString.append(String.format("%-20s  %-20s  %20s  %5b  %5b", this.lastName, this.firstName, this.birthday, this.isActive, this.isPaid));
+        tempString.append(this.discipline);
+        tempString.append(compTime.toString());
+        tempString.append(trainingTime.toString());
+        return tempString.toString();
+
+
 
     }
 

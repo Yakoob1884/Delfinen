@@ -23,8 +23,13 @@ public class Training {
         return this.timeRegister;
     }
 
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    @Override
     public String toString(){
-        return ("Træningsinfo: \nTrænings type: " + discipline + "\nDato: " + date + "\nRegistreret tid: " + timeRegister);
+        return ("\nTræningsinfo: \nTrænings type: " + discipline + "\nDato: " + date + "\nRegistreret tid: " + timeRegister + "\n");
     }
 
 
