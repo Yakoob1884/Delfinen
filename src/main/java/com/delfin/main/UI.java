@@ -1,4 +1,11 @@
+package delfin.main;
+
 import java.util.EnumSet;
+//package delfin.main;
+
+import delfin.controller.AppController;
+import delfin.model.*;
+
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -147,7 +154,7 @@ public class UI {
 //        if (list.isEmpty()) {
 //            System.out.println("Ingen data at vise");
 //        } else {
-//            for (Swimmer swimmer : list) {
+//            for (delfin.model.Swimmer swimmer : list) {
 //                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
 //            }
 //        }
@@ -169,6 +176,8 @@ public class UI {
         LocalDate birthday = LocalDate.parse(birthdayString);
 
         Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
+        ListOfSwimmers allSwimmers = new ListOfSwimmers();
+        allSwimmers.addSwimmer(swimmer);
     }
 
     public void createCompSwimmer (){
@@ -183,11 +192,35 @@ public class UI {
         String birthdayString = scanner.nextLine();
         LocalDate birthday = LocalDate.parse(birthdayString);
 
-        System.out.println("Er svømmeren aktiv i crawl?");
+        EnumSet<SwimmingDiscipline> disciplines = EnumSet.noneOf(SwimmingDiscipline.class);
 
+        System.out.println("Er svømmeren aktiv i crawl? \nTryk 1 for ja - Tryk 0 for nej");
+        int freestyle = scanner.nextInt();
+        if (freestyle == 1) {
+            disciplines.add(SwimmingDiscipline.FREESTYLE);
+        }
 
+        System.out.println("Er svømmeren aktiv i rygcrawl? \nTryk 1 for ja - Tryk 0 for nej");
+        int backStroke = scanner.nextInt();
+        if (backStroke == 1) {
+            disciplines.add(SwimmingDiscipline.BACKSTROKE);
+        }
+
+        System.out.println("Er svømmeren aktiv i brystsvømning? \nTryk 1 for ja - Tryk 0 for nej");
+        int breastStroke = scanner.nextInt();
+        if (breastStroke == 1) {
+            disciplines.add(SwimmingDiscipline.BREASTSTROKE);
+        }
+
+        System.out.println("Er svømmeren aktiv i butterfly? \nTryk 1 for ja - Tryk 0 for nej");
+        int butterfly = scanner.nextInt();
+        if (butterfly == 1) {
+            disciplines.add(SwimmingDiscipline.BUTTERFLY);
+        }
 
         Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
+        ListOfSwimmers allSwimmers = new ListOfSwimmers();
+        allSwimmers.addSwimmer(swimmer);
     }
 
 

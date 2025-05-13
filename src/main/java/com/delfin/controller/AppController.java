@@ -1,3 +1,10 @@
+package delfin.controller;
+
+import delfin.model.CompSwimmer;
+import delfin.model.ListOfSwimmers;
+import delfin.model.Swimmer;
+import delfin.model.SwimmingDiscipline;
+
 import java.time.Duration;
 import java.util.*;
 
@@ -85,7 +92,7 @@ public class AppController {
 
         for (Swimmer swimmer : startList) {
             if (swimmer instanceof CompSwimmer) {
-//                if (((CompSwimmer) swimmer).hasResults(discipline)) {
+//                if (((delfin.model.CompSwimmer) swimmer).hasResults(discipline)) {
 //                    startList.add(swimmer);
 //                }
             }
