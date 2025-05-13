@@ -177,6 +177,8 @@ public class UI {
         LocalDate birthday = LocalDate.parse(birthdayString);
 
         Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
+        ListOfSwimmers allSwimmers = new ListOfSwimmers();
+        allSwimmers.addSwimmer(swimmer);
     }
 
     public void createCompSwimmer (){
@@ -191,11 +193,35 @@ public class UI {
         String birthdayString = scanner.nextLine();
         LocalDate birthday = LocalDate.parse(birthdayString);
 
-        System.out.println("Er svømmeren aktiv i crawl?");
+        EnumSet<SwimmingDiscipline> disciplines = EnumSet.noneOf(SwimmingDiscipline.class);
 
+        System.out.println("Er svømmeren aktiv i crawl? \nTryk 1 for ja - Tryk 0 for nej");
+        int freestyle = scanner.nextInt();
+        if (freestyle == 1) {
+            disciplines.add(SwimmingDiscipline.FREESTYLE);
+        }
 
+        System.out.println("Er svømmeren aktiv i rygcrawl? \nTryk 1 for ja - Tryk 0 for nej");
+        int backStroke = scanner.nextInt();
+        if (backStroke == 1) {
+            disciplines.add(SwimmingDiscipline.BACKSTROKE);
+        }
+
+        System.out.println("Er svømmeren aktiv i brystsvømning? \nTryk 1 for ja - Tryk 0 for nej");
+        int breastStroke = scanner.nextInt();
+        if (breastStroke == 1) {
+            disciplines.add(SwimmingDiscipline.BREASTSTROKE);
+        }
+
+        System.out.println("Er svømmeren aktiv i butterfly? \nTryk 1 for ja - Tryk 0 for nej");
+        int butterfly = scanner.nextInt();
+        if (butterfly == 1) {
+            disciplines.add(SwimmingDiscipline.BUTTERFLY);
+        }
 
         Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
+        ListOfSwimmers allSwimmers = new ListOfSwimmers();
+        allSwimmers.addSwimmer(swimmer);
     }
 
 
