@@ -1,10 +1,10 @@
+package delfin.main;
+
 import java.util.EnumSet;
 //package delfin.main;
 
 import delfin.controller.AppController;
-import delfin.model.CompSwimmer;
-import delfin.model.NonCompSwimmer;
-import delfin.model.Swimmer;
+import delfin.model.*;
 
 import java.util.List;
 import java.util.Scanner;
