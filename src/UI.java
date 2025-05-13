@@ -212,9 +212,7 @@ public class UI {
             disciplines.add(SwimmingDiscipline.BUTTERFLY);
         }
 
-        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
-        ListOfSwimmers allSwimmers = new ListOfSwimmers();
-        allSwimmers.addSwimmer(swimmer);
+        controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines);
     }
 
 

@@ -1,5 +1,6 @@
 import java.time.Duration;
 import java.util.*;
+import java.time.LocalDate;
 
 public class AppController {
 
@@ -187,4 +188,7 @@ public class AppController {
 
     }
 
+    public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines){
+
+    }
 }
