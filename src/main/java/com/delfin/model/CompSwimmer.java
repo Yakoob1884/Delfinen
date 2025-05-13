@@ -29,6 +29,11 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         this.trainingTime = new ArrayList<>();
     }
 
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> enums) {
+        super(firstName, lastName, birthday);
+        this.discipline = enums;
+    }
+
     @Override
     public List<Training> getTrainingTime() {
         return this.trainingTime;
@@ -146,6 +151,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
     }
 
     //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten delfin.model.Competition eller delfin.model.Training:
+
 
     public boolean hasResult(SwimmingDiscipline discipline) {
 

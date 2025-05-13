@@ -1,3 +1,4 @@
+import java.util.EnumSet;
 package delfin.main;
 
 import delfin.controller.AppController;
@@ -5,6 +6,8 @@ import delfin.model.Swimmer;
 
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+
 
 public class UI {
 
@@ -36,7 +39,7 @@ public class UI {
             System.out.println("6. Se medlemmer med restance");
             System.out.println("7. Registrer betaling");
             System.out.println("8. Se årets forventede omsætning");
-            System.out.println("9. For at afslutte programmet");
+            System.out.println("0. For at afslutte programmet");
 
 
             int choice = scanner.nextInt();
@@ -44,19 +47,20 @@ public class UI {
             switch (choice) {
 
                 case 1:
-                    //createSwimmer();
+                    createSwimmer();
                     break;
                 case 2:
                     //viewSwimmers();
+                   // viewAllSwimmers();
                     break;
-                case 3:
+//                case 3:
                     //changeSwimmer();
-                    break;
+//                    break;
                 case 4:
                     //viewTopFive();
                     break;
                 case 5:
-                    //registerTimes();
+                    //registerTimes(); konkorrence træning
                     break;
                 case 6:
                     //printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
@@ -71,7 +75,7 @@ public class UI {
                 case 8:
                     //expectedRevenue();
                     break;
-                case 9:
+                case 0:
                     System.out.println("Programmet afslutter...");
                     run = false;
                     break;
@@ -87,6 +91,62 @@ public class UI {
 
     }
 
+    public void createSwimmer() {
+
+        boolean run = true;
+
+        while(run) {
+            System.out.println("Vil du oprette en motionist eller en konkurrencesvømmer? ");
+            System.out.println("1. for motionist");
+            System.out.println("2. for konkurrencesvømmer");
+            System.out.println("0. for at gå tilbage");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    createNonCompSwimmer();
+                    break;
+                case 2:
+                    createCompSwimmer();
+                    break;
+                case 9:
+                    run = false;
+                default:
+                    System.out.println("Fejl. Tast 1-2.");
+
+
+            }
+        }
+    }
+
+    public void viewSwimmers() {
+
+        boolean run = true;
+
+        while(run) {
+
+
+            int choice = scanner.nextInt();
+
+//            switch (choice) {
+//                case 1:
+//                    createNonCompSwimmer();
+//                    break;
+//                case 2:
+//                    createCompSwimmer();
+//                    break;
+//                case 9:
+//                    run = false;
+//                default:
+//                    System.out.println("Fejl. Tast 1-2.");
+//
+//
+//            }
+        }
+    }
+
+
     public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
         System.out.println("\n" + title + ": ");
 
@@ -101,6 +161,43 @@ public class UI {
 
 
     }
+
+    public void createNonCompSwimmer (){
+
+        System.out.println("Indtast fornavn");
+        String firstName = scanner.nextLine();
+
+        System.out.println("Indtast efternavn");
+        String lastName = scanner.nextLine();
+
+        System.out.println("Indtast fødselsdato som YYYY-MM-DD");
+        String birthdayString = scanner.nextLine();
+        LocalDate birthday = LocalDate.parse(birthdayString);
+
+        Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
+    }
+
+    public void createCompSwimmer (){
+
+        System.out.println("Indtast fornavn");
+        String firstName = scanner.nextLine();
+
+        System.out.println("Indtast efternavn");
+        String lastName = scanner.nextLine();
+
+        System.out.println("Indtast fødselsdato som YYYY-MM-DD");
+        String birthdayString = scanner.nextLine();
+        LocalDate birthday = LocalDate.parse(birthdayString);
+
+        System.out.println("Er svømmeren aktiv i crawl?");
+
+
+
+        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
+    }
+
+
+
 
 
 }
