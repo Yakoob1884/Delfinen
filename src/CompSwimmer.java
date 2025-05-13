@@ -150,6 +150,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
 
     //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten Competition eller Training:
 
+
     public boolean hasResult(SwimmingDiscipline discipline) {
 
 
