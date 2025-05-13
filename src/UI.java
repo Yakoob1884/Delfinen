@@ -115,31 +115,30 @@ public class UI {
         }
     }
 
-    public void viewSwimmers() {
-
-        boolean run = true;
-
-        while(run) {
-
-
-            int choice = scanner.nextInt();
-
-//            switch (choice) {
-//                case 1:
-//                    createNonCompSwimmer();
-//                    break;
-//                case 2:
-//                    createCompSwimmer();
-//                    break;
-//                case 9:
-//                    run = false;
-//                default:
-//                    System.out.println("Fejl. Tast 1-2.");
+//    public void viewSwimmers() {
+//
+//        boolean run = true;
+//
+//        while(run) {
 //
 //
-//            }
-        }
-    }
+//
+//        System.out.println("1. Se alle svømmemedlemmer");
+//        System.out.println("2. Se alle konkurrencesvømmere");
+//        System.out.println("3. Se alle motionister");
+//        System.out.println("4. Se alle junior svømmemedlemmer");
+//        System.out.println("5. Se alle senior svømmemedlemmer");
+//        System.out.println("0. For at gå tilbage");
+//
+//        int choice = scanner.nextInt();
+//
+//        //controller.viewAllSwimmers();
+//
+//        }
+//
+//
+//
+//    }
 
 
     public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
