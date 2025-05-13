@@ -176,9 +176,8 @@ public class UI {
         String birthdayString = scanner.nextLine();
         LocalDate birthday = LocalDate.parse(birthdayString);
 
-        Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
-        ListOfSwimmers allSwimmers = new ListOfSwimmers();
-        allSwimmers.addSwimmer(swimmer);
+        controller.addNonCompSwimmerToList(firstName, lastName, birthday);
+
     }
 
     public void createCompSwimmer (){
@@ -219,11 +218,14 @@ public class UI {
             disciplines.add(SwimmingDiscipline.BUTTERFLY);
         }
 
-        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
-        ListOfSwimmers allSwimmers = new ListOfSwimmers();
-        allSwimmers.addSwimmer(swimmer);
+        controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines);
     }
 
+
+    public void addTrainingResult(){
+        //Indsæt metode til at vise listen af svømmere og til at vælge en svømmer med ID nummer
+        System.out.println("");
+    }
 
 
 
