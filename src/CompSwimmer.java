@@ -27,6 +27,11 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         this.trainingTime = new ArrayList<>();
     }
 
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> enums) {
+        super(firstName, lastName, birthday);
+        this.discipline = enums;
+    }
+
     @Override
     public List<Training> getTrainingTime() {
         return this.trainingTime;

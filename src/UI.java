@@ -1,5 +1,8 @@
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+
 
 public class UI {
 
@@ -96,6 +99,43 @@ public class UI {
 
 
     }
+
+    public void createNonCompSwimmer (){
+
+        System.out.println("Indtast fornavn");
+        String firstName = scanner.nextLine();
+
+        System.out.println("Indtast efternavn");
+        String lastName = scanner.nextLine();
+
+        System.out.println("Indtast fødselsdato som YYYY-MM-DD");
+        String birthdayString = scanner.nextLine();
+        LocalDate birthday = LocalDate.parse(birthdayString);
+
+        Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
+    }
+
+    public void createCompSwimmer (){
+
+        System.out.println("Indtast fornavn");
+        String firstName = scanner.nextLine();
+
+        System.out.println("Indtast efternavn");
+        String lastName = scanner.nextLine();
+
+        System.out.println("Indtast fødselsdato som YYYY-MM-DD");
+        String birthdayString = scanner.nextLine();
+        LocalDate birthday = LocalDate.parse(birthdayString);
+
+        System.out.println("Er svømmeren aktiv i crawl?");
+
+
+
+        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
+    }
+
+
+
 
 
 }

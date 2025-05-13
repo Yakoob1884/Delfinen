@@ -18,6 +18,12 @@ public class NonCompSwimmer implements Swimmer {
         this.isPaid = isPaid;
     }
 
+    public NonCompSwimmer(String firstName, String lastName, LocalDate birthday) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+    }
+
     @Override
     public boolean getIsPaid() {
         return isPaid;
