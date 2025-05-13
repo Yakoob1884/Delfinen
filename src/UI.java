@@ -141,8 +141,6 @@ public class UI {
         }
     }
 
-    public void createNonCompSwimmer() {}
-    public void createCompSwimmer() {}
 
     public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
         System.out.println("\n" + title + ": ");
