@@ -1,4 +1,11 @@
+package delfin.main;
+
 import java.util.EnumSet;
+//package delfin.main;
+
+import delfin.controller.AppController;
+import delfin.model.*;
+
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -148,7 +155,7 @@ public class UI {
 //        if (list.isEmpty()) {
 //            System.out.println("Ingen data at vise");
 //        } else {
-//            for (Swimmer swimmer : list) {
+//            for (delfin.model.Swimmer swimmer : list) {
 //                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
 //            }
 //        }

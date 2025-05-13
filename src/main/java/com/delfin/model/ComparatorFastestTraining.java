@@ -1,3 +1,5 @@
+package delfin.model;
+
 import java.util.Comparator;
 
 public class ComparatorFastestTraining implements Comparator<CompSwimmer> {
