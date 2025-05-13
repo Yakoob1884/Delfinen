@@ -1,3 +1,5 @@
+package delfin.model;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -143,7 +145,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
         return fastest;
     }
 
-    //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten Competition eller Training:
+    //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten delfin.model.Competition eller delfin.model.Training:
 
     public boolean hasResult(SwimmingDiscipline discipline) {
 
