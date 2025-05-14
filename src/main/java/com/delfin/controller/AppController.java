@@ -15,12 +15,13 @@ public class AppController {
     private final int EXTRA_DISCOUNT_START_AGE = 61;
     private final double EXTRA_DISCOUNT_PERCENTAGE = 0.75;
 
+    Scanner scanner;
 
     ListOfSwimmers listOfSwimmers;
 
-    public AppController(String fileName) {
+    public AppController(String fileName, Scanner scanner) {
         this.listOfSwimmers = new ListOfSwimmers();
-
+        this.scanner = scanner;
     }
 
     public List<Swimmer> viewAllSwimmers() {

@@ -17,8 +17,8 @@ public class UI {
     private Scanner scanner;
     private AppController controller;
 
-    public UI(AppController controller) {
-        this.scanner = new Scanner(System.in);
+    public UI(AppController controller, Scanner scanner) {
+        this.scanner = scanner;
         this.controller = controller;
 
     }
