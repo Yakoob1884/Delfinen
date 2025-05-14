@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.Duration;
 
 
+
 public class UI {
 
     private Scanner scanner;
@@ -47,7 +48,7 @@ public class UI {
             System.out.println("0. For at afslutte programmet");
 
 
-            int choice = scanner.nextInt();
+            int choice = getValidInt(0,8, false);
 
             switch (choice) {
 
@@ -55,27 +56,25 @@ public class UI {
                     createSwimmer();
                     break;
                 case 2:
-                    //viewSwimmers();
-                   // viewAllSwimmers();
+                    controller.viewAllSwimmers();
                     break;
 //                case 3:
                     //changeSwimmer();
 //                    break;
                 case 4:
-                    //viewTopFive();
+                    controller.top5();
                     break;
                 case 5:
-                    //registerTimes(); konkorrence træning
+                    addResult();
                     break;
                 case 6:
-                    //printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
-                    //printSwimmerListLastNameFirstName(controller.viewCompetitionSwimmers(), "Medlemmer som er konkurrencesvømmere");
-                    //controller.printAllTestToRemoveAgain();
-                    controller.top5();
-
+                    printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
+                    printSwimmerListLastNameFirstName(controller.viewCompetitionSwimmers(), "Medlemmer som er konkurrencesvømmere");
+                    controller.printAllTestToRemoveAgain();
                     break;
                 case 7:
                     //registerPayment();
+                    controller.swimmerHasPaid();
                     break;
                 case 8:
                     //expectedRevenue();
@@ -103,12 +102,13 @@ public class UI {
         boolean run = true;
 
         while(run) {
+            System.out.println("Opret svømmemedlem: ");
             System.out.println("Vil du oprette en motionist eller en konkurrencesvømmer? ");
             System.out.println("1. for motionist");
             System.out.println("2. for konkurrencesvømmer");
             System.out.println("0. for at gå tilbage");
 
-            int choice = scanner.nextInt();
+            int choice = getValidInt(0, 2, false);
 
             switch (choice) {
                 case 1:
@@ -117,8 +117,9 @@ public class UI {
                 case 2:
                     createCompSwimmer();
                     break;
-                case 9:
+                case 0:
                     run = false;
+                    break;
                 default:
                     System.out.println("Fejl. Tast 1-2.");
 
@@ -127,42 +128,53 @@ public class UI {
         }
     }
 
-//    public void viewSwimmers() {
-//
-//        boolean run = true;
-//
-//        while(run) {
-//
-//
-//
-//        System.out.println("1. Se alle svømmemedlemmer");
-//        System.out.println("2. Se alle konkurrencesvømmere");
-//        System.out.println("3. Se alle motionister");
-//        System.out.println("4. Se alle junior svømmemedlemmer");
-//        System.out.println("5. Se alle senior svømmemedlemmer");
-//        System.out.println("0. For at gå tilbage");
-//
-//        int choice = scanner.nextInt();
-//
-//        //controller.viewAllSwimmers();
-//
-//        }
-//
-//
-//
-//    }
+
+    public void addResult() {
+
+        boolean run = true;
+
+        while(run) {
+            System.out.println("Registrer tider:");
+            System.out.println("Vil du registrer tidsresultat for en træning eller en konkurrence?");
+            System.out.println("1. for træningsresultat");
+            System.out.println("2. for konkurrenceresultat");
+            System.out.println("0. for at gå tilbage");
+
+            int choice = getValidInt(0, 2, false);
+
+            switch (choice) {
+                case 1:
+                    //addTrainingResult();
+                    break;
+                case 2:
+                    //addCompetitionResult();
+                    break;
+                case 0:
+                    run = false;
+                    break;
+                default:
+                    System.out.println("Fejl. Tast 1-2.");
+
+
+            }
+        }
+    }
+
+
+
+
 
 
     public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
         System.out.println("\n" + title + ": ");
 
-//        if (list.isEmpty()) {
-//            System.out.println("Ingen data at vise");
-//        } else {
-//            for (delfin.model.Swimmer swimmer : list) {
-//                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
-//            }
-//        }
+        if (list.isEmpty()) {
+            System.out.println("Ingen data at vise");
+        } else {
+            for (delfin.model.Swimmer swimmer : list) {
+                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
+            }
+        }
         list.forEach(System.out::println);
 
 
@@ -240,7 +252,7 @@ public class UI {
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
                            "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
-        int choice = scanner.nextInt();
+        int choice = getValidInt(1, 4, false);
         switch (choice) {
             case 1:
                 discipline = SwimmingDiscipline.FREESTYLE;
@@ -292,7 +304,7 @@ public class UI {
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
                 "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
-        int choice = scanner.nextInt();
+        int choice = getValidInt(1, 4, false);
         switch (choice) {
             case 1:
                 discipline = SwimmingDiscipline.FREESTYLE;
@@ -330,6 +342,87 @@ public class UI {
         }
 
     }
+
+
+
+    //Metoder til validering af input:
+
+    //Validerer at input er en int med en min og max range
+    //og en boolean useEmpty, hvis true er det tilladt med et tomt input
+    public int getValidInt(int min, int max, boolean useEmpty) {
+
+        String input;
+        int number;
+
+        while (true) {
+            input = scanner.nextLine();
+
+            if(input.isEmpty()) {
+                if (useEmpty) {
+                    return Integer.MIN_VALUE;
+                } else {
+                    System.err.println("Skriv et tal.");
+                }
+
+
+                //Test om String indeholder tal:
+            } else if (input.matches("-?\\d+")) {
+                //Omdan tallene i Stringen til int:
+                number = Integer.parseInt(input);
+
+                if (number >= min && number <= max) {
+                    return number;
+                } else {
+                    System.err.printf("Tallet du har indtastet er uden for mulighederne. \nTallet skal være mellem %d og %d. \nPrøv igen\n", min, max);
+
+                }
+
+            } else {
+                System.err.println("Det er ikke et tal du har indtastet. Prøv igen.");
+            }
+        }
+
+    }
+
+
+    //String Max karakter for navn.
+
+    public String getValidString(int maxLength, boolean useEmpty) {
+        String input;
+
+        while (true) {
+            input = scanner.nextLine();
+
+            //Hvis empty er true; returneres en tom String:
+            if (input.isEmpty()) {
+                if (useEmpty) {
+                    return "";
+                } else {
+                    System.err.println("Skriv noget.");
+                }
+            }
+
+            //Tjek at String er indenfor maxLength:
+            if (input.length() > maxLength) {
+                System.err.printf("Inputtet er for langt. Det må max være %d tegn. Prøv igen. \n", maxLength);
+            } else {
+                return input;
+            }
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+    //Duration: Spilt mellem :, 1 regel for den ene og 1 anden regel for den anden.
+
 
 
 

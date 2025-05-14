@@ -223,7 +223,7 @@ public class AppController {
 
     }
 
-    public void swimmerHasPaid(Scanner scanner) {
+    public void swimmerHasPaid() {
         System.out.println(listOfSwimmers.getSwimmersIsPaidFalseList());
 
         System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
