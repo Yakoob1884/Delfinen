@@ -214,12 +214,23 @@ public class AppController {
     public Swimmer getSwimmerById(Scanner scanner) {
         System.out.println(listOfSwimmers.getListOfAllSwimmers());
 
-        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage");
+        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
         int input = scanner.nextInt();
 
         Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
 
         return swimmerById;
 
+    }
+
+    public void swimmerHasPaid(Scanner scanner) {
+        System.out.println(listOfSwimmers.getSwimmersIsPaidFalseList());
+
+        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
+        int input = scanner.nextInt();
+
+        Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
+
+        swimmerById.setIsPaid(true);
     }
 }

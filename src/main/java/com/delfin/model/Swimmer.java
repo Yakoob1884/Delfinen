@@ -11,4 +11,5 @@ public interface Swimmer extends Comparable<Swimmer> {
     LocalDate getBirthday();
     boolean getIsActive();
     int calculateAge();
+    void setIsPaid(boolean statusPaid);
 }
