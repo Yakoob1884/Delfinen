@@ -9,6 +9,7 @@ import delfin.model.*;
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.time.Duration;
 
 
 public class UI {
@@ -223,7 +224,82 @@ public class UI {
 
     public void addTrainingResult(){
         //Indsæt metode til at vise listen af svømmere og til at vælge en svømmer med ID nummer
-        System.out.println("");
+        SwimmingDiscipline discipline = null;
+        System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
+                           "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                discipline = SwimmingDiscipline.FREESTYLE;
+                break;
+            case 2:
+                discipline = SwimmingDiscipline.BACKSTROKE;
+                break;
+            case 3:
+                discipline = SwimmingDiscipline.BREASTSTROKE;
+                break;
+            case 4:
+                discipline = SwimmingDiscipline.BUTTERFLY;
+                break;
+            default:
+                System.out.println("Ugyldigt valg. Vælg venligst mellem 1 og 4.");
+                return;
+        }
+
+        System.out.println("Hvilken dato er træningsresultatet fra? Indtast dato som YYYY-MM-DD");
+        String dateString = scanner.nextLine();
+        LocalDate date = LocalDate.parse(dateString);
+
+        System.out.println("Hvad er træningstiden? \n Indtast antal minutter");
+        int minutes = scanner.nextInt();
+
+        System.out.println("Indtast antal sekunder");
+        int seconds = scanner.nextInt();
+
+        Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
+
+        Training training = new Training(discipline, date, duration);
+
+    }
+
+    public void addCompetitionResult(){
+        //Indsæt metode til at vise listen af svømmere og til at vælge en svømmer med ID nummer
+        SwimmingDiscipline discipline = null;
+        System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
+                "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                discipline = SwimmingDiscipline.FREESTYLE;
+                break;
+            case 2:
+                discipline = SwimmingDiscipline.BACKSTROKE;
+                break;
+            case 3:
+                discipline = SwimmingDiscipline.BREASTSTROKE;
+                break;
+            case 4:
+                discipline = SwimmingDiscipline.BUTTERFLY;
+                break;
+            default:
+                System.out.println("Ugyldigt valg. Vælg venligst mellem 1 og 4.");
+                return;
+        }
+
+        System.out.println("Hvilken dato er træningsresultatet fra? Indtast dato som YYYY-MM-DD");
+        String dateString = scanner.nextLine();
+        LocalDate date = LocalDate.parse(dateString);
+
+        System.out.println("Hvad er træningstiden? \n Indtast antal minutter");
+        int minutes = scanner.nextInt();
+
+        System.out.println("Indtast antal sekunder");
+        int seconds = scanner.nextInt();
+
+        Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
+
+        Training training = new Training(discipline, date, duration);
+
     }
 
 

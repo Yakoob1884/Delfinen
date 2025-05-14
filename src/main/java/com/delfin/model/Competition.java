@@ -7,15 +7,15 @@ public class Competition {
 
     private String competitionName;
     private LocalDate date;
-    private String location;
+    private int ranking;
     private SwimmingDiscipline discipline;
     private Duration timeRegister;
 
-    public Competition(String competitionTitel, LocalDate date, String location, SwimmingDiscipline discipline, Duration timeRegister){
+    public Competition(String competitionTitel, LocalDate date, int ranking, SwimmingDiscipline discipline, Duration timeRegister){
 
         this.competitionName = competitionTitel;
         this.date = date;
-        this.location = location;
+        this.ranking = ranking;
         this.discipline = discipline;
         this.timeRegister = timeRegister;
 
@@ -39,7 +39,7 @@ public class Competition {
     }
 
     public String toString(){
-        return ("\nStævnets info: \nNavn: " + competitionName + "\nDato: " + date + "\nSted: " + location + "\nDisciplin: " + discipline + "\nRegistreret tid: " + timeRegister + "\n");
+        return ("\nStævnets info: \nNavn: " + competitionName + "\nDato: " + date + "\nPlacering: " + ranking + "\nDisciplin: " + discipline + "\nRegistreret tid: " + timeRegister + "\n");
     }
 
 
