@@ -117,6 +117,10 @@ public class AppController {
 
     }
 
+    public Swimmer getSwimmerByIndex(int index) {
+        return listOfSwimmers.getSwimmerByIndex(index);
+    }
+
     public void top5() {
 
         List<CompSwimmer> activeCompSwimmers;

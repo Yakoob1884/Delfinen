@@ -77,7 +77,7 @@ public class UI {
                     controller.swimmerHasPaid();
                     break;
                 case 8:
-                    //expectedRevenue();
+                    System.out.println(controller.calculateEstimatedRevenue());
                     break;
                 case 0:
                     //controller.saveListOfSwimmersToFile();
@@ -144,10 +144,15 @@ public class UI {
 
             switch (choice) {
                 case 1:
-                    //addTrainingResult();
+
+                    System.out.print(formatListPrint(controller.viewCompetitionSwimmers()));
+                    List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
+                    addTrainingResult((CompSwimmer)competitionSwimmerList.get(getValidInt(1,competitionSwimmerList.size(), false)-1));
                     break;
                 case 2:
-                    //addCompetitionResult();
+                    System.out.print(formatListPrint(controller.viewCompetitionSwimmers()));
+                    List<Swimmer>competitionSwimmerList2 = controller.viewCompetitionSwimmers();
+                    addCompetitionResult((CompSwimmer)competitionSwimmerList2.get(getValidInt(1,competitionSwimmerList2.size(), false)-1));
                     break;
                 case 0:
                     run = false;
@@ -241,7 +246,7 @@ public class UI {
         System.out.println("Svømmeren er oprettet");
     }
 
-    public String formatListPrint(ArrayList<Swimmer> formatList) {
+    public String formatListPrint(List<Swimmer> formatList) {
         StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
         int id = 1;
         for (Swimmer swimmer : formatList) {
@@ -255,7 +260,7 @@ public class UI {
 
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
-                           "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
+                           "1.Crawl \n2.Rygcrawl \n3.Brystsvømning \n4.Butterfly");
         int choice = getValidInt(1, 4, false);
         switch (choice) {
             case 1:
@@ -293,6 +298,7 @@ public class UI {
             swimmer.addTrainingTime(training);
             System.out.println("Træningsresultat tilføjet til " + swimmer.getFirstName());
         }
+        scanner.nextLine();
 
     }
 
@@ -307,7 +313,7 @@ public class UI {
 
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
-                "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
+                "1.Crawl \n2.Rygcrawl \n3.Brystsvømning \n4.Butterfly");
         int choice = getValidInt(1, 4, false);
         switch (choice) {
             case 1:
