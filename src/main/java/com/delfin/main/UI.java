@@ -222,8 +222,8 @@ public class UI {
     }
 
 
-    public void addTrainingResult(){
-        //Indsæt metode til at vise listen af svømmere og til at vælge en svømmer med ID nummer
+    public void addTrainingResult(CompSwimmer swimmer){
+
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
                            "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
@@ -260,10 +260,22 @@ public class UI {
 
         Training training = new Training(discipline, date, duration);
 
+        if (swimmer != null) {
+            swimmer.addTrainingTime(training);
+            System.out.println("Træningsresultat tilføjet til " + swimmer.getFirstName());
+        }
+
     }
 
-    public void addCompetitionResult(){
-        //Indsæt metode til at vise listen af svømmere og til at vælge en svømmer med ID nummer
+    public void addCompetitionResult(CompSwimmer swimmer){
+
+        System.out.println("Hvad er navnet på stævnet svømmeren har deltaget i?");
+        String competitionName = scanner.nextLine();
+
+        System.out.println("Hvilken dato er stævneresultatet fra? Indtast dato som YYYY-MM-DD");
+        String dateString = scanner.nextLine();
+        LocalDate date = LocalDate.parse(dateString);
+
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
                 "1. Crawl \n2.Rygcrawl \n3.Brystsvømning \n4. Butterfly");
@@ -286,11 +298,10 @@ public class UI {
                 return;
         }
 
-        System.out.println("Hvilken dato er træningsresultatet fra? Indtast dato som YYYY-MM-DD");
-        String dateString = scanner.nextLine();
-        LocalDate date = LocalDate.parse(dateString);
+        System.out.println("Hvilen placering blev svømmeren? Skriv som et heltal");
+        int ranking = scanner.nextInt();
 
-        System.out.println("Hvad er træningstiden? \n Indtast antal minutter");
+        System.out.println("Hvad blev tiden? \n Indtast antal minutter");
         int minutes = scanner.nextInt();
 
         System.out.println("Indtast antal sekunder");
@@ -298,7 +309,12 @@ public class UI {
 
         Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
 
-        Training training = new Training(discipline, date, duration);
+        Competition comp = new Competition(competitionName, date, ranking, discipline, duration);
+
+        if (swimmer != null) {
+            swimmer.addCompTime(comp);
+            System.out.println("Stævneresultat tilføjet til " + swimmer.getFirstName());
+        }
 
     }
 
