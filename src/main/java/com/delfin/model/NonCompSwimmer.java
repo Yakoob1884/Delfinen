@@ -49,6 +49,11 @@ public class NonCompSwimmer implements Swimmer, Serializable {
     public boolean getIsActive(){ return isActive; }
 
     @Override
+    public void setIsPaid(boolean statusPaid){
+        this.isPaid = statusPaid;
+    }
+
+    @Override
     public int calculateAge () {
         LocalDate currentDate = LocalDate.now();
 
