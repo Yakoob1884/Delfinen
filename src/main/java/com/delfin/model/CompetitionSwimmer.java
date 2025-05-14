@@ -22,6 +22,10 @@ public interface CompetitionSwimmer extends Swimmer {
 
     Competition getFastestCompetitionBreastStroke();
 
+    void addTrainingTime(Training training);
+
+    void addCompTime(Competition comp);
+
 
 
 
