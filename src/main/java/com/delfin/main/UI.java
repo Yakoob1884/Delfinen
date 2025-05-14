@@ -1,5 +1,6 @@
 package delfin.main;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
 //package delfin.main;
 
@@ -222,6 +223,15 @@ public class UI {
         controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines);
     }
 
+    public String formatListPrint(ArrayList<Swimmer> formatList) {
+        StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
+        int id = 1;
+        for (Swimmer swimmer : formatList) {
+            sb.append("ID " + id + ": " + swimmer).append("\n");
+            id++;
+        }
+        return sb.toString();
+    }
 
     public void addTrainingResult(CompSwimmer swimmer){
 
