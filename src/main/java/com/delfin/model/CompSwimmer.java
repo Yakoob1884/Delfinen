@@ -173,6 +173,16 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
     }
 
     @Override
+    public void addTrainingTime (Training training) {
+        trainingTime.add(training);
+    }
+
+    @Override
+    public void addCompTime (Competition comp) {
+        compTime.add(comp);
+    }
+
+    @Override
     public String toString() {
         StringBuilder tempString = new StringBuilder();
         tempString.append(String.format("%-20s  %-20s  %20s  %5b  %5b", this.lastName, this.firstName, this.birthday, this.isActive, this.isPaid));
