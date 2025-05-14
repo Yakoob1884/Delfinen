@@ -1,5 +1,6 @@
 package delfin.main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 //package delfin.main;
@@ -26,7 +27,7 @@ public class UI {
 
 
 
-    public void menuOptions () {
+    public void menuOptions () throws IOException {
 
         boolean run = true;
 
@@ -80,6 +81,8 @@ public class UI {
                     //expectedRevenue();
                     break;
                 case 0:
+                    //controller.saveListOfSwimmersToFile();
+
                     System.out.println("Programmet afslutter...");
                     run = false;
                     break;

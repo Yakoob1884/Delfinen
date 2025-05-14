@@ -1,9 +1,11 @@
 package delfin.model;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Training {
+public class Training implements Serializable {
+
 
     private SwimmingDiscipline discipline;
     private LocalDate date;

@@ -1,9 +1,10 @@
 package delfin.model;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Competition {
+public class Competition implements Serializable {
 
     private String competitionName;
     private LocalDate date;

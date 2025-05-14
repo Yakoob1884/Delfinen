@@ -1,5 +1,6 @@
 package delfin.model;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.*;
 import java.util.EnumSet;
 
 
-public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer {
+public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, Serializable {
     //Attribute
 
     EnumSet<SwimmingDiscipline> discipline;
