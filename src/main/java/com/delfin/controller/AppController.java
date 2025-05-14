@@ -2,6 +2,8 @@ package delfin.controller;
 
 
 import delfin.model.*;
+
+import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 import java.time.LocalDate;
@@ -19,8 +21,8 @@ public class AppController {
 
     ListOfSwimmers listOfSwimmers;
 
-    public AppController(String fileName, Scanner scanner) {
-        this.listOfSwimmers = new ListOfSwimmers();
+    public AppController(String filename, Scanner scanner) throws IOException, ClassNotFoundException {
+        this.listOfSwimmers = new ListOfSwimmers(filename);
         this.scanner = scanner;
     }
 
@@ -108,6 +110,11 @@ public class AppController {
             estimatedRevenue += calculateFee(swimmer);
         }
         return estimatedRevenue;
+    }
+
+    public void saveListOfSwimmersToFile() throws IOException {
+        listOfSwimmers.saveListOfSwimmersToFile();
+
     }
 
     public void top5() {

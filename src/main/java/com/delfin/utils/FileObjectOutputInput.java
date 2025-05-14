@@ -14,7 +14,7 @@ public class FileObjectOutputInput {
         this.FILENAME = filename;
     }
 
-    public void WriteSwimmerListToFile(List<Swimmer> listOfSwimmers) throws IOException {
+    public void writeSwimmerListToFile(List<Swimmer> listOfSwimmers) throws IOException {
 
         FileOutputStream fileOutputStream = new FileOutputStream(FILENAME);
 
@@ -25,6 +25,22 @@ public class FileObjectOutputInput {
         objectOutputStream.close();
 
         fileOutputStream.close();
+
+    }
+
+    public List<Swimmer> readSwimmerListFromFile() throws IOException, ClassNotFoundException {
+
+        List<Swimmer> listOfSwimmers = new ArrayList<>();
+
+        FileInputStream fileInputStream = new FileInputStream(FILENAME);
+
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+
+
+        listOfSwimmers = (ArrayList<Swimmer>) objectInputStream.readObject();
+
+        return listOfSwimmers;
 
     }
 

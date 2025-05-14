@@ -1,21 +1,44 @@
 package delfin.model;
 
 //import java.lang.classfile.instruction.NewMultiArrayInstruction;
+import delfin.utils.FileObjectOutputInput;
+
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.EnumSet;
+
 
 
 
 public class ListOfSwimmers {
 
+    //static final long serialVersionUID =
+
+    private final FileObjectOutputInput listOfSwimmersFile;
+
     private ArrayList<Swimmer> listOfSwimmers;
 
 
-    public ListOfSwimmers(){
+    public ListOfSwimmers(String filename) throws IOException, ClassNotFoundException {
+
+
         this.listOfSwimmers = new ArrayList<>();
+
+        //Call til method der smider dummies på listen
+        //Kommenter ud når bruge swimmers gemt på fil
         dummieList();
+
+        //Instantiering af filhåndteringsobjekt
+        this.listOfSwimmersFile = new FileObjectOutputInput(filename);
+
+        //Write swimmer på listen til fil
+        //Kommenter næsten altid ud, med undtagelse af hvis ønske at gemme dummies til fil
+        //listOfSwimmersFile.writeSwimmerListToFile(listOfSwimmers);
+
+        //Henter fra backup hvis vi har swimmers der er gemt på fil
+        //Kommenter ud hvis bruge dummies fra dummiesList();
+        //this.listOfSwimmers = (ArrayList<Swimmer>) listOfSwimmersFile.readSwimmerListFromFile();
     }
 
     public void addSwimmer(Swimmer swimmer){
@@ -66,6 +89,15 @@ public class ListOfSwimmers {
             }
         }
         return activeCompSwimmersList;
+    }
+
+    public void loadSwimmersFromFile() throws IOException, ClassNotFoundException {
+        this.listOfSwimmers = (ArrayList<Swimmer>) listOfSwimmersFile.readSwimmerListFromFile();
+    }
+
+    public void saveListOfSwimmersToFile() throws IOException {
+        listOfSwimmersFile.writeSwimmerListToFile(listOfSwimmers);
+
     }
 
 

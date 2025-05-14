@@ -2,6 +2,8 @@ package delfin.controller;
 
 import delfin.model.NonCompSwimmer;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 import java.util.Scanner;
 import java.time.LocalDate;
 
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppControllerTest {
 
     @Test
-    void calculateFee() {
+    void calculateFee() throws IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         AppController controller = new AppController("collectionBackup.ser", scanner);
