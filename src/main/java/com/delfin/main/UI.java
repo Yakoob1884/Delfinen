@@ -184,6 +184,7 @@ public class UI {
 
         System.out.println("Indtast fornavn");
         String firstName = scanner.nextLine();
+        scanner.nextLine();
 
         System.out.println("Indtast efternavn");
         String lastName = scanner.nextLine();
@@ -193,6 +194,7 @@ public class UI {
         LocalDate birthday = LocalDate.parse(birthdayString);
 
         controller.addNonCompSwimmerToList(firstName, lastName, birthday);
+        System.out.println("Svømmeren er oprettet");
 
     }
 
@@ -200,6 +202,7 @@ public class UI {
 
         System.out.println("Indtast fornavn");
         String firstName = scanner.nextLine();
+        scanner.nextLine();
 
         System.out.println("Indtast efternavn");
         String lastName = scanner.nextLine();
@@ -235,6 +238,7 @@ public class UI {
         }
 
         controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines);
+        System.out.println("Svømmeren er oprettet");
     }
 
     public String formatListPrint(ArrayList<Swimmer> formatList) {
