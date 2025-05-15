@@ -45,7 +45,7 @@ public class UI {
             System.out.println("1. Opret svømmemedlem");
             System.out.println("2. Se registrerede svømmemedlemmer");
             System.out.println("3. Rediger svømmemedlemmer");
-            System.out.println("4. Vis top 5 svømmere");
+            System.out.println("4. Vis statistik på svømmere");
             System.out.println("5. Registrer tider");
             System.out.println("6. Se medlemmer med restance");
             System.out.println("7. Registrer betaling");
@@ -68,8 +68,6 @@ public class UI {
                     break;
                 case 4:
                     subMenuStatistics();
-
-                    //printAllTopSwimmerStatistics();
                     break;
                 case 5:
                     addResult();
@@ -216,30 +214,126 @@ public class UI {
 
         while(run) {
             System.out.println("Vis statistik på konkurrencesvømmere:");
-            System.out.println("---");
-            System.out.println("---");
-            System.out.println("---");
-            System.out.println("0. for at gå tilbage");
+            System.out.println("\nJunior:                                               Senior:");
+            System.out.println("  Træningstider:                                        Træningstider:");
+            System.out.println("     1. Top 5 Brystsvømning                                9. Top 5 Brystsvømning");
+            System.out.println("     2. Top 5 Rygcrawl                                    10. Top 5 Rygcrawl");
+            System.out.println("     3. Top 5 Crawl                                       11. Top 5 Crawl");
+            System.out.println("     4. Top 5 Butterfly                                   12. Top 5 Butterfly");
+            System.out.println("  Stævnetider:                                          Stævnetider:");
+            System.out.println("     5. Top 5 Brystsvømning                               13. Top 5 Brystsvømning");
+            System.out.println("     6. Top 5 Rygcrawl                                    14. Top 5 Rygcrawl");
+            System.out.println("     7. Top 5 Crawl                                       15. Top 5 Crawl");
+            System.out.println("     8. Top 5 Butterfly                                   16. Top 5 Butterfly");
+            System.out.println("\n    17. Top 5 Junior");
+            System.out.println("    18. Top 5 Senior");
+            System.out.println("    19. Vis samtlige top 5");
+            System.out.println("\n     0. for at gå tilbage");
 
-            int choice = getValidInt(0, 2, false);
+            int choice = getValidInt(0, 19, false);
 
             switch (choice) {
                 case 1:
+                    printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Junior", TOP_LIST_LENGTH));
 
                     break;
                 case 2:
+                    printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Junior", TOP_LIST_LENGTH));
 
                     break;
-
                 case 3:
+                    printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Junior", TOP_LIST_LENGTH));
 
                     break;
+                case 4:
+                    printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Junior", TOP_LIST_LENGTH));
+
+                    break;
+                case 5:
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+
+                    break;
+                case 6:
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+
+                    break;
+                case 7:
+                    printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Junior", TOP_LIST_LENGTH));
+
+                    break;
+                case 8:
+                    printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Junior", TOP_LIST_LENGTH));
+
+                    break;
+                case 9:
+                    printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 10:
+                    printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 11:
+                    printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 12:
+                    printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 13:
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 14:
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 15:
+                    printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 16:
+                    printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Senior", TOP_LIST_LENGTH));
+
+                    break;
+                case 17:
+                    printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Junior", TOP_LIST_LENGTH));
+
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Junior", TOP_LIST_LENGTH));
+
+                    break;
+                case 18:
+                    printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Senior", TOP_LIST_LENGTH));
+
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Senior", TOP_LIST_LENGTH));
+
+
+                    break;
+                case 19:
+                    printAllTopSwimmerStatistics();
+                    break;
+
+
+
                 case 0:
                     run = false;
                     break;
 
                 default:
-                    System.out.println("Fejl. Tast 1-2.");
+                    System.out.println("Fejl. Tast 0-19");
             }
         }
     }
