@@ -4,6 +4,7 @@ package delfin.model;
 
 import delfin.utils.FileObjectOutputInput;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;

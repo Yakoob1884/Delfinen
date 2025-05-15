@@ -32,13 +32,17 @@ public class FileObjectOutputInput {
 
         List<Swimmer> listOfSwimmers = new ArrayList<>();
 
-        FileInputStream fileInputStream = new FileInputStream(FILENAME);
+        File fileObjectForCheck = new File(FILENAME);
 
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        if(fileObjectForCheck.exists()) {
+
+            FileInputStream fileInputStream = new FileInputStream(FILENAME);
+
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
 
-
-        listOfSwimmers = (ArrayList<Swimmer>) objectInputStream.readObject();
+            listOfSwimmers = (ArrayList<Swimmer>) objectInputStream.readObject();
+        }
 
         return listOfSwimmers;
 
