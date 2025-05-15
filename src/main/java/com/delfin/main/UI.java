@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.Duration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 
 public class UI {
@@ -584,21 +583,40 @@ public class UI {
 
 
     //Validerer input af varighed. 100 meter må ikke vare timer, men max 59 minutter 0g 59 sekunder.
-    public static boolean validDuration(String duration) {
+    public Duration getValidDuration() {
+
+        String input;
 
         //Regulært udtryk (kun for minutter : sekunder):
         //regex definerer mønsteret som et input skal matche.
         //^ siger at det skal matche fra start. mulige tal i hhv minutter : sekunder.
-        //$ be
+        //$ afslutter mønsteret
         String regex = "^[0-5][0-9]:[0-5][0-9]$";
 
-        //Opretter et Pattern objekt (der håndterer regulære udtryk) der opbevarer det regulære udtryk:
-        Pattern pattern = Pattern.compile(regex);
-        //Opretter et Matcher objekt der kan sammenligne mønsteret i det regulære udtryk og så duration, som er inputtet.
-        Matcher matcher = pattern.matcher(duration);
+        while (true) {
+            input = scanner.nextLine();
 
-       //Hvis de matcher:
-        return matcher.matches();
+            //If: tomt input, else if: input ikke matcher regex, else: hvis input matcher spilt det op i minutter og sekunder: :
+            if (input.isEmpty()) {
+                System.err.println("Skriv noget");
+            }else if (!input.matches(regex)) {
+                System.err.println("Ugyldigt input! Skriv minutter:sekunder");
+            } else {
+                String[] parts = input.split(":");
+                int minutes = Integer.parseInt(parts[0]);
+                int seconds = Integer.parseInt(parts[1]);
+
+                //opretter et Duration objekt der kan returneres:
+                Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
+                return duration;
+            }
+
+
+        }
+
+
+
+
     }
 
 
