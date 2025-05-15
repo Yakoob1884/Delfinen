@@ -150,6 +150,7 @@ public class UI {
                 case 2:
                     System.out.println(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
+                    System.out.println("Vælg en svømmer du gerne vil se alle informationer for, ved at indtaste deres ID nummer");
                     System.out.println(printSingleSwimmerNameBirthday(competitionSwimmerList.get(getValidInt(0, competitionSwimmerList.size(), false) -1)));
                     break;
                 case 0:

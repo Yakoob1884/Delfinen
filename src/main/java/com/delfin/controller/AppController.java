@@ -397,7 +397,11 @@ public class AppController {
     }
 
     public List<Swimmer> returnGetSwimmersIsPaidFalseList (){
-        return listOfSwimmers.getSwimmersIsPaidFalseList();
+        List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalseList();
+
+        Collections.sort(listSwimmersIsPaidFalse);
+
+        return listSwimmersIsPaidFalse;
     }
 
     public void swimmerHasPaid() {

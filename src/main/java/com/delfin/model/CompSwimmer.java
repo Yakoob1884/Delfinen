@@ -280,16 +280,16 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         tempString.append(String.format("%-20s  %-20s  %19s", this.lastName, this.firstName, this.birthday));
         tempString.append("\n\nDeltager i følgende discipliner:" + this.discipline);
         if (compTime.isEmpty()) {
-            tempString.append("\n\nSvømmeren har ingen registrerede konkurrencetider");
+            tempString.append("\n\nSvømmeren har ingen registrerede konkurrencetider\n");
         } else {
             compTime.sort(Comparator.comparing(Training::getDate));
             tempString.append("\n\nSvømmerens stævneresultater er følgende: " + compTime.toString());
         }
         if (trainingTime.isEmpty()) {
-            tempString.append("\n\nSvømmeren har ingen registrerede træningstider");
+            tempString.append("\n\nSvømmeren har ingen registrerede træningstider\n");
         } else {
             trainingTime.sort(Comparator.comparing(Training::getDate));
-            tempString.append("\n\nSvømmerens træningsresultater er følgende: " + trainingTime.toString());
+            tempString.append("\nSvømmerens træningsresultater er følgende: " + trainingTime.toString() + "\n");
         }
         return tempString.toString();
 
