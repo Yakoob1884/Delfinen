@@ -137,7 +137,7 @@ public class UI {
         boolean run = true;
 
         while (run) {
-            System.out.println("Opret svømmemedlem: ");
+            System.out.println("Se svømmemedlemmer: ");
             System.out.println("Vil se alle svømmere eller kun konkurrencesvømmere? ");
             System.out.println("1. for alle");
             System.out.println("2. for konkurrencesvømmere");
@@ -151,6 +151,8 @@ public class UI {
                     break;
                 case 2:
                     System.out.println(printListNameBirthday(controller.viewCompetitionSwimmers()));
+                    List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
+                    System.out.println(printSingleSwimmerNameBirthday(competitionSwimmerList.get(getValidInt(0, competitionSwimmerList.size(), false) -1)));
                     break;
                 case 0:
                     run = false;
@@ -352,15 +354,16 @@ public class UI {
     }
 
     public String printSingleSwimmerNameBirthday(Swimmer swimmer) {
-        if (swimmer instanceof NonCompSwimmer) {
+        if (swimmer instanceof CompSwimmer) {
+            CompSwimmer compSwimmer = (CompSwimmer) swimmer;
+            return compSwimmer.toString();
+        }
+        else {
             StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
             sb.append("Efternavn: ").append(swimmer.getLastName()).append("\n")
                     .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
                     .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n");
             return sb.toString();
-        }
-        else {
-            return swimmer.toString();
         }
     }
 
