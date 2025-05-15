@@ -2,15 +2,13 @@ package delfin.main;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.EnumSet;
+import java.util.*;
 //package delfin.main;
 
 import delfin.controller.AppController;
 import delfin.model.*;
 import delfin.utils.SwimPassiveException;
 
-import java.util.List;
-import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.Duration;
 
@@ -213,6 +211,8 @@ public class UI {
 
     public void subMenuStatistics() {
         boolean run = true;
+
+
 
         while(run) {
             System.out.println("Vis statistik på konkurrencesvømmere:");
