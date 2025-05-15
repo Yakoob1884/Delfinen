@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.Duration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class UI {
@@ -529,7 +531,23 @@ public class UI {
 
 
 
-    //Duration: Spilt mellem :, 1 regel for den ene og 1 anden regel for den anden.
+    //Validerer input af varighed. 100 meter må ikke vare timer, men max 59 minutter 0g 59 sekunder.
+    public static boolean validDuration(String duration) {
+
+        //Regulært udtryk (kun for minutter : sekunder):
+        //regex definerer mønsteret som et input skal matche.
+        //^ siger at det skal matche fra start. mulige tal i hhv minutter : sekunder.
+        //$ be
+        String regex = "^[0-5][0-9]:[0-5][0-9]$";
+
+        //Opretter et Pattern objekt (der håndterer regulære udtryk) der opbevarer det regulære udtryk:
+        Pattern pattern = Pattern.compile(regex);
+        //Opretter et Matcher objekt der kan sammenligne mønsteret i det regulære udtryk og så duration, som er inputtet.
+        Matcher matcher = pattern.matcher(duration);
+
+       //Hvis de matcher:
+        return matcher.matches();
+    }
 
 
 
