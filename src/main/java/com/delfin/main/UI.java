@@ -87,7 +87,7 @@ public class UI {
                     System.out.println(controller.calculateEstimatedRevenue());
                     break;
                 case 0:
-                    //controller.saveListOfSwimmersToFile();
+                    controller.saveListOfSwimmersToFile();
 
                     System.out.println("Programmet afslutter...");
                     run = false;
@@ -465,7 +465,7 @@ public class UI {
         String birthdayString = scanner.nextLine();
         LocalDate birthday = LocalDate.parse(birthdayString);
 
-        controller.addNonCompSwimmerToList(firstName, lastName, birthday);
+        controller.addNonCompSwimmerToList(firstName, lastName, birthday, true, false);
         System.out.println("Svømmeren er oprettet");
 
     }
@@ -509,7 +509,7 @@ public class UI {
             disciplines.add(SwimmingDiscipline.BUTTERFLY);
         }
 
-        controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines);
+        controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines, true, false);
         System.out.println("Svømmeren er oprettet");
     }
 

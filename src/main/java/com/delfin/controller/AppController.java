@@ -387,13 +387,13 @@ public class AppController {
 
 
 
-    public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines){
-        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);
+    public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid){
+        Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines, isActive, isPaid);
         listOfSwimmers.addSwimmer(swimmer);
     }
 
-    public void addNonCompSwimmerToList(String firstName, String lastName, LocalDate birthday){
-        Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday);
+    public void addNonCompSwimmerToList(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid){
+        Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday, isActive, isPaid);
         listOfSwimmers.addSwimmer(swimmer);
 
     }
@@ -422,7 +422,7 @@ public class AppController {
        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
         int input = scanner.nextInt();
 
-        Swimmer swimmerById = listOfSwimmers.getSwimmersIsPaidFalseList().get(input - 1);
+        Swimmer swimmerById = listOfSwimmers.getSwimmersIsPaidFalseList().get(input-1);
 
         swimmerById.setIsPaid(true);
 

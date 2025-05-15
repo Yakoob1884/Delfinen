@@ -27,7 +27,7 @@ public class ListOfSwimmers {
 
         //Call til method der smider dummies på listen
         //Kommenter ud når bruge swimmers gemt på fil
-        dummieList();
+        //dummieList();
 
         //Instantiering af filhåndteringsobjekt
         this.listOfSwimmersFile = new FileObjectOutputInput(filename);
@@ -38,7 +38,7 @@ public class ListOfSwimmers {
 
         //Henter fra backup hvis vi har swimmers der er gemt på fil
         //Kommenter ud hvis bruge dummies fra dummiesList();
-        //this.listOfSwimmers = (ArrayList<Swimmer>) listOfSwimmersFile.readSwimmerListFromFile();
+        this.listOfSwimmers = (ArrayList<Swimmer>) listOfSwimmersFile.readSwimmerListFromFile();
     }
 
     public void addSwimmer(Swimmer swimmer){
