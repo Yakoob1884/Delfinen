@@ -404,7 +404,7 @@ public class AppController {
        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
         int input = scanner.nextInt();
 
-        Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
+        Swimmer swimmerById = listOfSwimmers.getSwimmersIsPaidFalseList().get(input - 1);
 
         swimmerById.setIsPaid(true);
 

@@ -27,6 +27,8 @@ public class NonCompSwimmer implements Swimmer, Serializable {
         this.birthday = birthday;
     }
 
+    public NonCompSwimmer(){}
+
     @Override
     public boolean getIsPaid() {
         return isPaid;

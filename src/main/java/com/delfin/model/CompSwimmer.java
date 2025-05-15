@@ -35,6 +35,15 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         this.discipline = enums;
     }
 
+    public CompSwimmer(NonCompSwimmer swimmer){
+        this.firstName = swimmer.getFirstName();
+        this.lastName = swimmer.getFirstName();
+        this.birthday = swimmer.getBirthday();
+        this.isActive = swimmer.getIsActive();
+        this.isPaid = swimmer.getIsPaid();
+
+    }
+
     @Override
     public List<Training> getTrainingTime() {
         return this.trainingTime;
