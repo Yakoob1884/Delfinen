@@ -282,11 +282,13 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         if (compTime.isEmpty()) {
             tempString.append("\n\nSvømmeren har ingen registrerede konkurrencetider");
         } else {
+            compTime.sort(Comparator.comparing(Training::getDate));
             tempString.append("\n\nSvømmerens stævneresultater er følgende: " + compTime.toString());
         }
         if (trainingTime.isEmpty()) {
             tempString.append("\n\nSvømmeren har ingen registrerede træningstider");
         } else {
+            trainingTime.sort(Comparator.comparing(Training::getDate));
             tempString.append("\n\nSvømmerens træningsresultater er følgende: " + trainingTime.toString());
         }
         return tempString.toString();
