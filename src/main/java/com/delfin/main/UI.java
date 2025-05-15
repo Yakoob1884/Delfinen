@@ -7,6 +7,7 @@ import java.util.EnumSet;
 
 import delfin.controller.AppController;
 import delfin.model.*;
+import delfin.utils.SwimPassiveException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -151,12 +152,22 @@ public class UI {
 
                     System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
-                    addTrainingResult((CompSwimmer)competitionSwimmerList.get(getValidInt(1,competitionSwimmerList.size(), false)-1));
+                    try {
+                        addTrainingResult((CompSwimmer) competitionSwimmerList.get(getValidInt(1, competitionSwimmerList.size(), false) - 1));
+                    } catch (SwimPassiveException e) {
+                        System.err.println("Svømmer er \"passiv\". Du kan ikke registrer ny tid.\nPrøv igen.");
+                        break;
+                    }
                     break;
                 case 2:
                     System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer>competitionSwimmerList2 = controller.viewCompetitionSwimmers();
-                    addCompetitionResult((CompSwimmer)competitionSwimmerList2.get(getValidInt(1,competitionSwimmerList2.size(), false)-1));
+                    try {
+                        addCompetitionResult((CompSwimmer) competitionSwimmerList2.get(getValidInt(1, competitionSwimmerList2.size(), false) - 1));
+                    } catch (SwimPassiveException e){
+                        System.err.println("Svømmer er \"passiv\". Du kan ikke registrer ny tid.\nPrøv igen.");
+                        break;
+                    }
                     break;
                 case 0:
                     run = false;
@@ -277,11 +288,14 @@ public class UI {
     }
 
 
-    public void addTrainingResult(CompSwimmer swimmer){
+    public void addTrainingResult(CompSwimmer swimmer) throws SwimPassiveException {
+        if (!swimmer.getIsActive()){
+            throw new SwimPassiveException("Svømmer er \"passiv\". Du kan ikke registrer ny tid.");
+        }
 
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
-                           "1.Crawl \n2.Rygcrawl \n3.Brystsvømning \n4.Butterfly");
+                "1.Crawl \n2.Rygcrawl \n3.Brystsvømning \n4.Butterfly");
         int choice = getValidInt(1, 4, false);
         switch (choice) {
             case 1:
@@ -323,7 +337,10 @@ public class UI {
 
     }
 
-    public void addCompetitionResult(CompSwimmer swimmer){
+    public void addCompetitionResult(CompSwimmer swimmer) throws SwimPassiveException{
+        if (!swimmer.getIsActive()){
+            throw new SwimPassiveException("Svømmer er \"passiv\". Du kan ikke registrer ny tid.");
+        }
 
         System.out.println("Hvad er navnet på stævnet svømmeren har deltaget i?");
         String competitionName = scanner.nextLine();
