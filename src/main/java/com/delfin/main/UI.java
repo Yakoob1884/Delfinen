@@ -61,7 +61,7 @@ public class UI {
                     createSwimmer();
                     break;
                 case 2:
-                    System.out.println(controller.getAllSwimmers());
+                    viewSwimmer();
                     break;
                 case 3:
                     //changeSwimmer();
@@ -134,6 +134,36 @@ public class UI {
         }
     }
 
+    public void viewSwimmer() {
+
+        boolean run = true;
+
+        while (run) {
+            System.out.println("Opret svømmemedlem: ");
+            System.out.println("Vil se alle svømmere eller kun konkurrencesvømmere? ");
+            System.out.println("1. for alle");
+            System.out.println("2. for konkurrencesvømmere");
+            System.out.println("0. for at gå tilbage");
+
+            int choice = getValidInt(0, 2, false);
+
+            switch (choice) {
+                case 1:
+                    System.out.println(printListNameBirthday(controller.getAllSwimmers()));
+                    break;
+                case 2:
+                    System.out.println(printListNameBirthday(controller.viewCompetitionSwimmers()));
+                    break;
+                case 0:
+                    run = false;
+                    break;
+                default:
+                    System.out.println("Fejl. Tast 1-2.");
+
+
+            }
+        }
+    }
 
     public void addResult() {
 
@@ -228,11 +258,16 @@ public class UI {
     }
 
     public String printSingleSwimmerNameBirthday(Swimmer swimmer) {
-        StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
-        sb.append("Efternavn: ").append(swimmer.getLastName()).append("\n")
-                .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
-                .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n");
-        return sb.toString();
+        if (swimmer instanceof NonCompSwimmer) {
+            StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
+            sb.append("Efternavn: ").append(swimmer.getLastName()).append("\n")
+                    .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
+                    .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n");
+            return sb.toString();
+        }
+        else {
+            return swimmer.toString();
+        }
     }
 
     public String printRestanceSwimmers(List<Swimmer> formatList){
