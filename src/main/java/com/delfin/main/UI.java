@@ -172,9 +172,9 @@ public class UI {
         StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
         int id = 1;
         for (Swimmer swimmer : formatList) {
-            sb.append("ID ").append(id).append("\n")
-                    .append("Efternavn: ").append(swimmer.getLastName()).append("\n")
-                    .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
+            sb.append("ID ").append(id).append(": ")
+                    .append("Efternavn: ").append(swimmer.getLastName()).append(", ")
+                    .append("Fornavn: ").append(swimmer.getFirstName()).append(", ")
                     .append("Fødselsdato: ").append(swimmer.getBirthday()).append("\n \n");
             id++;
         }
