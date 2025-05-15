@@ -396,14 +396,18 @@ public class AppController {
 
     }
 
-    public void swimmerHasPaid() {
-        System.out.println(listOfSwimmers.getSwimmersIsPaidFalseList());
+    public List<Swimmer> returnGetSwimmersIsPaidFalseList (){
+        return listOfSwimmers.getSwimmersIsPaidFalseList();
+    }
 
-        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
+    public void swimmerHasPaid() {
+       System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
         int input = scanner.nextInt();
 
         Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
 
         swimmerById.setIsPaid(true);
+
+        System.out.println("Betaling registreret for: " + swimmerById.getFirstName() + " " + swimmerById.getLastName());
     }
 }

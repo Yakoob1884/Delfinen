@@ -71,15 +71,14 @@ public class UI {
                     addResult();
                     break;
                 case 6:
-                    printSwimmerListLastNameFirstName(controller.viewRestanceSwimmers(), "Medlemmer som ikke har betalt");
-                    printSwimmerListLastNameFirstName(controller.viewCompetitionSwimmers(), "Medlemmer som er konkurrencesvømmere");
-                    controller.printAllTestToRemoveAgain();
+                    System.out.println(printRestanceSwimmers(controller.viewRestanceSwimmers()));
                     break;
                 case 7:
-                    //registerPayment();
+                    System.out.println(printListNameBirthday(controller.returnGetSwimmersIsPaidFalseList()));
                     controller.swimmerHasPaid();
                     break;
                 case 8:
+                    System.out.println("Årets forventede totale omsætning er: ");
                     System.out.println(controller.calculateEstimatedRevenue());
                     break;
                 case 0:
@@ -175,18 +174,25 @@ public class UI {
             sb.append("ID ").append(id).append(": ")
                     .append("Efternavn: ").append(swimmer.getLastName()).append(", ")
                     .append("Fornavn: ").append(swimmer.getFirstName()).append(", ")
-                    .append("Fødselsdato: ").append(swimmer.getBirthday()).append("\n \n");
+                    .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n \n");
             id++;
         }
         return sb.toString();
     }
 
-    public String formatListPrint(List<Swimmer> formatList) {
-        StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
-        int id = 1;
+    public String printSingleSwimmerNameBirthday(Swimmer swimmer) {
+        StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
+        sb.append("Efternavn: ").append(swimmer.getLastName()).append("\n")
+                .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
+                .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n");
+        return sb.toString();
+    }
+
+    public String printRestanceSwimmers(List<Swimmer> formatList){
+        StringBuilder sb = new StringBuilder("Svømmere i restance:\n\n");
         for (Swimmer swimmer : formatList) {
-            sb.append("ID " + id + ": " + swimmer).append("\n");
-            id++;
+            sb.append(String.format("%-20s  %-20s  %20s  %5b ", swimmer.getLastName(), swimmer.getFirstName(), swimmer.getBirthday(), swimmer.getIsPaid()));
+            sb.append("\n");
         }
         return sb.toString();
     }
