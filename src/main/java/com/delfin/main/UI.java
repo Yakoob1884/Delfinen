@@ -148,12 +148,12 @@ public class UI {
             switch (choice) {
                 case 1:
 
-                    System.out.print(formatListPrint(controller.viewCompetitionSwimmers()));
+                    System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
                     addTrainingResult((CompSwimmer)competitionSwimmerList.get(getValidInt(1,competitionSwimmerList.size(), false)-1));
                     break;
                 case 2:
-                    System.out.print(formatListPrint(controller.viewCompetitionSwimmers()));
+                    System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer>competitionSwimmerList2 = controller.viewCompetitionSwimmers();
                     addCompetitionResult((CompSwimmer)competitionSwimmerList2.get(getValidInt(1,competitionSwimmerList2.size(), false)-1));
                     break;
@@ -168,9 +168,28 @@ public class UI {
         }
     }
 
+    public String printListNameBirthday(List<Swimmer> formatList) {
+        StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
+        int id = 1;
+        for (Swimmer swimmer : formatList) {
+            sb.append("ID ").append(id).append("\n")
+                    .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
+                    .append("Efternavn: ").append(swimmer.getLastName()).append("\n")
+                    .append("Fødselsdato: ").append(swimmer.getBirthday()).append("\n \n");
+            id++;
+        }
+        return sb.toString();
+    }
 
-
-
+    public String formatListPrint(List<Swimmer> formatList) {
+        StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
+        int id = 1;
+        for (Swimmer swimmer : formatList) {
+            sb.append("ID " + id + ": " + swimmer).append("\n");
+            id++;
+        }
+        return sb.toString();
+    }
 
 
     public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
@@ -249,15 +268,6 @@ public class UI {
         System.out.println("Svømmeren er oprettet");
     }
 
-    public String formatListPrint(List<Swimmer> formatList) {
-        StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
-        int id = 1;
-        for (Swimmer swimmer : formatList) {
-            sb.append("ID " + id + ": " + swimmer).append("\n");
-            id++;
-        }
-        return sb.toString();
-    }
 
     public void addTrainingResult(CompSwimmer swimmer){
 
