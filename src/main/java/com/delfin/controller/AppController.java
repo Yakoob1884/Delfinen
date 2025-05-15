@@ -27,7 +27,7 @@ public class AppController {
         this.scanner = scanner;
     }
 
-    public List<Swimmer> viewAllSwimmers() {
+    public List<Swimmer> getAllSwimmers() {
 
         List<Swimmer> listOfAllSwimmers = listOfSwimmers.getListOfAllSwimmers();
 
@@ -106,7 +106,7 @@ public class AppController {
 
     public double calculateEstimatedRevenue() {
         double estimatedRevenue = 0.00;
-        List<Swimmer> listOfAllSwimmers = viewAllSwimmers();
+        List<Swimmer> listOfAllSwimmers = getAllSwimmers();
         for (Swimmer swimmer : listOfAllSwimmers) {
             estimatedRevenue += calculateFee(swimmer);
         }

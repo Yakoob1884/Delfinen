@@ -62,13 +62,15 @@ public class UI {
                     createSwimmer();
                     break;
                 case 2:
-                    controller.viewAllSwimmers();
+                    System.out.println(controller.getAllSwimmers());
                     break;
-//                case 3:
+                case 3:
                     //changeSwimmer();
-//                    break;
+                    break;
                 case 4:
-                    printAllTopSwimmerStatistics();
+                    subMenuStatistics();
+
+                    //printAllTopSwimmerStatistics();
                     break;
                 case 5:
                     addResult();
@@ -176,6 +178,39 @@ public class UI {
                     System.out.println("Fejl. Tast 1-2.");
 
 
+            }
+        }
+    }
+
+    public void subMenuStatistics() {
+        boolean run = true;
+
+        while(run) {
+            System.out.println("Vis statistik på konkurrencesvømmere:");
+            System.out.println("---");
+            System.out.println("---");
+            System.out.println("---");
+            System.out.println("0. for at gå tilbage");
+
+            int choice = getValidInt(0, 2, false);
+
+            switch (choice) {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+
+                case 3:
+
+                    break;
+                case 0:
+                    run = false;
+                    break;
+
+                default:
+                    System.out.println("Fejl. Tast 1-2.");
             }
         }
     }
