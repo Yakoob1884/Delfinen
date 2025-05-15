@@ -45,6 +45,11 @@ public class ListOfSwimmers {
         listOfSwimmers.add(swimmer);
     }
 
+    public void removeSwimmer(Swimmer swimmer) {
+        listOfSwimmers.remove(swimmer);
+
+    }
+
     public List<Swimmer> getSwimmersIsPaidFalseList() {
 
         List<Swimmer> listSwimmersIsPaidFalse = new ArrayList<>();
@@ -78,6 +83,17 @@ public class ListOfSwimmers {
             }
         }
         return compSwimmersList;
+    }
+
+    public List<Swimmer> getNonCompSwimmersList() {
+        List<Swimmer> nonCompSwimmersList = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            if (!(swimmer instanceof CompSwimmer)) {
+                nonCompSwimmersList.add(swimmer);
+            }
+        }
+        return nonCompSwimmersList;
     }
 
     public List<CompSwimmer> getActiveCompSwimmersList() {

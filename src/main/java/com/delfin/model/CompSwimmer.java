@@ -37,7 +37,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
     public CompSwimmer(NonCompSwimmer swimmer){
         this.firstName = swimmer.getFirstName();
-        this.lastName = swimmer.getFirstName();
+        this.lastName = swimmer.getLastName();
         this.birthday = swimmer.getBirthday();
         this.isActive = swimmer.getIsActive();
         this.isPaid = swimmer.getIsPaid();

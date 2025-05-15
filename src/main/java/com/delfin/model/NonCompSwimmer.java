@@ -1,8 +1,10 @@
 package delfin.model;
 
+import javax.print.attribute.standard.MediaSize;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Queue;
 
 public class NonCompSwimmer implements Swimmer, Serializable {
     //Attributes
@@ -66,10 +68,16 @@ public class NonCompSwimmer implements Swimmer, Serializable {
 
     @Override
     public int compareTo(Swimmer otherSwimmer) {
+        if (lastName.equalsIgnoreCase(otherSwimmer.getLastName()) && firstName.equalsIgnoreCase(otherSwimmer.getFirstName())) {
+            //return otherSwimmer.getBirthday().compareTo(this.getBirthday());
+            return this.getBirthday().compareTo(otherSwimmer.getBirthday());
+        }
         if (lastName.equalsIgnoreCase(otherSwimmer.getLastName())) {
             return firstName.compareToIgnoreCase(otherSwimmer.getFirstName());
         }
-            return lastName.compareToIgnoreCase(otherSwimmer.getLastName());
+
+        return lastName.compareToIgnoreCase(otherSwimmer.getLastName());
+
     }
 
     @Override

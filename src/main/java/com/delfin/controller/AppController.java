@@ -27,9 +27,23 @@ public class AppController {
         this.scanner = scanner;
     }
 
+    public List<Swimmer> getNonCompSwimmersList() {
+        return listOfSwimmers.getNonCompSwimmersList();
+    }
+
+    public void addSwimmer(Swimmer swimmer) {
+        listOfSwimmers.addSwimmer(swimmer);
+    }
+
+    public void removeSwimmer(Swimmer swimmer) {
+        listOfSwimmers.removeSwimmer(swimmer);
+    }
+
     public List<Swimmer> getAllSwimmers() {
 
         List<Swimmer> listOfAllSwimmers = listOfSwimmers.getListOfAllSwimmers();
+        Collections.sort(listOfAllSwimmers);
+
 
         return listOfAllSwimmers;
     }

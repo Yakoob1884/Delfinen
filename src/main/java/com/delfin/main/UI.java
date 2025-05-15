@@ -32,6 +32,11 @@ public class UI {
 
     public void menuOptions () throws IOException {
 
+//        NonCompSwimmer comp = new NonCompSwimmer("Mette", "Christensen", LocalDate.of(2012, 4, 23), false, true);
+//        System.out.println(comp);
+//        System.out.println(comp.getClass().getSimpleName());
+//        System.out.println(new Comp);
+
 
         boolean run = true;
 
@@ -62,7 +67,7 @@ public class UI {
                     viewSwimmer();
                     break;
                 case 3:
-                    //changeSwimmer();
+                    subMenuChangeSwimmer();
                     break;
                 case 4:
                     subMenuStatistics();
@@ -149,9 +154,17 @@ public class UI {
                     break;
                 case 2:
                     System.out.println(printListNameBirthday(controller.viewCompetitionSwimmers()));
+                    System.out.println("\nTast ID for at se yderligere info på konkonkurrencesvømmer\nEller 0 for tilbage til menu");
+
                     List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
                     System.out.println("Vælg en svømmer du gerne vil se alle informationer for, ved at indtaste deres ID nummer");
-                    System.out.println(printSingleSwimmerNameBirthday(competitionSwimmerList.get(getValidInt(0, competitionSwimmerList.size(), false) -1)));
+                    int temp = getValidInt(0, competitionSwimmerList.size(), false);
+                    if (temp == 0) {
+                        break;
+                    } else {
+                        System.out.println(printSingleSwimmerNameBirthday(competitionSwimmerList.get(temp - 1)));
+
+                    }
                     break;
                 case 0:
                     run = false;
@@ -208,6 +221,52 @@ public class UI {
 
             }
         }
+    }
+
+    public void subMenuChangeSwimmer() {
+
+        boolean run = true;
+
+        while(run) {
+            System.out.println("Rediger svømmere:");
+            System.out.println("1. Ændre motionssvømmer til konkurrencesvømmer");
+            System.out.println("\n0. for at gå tilbage");
+
+            int choice = getValidInt(0, 1, false);
+
+            switch (choice) {
+                case 1:
+
+                    List<Swimmer>competitionSwimmerList = controller.getNonCompSwimmersList();
+
+                    System.out.print(printListNameBirthday(competitionSwimmerList));
+
+                    NonCompSwimmer tempNonCompSwimmer = (NonCompSwimmer) competitionSwimmerList.get((getValidInt(0, competitionSwimmerList.size(), false))-1);
+
+                    System.out.println(tempNonCompSwimmer);
+
+                    CompSwimmer compSwimmerConverted = new CompSwimmer(tempNonCompSwimmer);
+
+                    System.out.println(compSwimmerConverted);
+
+                    controller.removeSwimmer(tempNonCompSwimmer);
+                    controller.addSwimmer(compSwimmerConverted);
+
+
+                    break;
+
+                case 0:
+                    run = false;
+                    break;
+                default:
+                    System.out.println("Fejl. Tast 0-1");
+
+
+            }
+        }
+
+
+
     }
 
     public void subMenuStatistics() {
