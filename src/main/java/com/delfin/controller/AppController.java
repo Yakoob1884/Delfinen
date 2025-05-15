@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 import java.time.LocalDate;
+import java.util.function.Function;
 
 public class AppController {
 
@@ -121,57 +122,230 @@ public class AppController {
         return listOfSwimmers.getSwimmerByIndex(index);
     }
 
-    public void top5() {
+    public List<StatisticsDataTransferObject> getTopTrainingJuniorBreaststroke(int topListLength) {
 
-        List<CompSwimmer> activeCompSwimmers;
+        Function<CompSwimmer, Duration> getFastestTrainingTimeBreastStroke = CompSwimmer::getFastestTrainingTimeBreastStroke;
+        Function<CompSwimmer, Training> getFastestTrainingBreastStroke = CompSwimmer::getFastestTrainingBreastStroke;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
 
-        activeCompSwimmers = listOfSwimmers.getActiveCompSwimmersList();
-
-        activeCompSwimmers = extractJuniorCompSwimmers(activeCompSwimmers, SENIOR_START_AGE);
-
-        //activeCompSwimmers = extractSeniorCompSwimmers(activeCompSwimmers, SENIOR_START_AGE);
+        return statisticsDtoMaker(getFastestTrainingTimeBreastStroke, getFastestTrainingBreastStroke, ageGroup, topListLength);
 
 
-        activeCompSwimmers.sort(Comparator.comparing(CompSwimmer::getFastestTrainingTimeBreastStroke));
+    }
+
+    public List<StatisticsDataTransferObject> getTopTrainingJuniorBackstroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeBackstroke = CompSwimmer::getFastestTrainingTimeBackStroke;
+        Function<CompSwimmer, Training> getFastestTrainingBackstroke = CompSwimmer::getFastestTrainingBackstroke;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeBackstroke, getFastestTrainingBackstroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopTrainingJuniorFreestyle(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeFreestyle = CompSwimmer::getFastestTrainingTimeFreestyle;
+        Function<CompSwimmer, Training> getFastestTrainingFreestyle = CompSwimmer::getFastestTrainingFreestyle;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeFreestyle, getFastestTrainingFreestyle, ageGroup, topListLength);
+
+
+    }
+
+
+    public List<StatisticsDataTransferObject> getTopTrainingJuniorButterfly(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeButterfly = CompSwimmer::getFastestTrainingTimeButterfly;
+        Function<CompSwimmer, Training> getFastestTrainingButterfly = CompSwimmer::getFastestTrainingButterfly;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeButterfly, getFastestTrainingButterfly, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopTrainingSeniorBreaststroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeBreastStroke = CompSwimmer::getFastestTrainingTimeBreastStroke;
+        Function<CompSwimmer, Training> getFastestTrainingBreastStroke = CompSwimmer::getFastestTrainingBreastStroke;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeBreastStroke, getFastestTrainingBreastStroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopTrainingSeniorBackstroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeBackstroke = CompSwimmer::getFastestTrainingTimeBackStroke;
+        Function<CompSwimmer, Training> getFastestTrainingBackstroke = CompSwimmer::getFastestTrainingBackstroke;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeBackstroke, getFastestTrainingBackstroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopTrainingSeniorFreestyle(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeFreestyle = CompSwimmer::getFastestTrainingTimeFreestyle;
+        Function<CompSwimmer, Training> getFastestTrainingFreestyle = CompSwimmer::getFastestTrainingFreestyle;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeFreestyle, getFastestTrainingFreestyle, ageGroup, topListLength);
+
+
+    }
+
+
+    public List<StatisticsDataTransferObject> getTopTrainingSeniorButterfly(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestTrainingTimeButterfly = CompSwimmer::getFastestTrainingTimeButterfly;
+        Function<CompSwimmer, Training> getFastestTrainingButterfly = CompSwimmer::getFastestTrainingButterfly;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestTrainingTimeButterfly, getFastestTrainingButterfly, ageGroup, topListLength);
+
+
+    }
+
+
+
+
+
+
+
+
+    public List<StatisticsDataTransferObject> getTopCompetitionJuniorBreaststroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeBreastStroke = CompSwimmer::getFastestCompetitionTimeBreastStroke;
+        Function<CompSwimmer, Training> getFastestCompetitionBreastStroke = CompSwimmer::getFastestCompetitionBreastStroke;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeBreastStroke, getFastestCompetitionBreastStroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionJuniorBackstroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeBackstroke = CompSwimmer::getFastestCompetitionTimeBackstroke;
+        Function<CompSwimmer, Training> getFastestCompetitionBackstroke = CompSwimmer::getFastestCompetitionBackstroke;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeBackstroke, getFastestCompetitionBackstroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionJuniorFreestyle(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeFreestyle = CompSwimmer::getFastestCompetitionTimeFreestyle;
+        Function<CompSwimmer, Training> getFastestCompetitionFreestyle = CompSwimmer::getFastestCompetitionFreestyle;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeFreestyle, getFastestCompetitionFreestyle, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionJuniorButterfly(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeButterfly = CompSwimmer::getFastestCompetitionTimeButterfly;
+        Function<CompSwimmer, Training> getFastestCompetitionButterfly = CompSwimmer::getFastestCompetitionButterfly;
+        Function<Integer, Boolean> ageGroup = this::isJunior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeButterfly, getFastestCompetitionButterfly, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionSeniorBreaststroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeBreastStroke = CompSwimmer::getFastestCompetitionTimeBreastStroke;
+        Function<CompSwimmer, Training> getFastestCompetitionBreastStroke = CompSwimmer::getFastestCompetitionBreastStroke;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeBreastStroke, getFastestCompetitionBreastStroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionSeniorBackstroke(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeBackstroke = CompSwimmer::getFastestCompetitionTimeBackstroke;
+        Function<CompSwimmer, Training> getFastestCompetitionBackstroke = CompSwimmer::getFastestCompetitionBackstroke;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeBackstroke, getFastestCompetitionBackstroke, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionSeniorFreestyle(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeFreestyle = CompSwimmer::getFastestCompetitionTimeFreestyle;
+        Function<CompSwimmer, Training> getFastestCompetitionFreestyle = CompSwimmer::getFastestCompetitionFreestyle;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeFreestyle, getFastestCompetitionFreestyle, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> getTopCompetitionSeniorButterfly(int topListLength) {
+
+        Function<CompSwimmer, Duration> getFastestCompetitionTimeButterfly = CompSwimmer::getFastestCompetitionTimeButterfly;
+        Function<CompSwimmer, Training> getFastestCompetitionButterfly = CompSwimmer::getFastestCompetitionButterfly;
+        Function<Integer, Boolean> ageGroup = this::isSenior;
+
+        return statisticsDtoMaker(getFastestCompetitionTimeButterfly, getFastestCompetitionButterfly, ageGroup, topListLength);
+
+
+    }
+
+    public List<StatisticsDataTransferObject> statisticsDtoMaker(Function<CompSwimmer, Duration> getter, Function<CompSwimmer, Training> getTraining, Function<Integer, Boolean> ageGroup, int topListLength)  {
+
+        List<CompSwimmer> activeCompSwimmers = listOfSwimmers.getListOfAllSwimmers()
+                .stream()
+                .filter(CompSwimmer.class::isInstance)
+                .map(CompSwimmer.class::cast)
+                .filter(swimmer -> ageGroup.apply(swimmer.calculateAge()))
+                .filter(Swimmer::getIsActive)
+                .sorted(Comparator.comparing(getter))
+                .limit(topListLength)
+                .toList();
+
+
+
+        List<StatisticsDataTransferObject> dtoList = new ArrayList<>();
 
         CompSwimmer tempCompSwimmer;
 
-        if (!activeCompSwimmers.isEmpty()) {
-            System.out.println("Top 5 Træningstider i Brystsvømning for Junior");
-            System.out.println("Efternavn             Fornavn               Fødselsdato      Træningsdato            Disciplin               Svømmmetid\n");
+        Training tempTraining;
+        for (CompSwimmer activeCompSwimmer : activeCompSwimmers) {
+
+            tempCompSwimmer = activeCompSwimmer;
+            tempTraining = getTraining.apply(tempCompSwimmer);
+
+            if (tempCompSwimmer != null && tempTraining != null) {
+                dtoList.add(new StatisticsDataTransferObject(tempCompSwimmer, tempTraining));
+            }
+
         }
-
-        for (int i = 0; i < 5; i++) {
-            tempCompSwimmer = activeCompSwimmers.get(i);
-            System.out.printf("%-20s  %-20s  %-15s  %-20s %15s  %15s\n",tempCompSwimmer.getLastName(), tempCompSwimmer.getFirstName(), tempCompSwimmer.getBirthday(), tempCompSwimmer.getFastestTrainingBreastStroke().getDate(), tempCompSwimmer.getFastestTrainingBreastStroke().getDiscipline(), formatDuration(tempCompSwimmer.getFastestTrainingBreastStroke().getTimeRegister()));
-        }
-
-        System.out.println();
-        System.out.println();
-
-        activeCompSwimmers = listOfSwimmers.getActiveCompSwimmersList();
-
-        //activeCompSwimmers = extractJuniorCompSwimmers(activeCompSwimmers, SENIOR_START_AGE);
-
-        activeCompSwimmers = extractSeniorCompSwimmers(activeCompSwimmers, SENIOR_START_AGE);
+        return dtoList;
+    }
 
 
-        activeCompSwimmers.sort(Comparator.comparing(CompSwimmer::getFastestCompetitionTimeBreastStroke));
+    public Boolean isSenior(Integer age) {
+        return (age >= SENIOR_START_AGE);
+    }
 
-        if (!activeCompSwimmers.isEmpty()) {
-            System.out.println("Top 5 Stævnetider i Brystsvømning for Senior");
-            System.out.println("Efternavn             Fornavn               Fødselsdato      Stævnedato           Stævne                       Disciplin              Svømmmetid\n");
-        }
-
-
-        for (int i = 0; i < 5; i++) {
-            tempCompSwimmer = activeCompSwimmers.get(i);
-            System.out.printf("%-20s  %-20s  %-15s  %-20s %-25s %15s %15s\n",tempCompSwimmer.getLastName(), tempCompSwimmer.getFirstName(), tempCompSwimmer.getBirthday(), tempCompSwimmer.getFastestCompetitionBreastStroke().getDate(), tempCompSwimmer.getFastestCompetitionBreastStroke().getCompetitionName(), tempCompSwimmer.getFastestCompetitionBreastStroke().getDiscipline(), formatDuration(tempCompSwimmer.getFastestCompetitionBreastStroke().getTimeRegister()));
-        }
-
-        System.out.println();
-        System.out.println();
-
+    public Boolean isJunior(Integer age) {
+        return (age < SENIOR_START_AGE);
     }
 
 
@@ -197,12 +371,7 @@ public class AppController {
         return seniorCompSwimmers;
     }
 
-    public String formatDuration(Duration duration) {
-        Duration secondsIsolated = duration.minusMinutes(duration.toMinutes());
 
-        return String.format("%02d:%02d", duration.toMinutes(), secondsIsolated.toSeconds());
-
-    }
 
     public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines){
         Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines);

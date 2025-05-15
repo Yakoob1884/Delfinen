@@ -1,7 +1,7 @@
 package delfin.main;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.EnumSet;
 //package delfin.main;
 
@@ -14,11 +14,13 @@ import java.time.LocalDate;
 import java.time.Duration;
 
 
-
 public class UI {
 
     private Scanner scanner;
     private AppController controller;
+    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final int TOP_LIST_LENGTH = 5;
+
 
     public UI(AppController controller, Scanner scanner) {
         this.scanner = scanner;
@@ -29,6 +31,7 @@ public class UI {
 
 
     public void menuOptions () throws IOException {
+
 
         boolean run = true;
 
@@ -62,7 +65,7 @@ public class UI {
                     //changeSwimmer();
 //                    break;
                 case 4:
-                    controller.top5();
+                    printAllTopSwimmerStatistics();
                     break;
                 case 5:
                     addResult();
@@ -421,6 +424,85 @@ public class UI {
 
 
         }
+    }
+
+    public void printStatisticsDTO(List<StatisticsDataTransferObject> dtoList, String title) {
+
+        if (!dtoList.isEmpty()) {
+            System.out.println(title.replace("[]", Integer.toString(dtoList.size())));
+
+            if (dtoList.getFirst().getRelevantTimingSession() instanceof Competition) {
+                System.out.println("Efternavn          Fornavn          Fødselsdato      Stævnedato      Stævne                         Disciplin          Placering         Svømmmetid\n");
+                for (StatisticsDataTransferObject dto : dtoList) {
+                    Competition tempCompetition = (Competition) dto.getRelevantTimingSession();
+                    System.out.printf("%-17s  %-15s  %-15s  %-15s %-30s %-17s %2d. %20s\n"
+                            , dto.getSwimmer().getLastName()
+                            , dto.getSwimmer().getFirstName()
+                            , dto.getSwimmer().getBirthday().format(dateFormat)
+                            , dto.getRelevantTimingSession().getDate().format(dateFormat)
+                            , tempCompetition.getCompetitionName()
+                            , dto.getRelevantTimingSession().getDiscipline().toString()
+                            , tempCompetition.getRanking()
+                            , formatDuration(dto.getRelevantTimingSession().getTimeRegister()));
+
+                }
+
+                } else {
+                System.out.println("Efternavn             Fornavn               Fødselsdato      Træningsdato         Disciplin                  Svømmmetid\n");
+
+                for (StatisticsDataTransferObject dto : dtoList) {
+                    System.out.printf("%-20s  %-20s  %-15s  %-20s %-15s  %15s\n"
+                            , dto.getSwimmer().getLastName()
+                            , dto.getSwimmer().getFirstName()
+                            , dto.getSwimmer().getBirthday().format(dateFormat)
+                            , dto.getRelevantTimingSession().getDate().format(dateFormat)
+                            , dto.getRelevantTimingSession().getDiscipline().toString()
+                            , formatDuration(dto.getRelevantTimingSession().getTimeRegister()));
+
+
+                }
+            }
+
+            System.out.println();
+            System.out.println();
+        }
+    }
+
+    public void printAllTopSwimmerStatistics() {
+
+        //training junior 4 disciplines
+        printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Junior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Junior", TOP_LIST_LENGTH));
+
+        //training senior 4 disciplines
+        printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Senior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Senior", TOP_LIST_LENGTH));
+
+        //competition junior 4 disciplines
+        printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Junior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Junior", TOP_LIST_LENGTH));
+
+        //competition senior 4 disciplines
+        printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Senior", TOP_LIST_LENGTH));
+        printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Senior", TOP_LIST_LENGTH));
+
+
+
+    }
+
+    public String formatDuration(Duration duration) {
+        Duration secondsIsolated = duration.minusMinutes(duration.toMinutes());
+
+        return String.format("%02d:%02d", duration.toMinutes(), secondsIsolated.toSeconds());
+
     }
 
 

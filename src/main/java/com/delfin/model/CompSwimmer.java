@@ -48,43 +48,83 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     @Override
     public Duration getFastestTrainingTimeBreastStroke() {
 
-
-        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
-
-
-        for (Training training : trainingTime) {
-            if (training.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && training.getTimeRegister().compareTo(tempDuration) < 1) {
-                tempDuration = training.getTimeRegister();
-            }
-        }
-    return tempDuration;
-
-    }
-
-    @Override
-    public Duration getFastestCompetitionTimeBreastStroke() {
-
-        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
-
-
-        for (Competition competition : compTime) {
-            if (competition.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && competition.getTimeRegister().compareTo(tempDuration) < 1) {
-                tempDuration = competition.getTimeRegister();
-            }
-        }
-        return tempDuration;
+        return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
 
     }
 
     @Override
     public Training getFastestTrainingBreastStroke() {
 
+        return getFastestTrainingFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
+
+    }
+
+    @Override
+    public Duration getFastestTrainingTimeBackStroke() {
+
+        return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.BACKSTROKE);
+
+    }
+
+    @Override
+    public Training getFastestTrainingBackstroke() {
+
+        return getFastestTrainingFromDiscipline(SwimmingDiscipline.BACKSTROKE);
+
+    }
+
+    @Override
+    public Duration getFastestTrainingTimeFreestyle() {
+
+        return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.FREESTYLE);
+
+    }
+
+    @Override
+    public Training getFastestTrainingFreestyle() {
+
+        return getFastestTrainingFromDiscipline(SwimmingDiscipline.FREESTYLE);
+
+    }
+
+    @Override
+    public Duration getFastestTrainingTimeButterfly() {
+
+        return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.BUTTERFLY);
+
+    }
+
+    @Override
+    public Training getFastestTrainingButterfly() {
+
+        return getFastestTrainingFromDiscipline(SwimmingDiscipline.BUTTERFLY);
+
+    }
+
+
+    public Duration getFastestTrainingTimeFromDiscipline(Enum<SwimmingDiscipline> discipline) {
+
+        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
+
+        for (Training training : trainingTime) {
+            if (training.getDiscipline() == discipline && training.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = training.getTimeRegister();
+            }
+        }
+
+        return tempDuration;
+    }
+
+
+    @Override
+    public Training getFastestTrainingFromDiscipline(Enum<SwimmingDiscipline> discipline) {
+
         Training tempTraining = null;
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
 
         for (Training training : trainingTime) {
-            if (training.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && training.getTimeRegister().compareTo(tempDuration) < 1) {
+            if (training.getDiscipline() == discipline && training.getTimeRegister().compareTo(tempDuration) < 1) {
                 tempDuration = training.getTimeRegister();
                 tempTraining = training;
             }
@@ -92,15 +132,98 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         return tempTraining;
     }
 
+
+
+    @Override
+    public Duration getFastestCompetitionTimeBreastStroke() {
+
+        return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
+
+    }
+
     @Override
     public Competition getFastestCompetitionBreastStroke() {
+
+        return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
+
+    }
+
+    @Override
+    public Duration getFastestCompetitionTimeBackstroke() {
+
+        return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.BACKSTROKE);
+
+    }
+
+    @Override
+    public Competition getFastestCompetitionBackstroke() {
+
+        return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BACKSTROKE);
+
+    }
+
+    @Override
+    public Duration getFastestCompetitionTimeFreestyle() {
+
+        return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.FREESTYLE);
+
+    }
+
+    @Override
+    public Competition getFastestCompetitionFreestyle() {
+
+        return getFastestCompetitionFromDiscipline(SwimmingDiscipline.FREESTYLE);
+
+    }
+
+
+    @Override
+    public Duration getFastestCompetitionTimeButterfly() {
+
+        return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.BUTTERFLY);
+
+    }
+
+    @Override
+    public Competition getFastestCompetitionButterfly() {
+
+        return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BUTTERFLY);
+
+    }
+
+
+
+
+
+    @Override
+    public Duration getFastestCompetitionTimeFromDiscipline(Enum<SwimmingDiscipline> discipline) {
 
         Competition tempCompetition = null;
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
 
         for (Competition competition : compTime) {
-            if (competition.getDiscipline() == SwimmingDiscipline.BREASTSTROKE && competition.getTimeRegister().compareTo(tempDuration) < 1) {
+            if (competition.getDiscipline() == discipline && competition.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = competition.getTimeRegister();
+            }
+        }
+        return tempDuration;
+    }
+
+
+
+
+
+
+    @Override
+    public Competition getFastestCompetitionFromDiscipline(Enum<SwimmingDiscipline> discipline) {
+
+        Competition tempCompetition = null;
+        Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
+
+
+        for (Competition competition : compTime) {
+            if (competition.getDiscipline() == discipline && competition.getTimeRegister().compareTo(tempDuration) < 1) {
                 tempDuration = competition.getTimeRegister();
                 tempCompetition = competition;
             }
@@ -109,51 +232,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
 
-
-
-
-
-
-
-    @Override
-    public Duration getFastestTimeCompetitionDiscipline(SwimmingDiscipline discipline) {
-
-        Duration fastest = Duration.parse("PT0H0M0S");
-
-        if (compTime.isEmpty()) {
-            return fastest;
-        }
-
-        for (Competition competition : compTime) {
-            if (competition.getTimeRegister().compareTo(fastest) < 0) {
-                fastest = competition.getTimeRegister();
-            }
-        }
-
-        return fastest;
-    }
-
-    @Override
-    public Duration getFastestTimeTrainingDiscipline(SwimmingDiscipline discipline) {
-
-        Duration fastest = Duration.parse("PT0H0M0S");
-
-        if (trainingTime.isEmpty()) {
-            return fastest;
-        }
-
-        for (Training training : trainingTime) {
-            if (training.getTimeRegister().compareTo(fastest) < 0) {
-                fastest = training.getTimeRegister();
-            }
-        }
-
-        return fastest;
-    }
-
     //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten delfin.model.Competition eller delfin.model.Training:
-
-
     public boolean hasResult(SwimmingDiscipline discipline) {
 
 
