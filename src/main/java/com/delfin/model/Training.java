@@ -32,8 +32,14 @@ public class Training implements Serializable {
 
     @Override
     public String toString(){
-        return ("\nTræningsinfo: \nTrænings type: " + discipline + "\nDato: " + date + "\nRegistreret tid: " + timeRegister + "\n");
+        long minutes = timeRegister.toMinutes();
+        int seconds = timeRegister.toSecondsPart();
+        return "\nTræningsresultat:" +
+                "\nDisciplin: " + discipline +
+                "\nDato: " + date +
+                "\nRegistreret tid: " + minutes + " min " + seconds + " sek\n";
     }
+
 
 
 }

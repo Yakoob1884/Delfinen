@@ -25,7 +25,14 @@ public class Competition extends Training implements Serializable {
     }
 
     public String toString(){
-        return ("\nStævnets info: \nNavn: " + competitionName + "\nDato: " + getDate() + "\nPlacering: " + ranking + "\nDisciplin: " + getDiscipline() + "\nRegistreret tid: " + getTimeRegister() + "\n");
+        long minutes = getTimeRegister().toMinutes();
+        int seconds = getTimeRegister().toSecondsPart();
+        return "\nStævnets info:" +
+                "\nNavn " + competitionName +
+                "\nDato: " + getDate() +
+                "\nPlacering: " + ranking +
+                "\nDisciplin: " + getDiscipline() +
+                "\nRegistreret tid: " + minutes + " min " + seconds + " sek\n";
     }
 
 

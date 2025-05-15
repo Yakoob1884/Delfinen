@@ -274,10 +274,19 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     @Override
     public String toString() {
         StringBuilder tempString = new StringBuilder();
-        tempString.append(String.format("%-20s  %-20s  %20s  %5b  %5b", this.lastName, this.firstName, this.birthday, this.isActive, this.isPaid));
-        tempString.append(this.discipline);
-        tempString.append(compTime.toString());
-        tempString.append(trainingTime.toString());
+        tempString.append(String.format("%-20s  %-20s  %20s", "Efternavn", "Fornavn", "Fødselsdag\n"));
+        tempString.append(String.format("%-20s  %-20s  %19s", this.lastName, this.firstName, this.birthday));
+        tempString.append("\n\nDeltager i følgende discipliner:" + this.discipline);
+        if (compTime.isEmpty()) {
+            tempString.append("\n\nSvømmeren har ingen registrerede konkurrencetider");
+        } else {
+            tempString.append("\n\nSvømmerens stævneresultater er følgende: " + compTime.toString());
+        }
+        if (trainingTime.isEmpty()) {
+            tempString.append("\n\nSvømmeren har ingen registrerede træningstider");
+        } else {
+            tempString.append("\n\nSvømmerens træningsresultater er følgende: " + trainingTime.toString());
+        }
         return tempString.toString();
 
 
