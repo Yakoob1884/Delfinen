@@ -1,7 +1,5 @@
 package delfin.main;
 
-
-
 import delfin.controller.AppController;
 
 import java.io.IOException;
@@ -25,7 +23,6 @@ public class Main {
             System.err.println("ERROR READING OR WRITING SWIMMERS FROM FILE");
             e.printStackTrace();
         }
-
 
     }
 

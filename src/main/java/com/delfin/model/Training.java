@@ -31,7 +31,7 @@ public class Training implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         long minutes = timeRegister.toMinutes();
         int seconds = timeRegister.toSecondsPart();
         return "\nTræningsresultat:" +
@@ -39,7 +39,6 @@ public class Training implements Serializable {
                 "\nDato: " + date +
                 "\nRegistreret tid: " + minutes + " min " + seconds + " sek\n";
     }
-
 
 
 }

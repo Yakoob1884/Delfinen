@@ -227,12 +227,6 @@ public class AppController {
     }
 
 
-
-
-
-
-
-
     public List<StatisticsDataTransferObject> getTopCompetitionJuniorBreaststroke(int topListLength) {
 
         Function<CompSwimmer, Duration> getFastestCompetitionTimeBreastStroke = CompSwimmer::getFastestCompetitionTimeBreastStroke;
@@ -321,7 +315,7 @@ public class AppController {
 
     }
 
-    public List<StatisticsDataTransferObject> statisticsDtoMaker(Function<CompSwimmer, Duration> getter, Function<CompSwimmer, Training> getTraining, Function<Integer, Boolean> ageGroup, int topListLength)  {
+    public List<StatisticsDataTransferObject> statisticsDtoMaker(Function<CompSwimmer, Duration> getter, Function<CompSwimmer, Training> getTraining, Function<Integer, Boolean> ageGroup, int topListLength) {
 
         List<CompSwimmer> activeCompSwimmers = listOfSwimmers.getListOfAllSwimmers()
                 .stream()
@@ -332,7 +326,6 @@ public class AppController {
                 .sorted(Comparator.comparing(getter))
                 .limit(topListLength)
                 .toList();
-
 
 
         List<StatisticsDataTransferObject> dtoList = new ArrayList<>();
@@ -386,13 +379,12 @@ public class AppController {
     }
 
 
-
-    public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid){
+    public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid) {
         Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines, isActive, isPaid);
         listOfSwimmers.addSwimmer(swimmer);
     }
 
-    public void addNonCompSwimmerToList(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid){
+    public void addNonCompSwimmerToList(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid) {
         Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday, isActive, isPaid);
         listOfSwimmers.addSwimmer(swimmer);
 
@@ -410,7 +402,7 @@ public class AppController {
 
     }
 
-    public List<Swimmer> returnGetSwimmersIsPaidFalseList (){
+    public List<Swimmer> returnGetSwimmersIsPaidFalseList() {
         List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalseList();
 
         Collections.sort(listSwimmersIsPaidFalse);
@@ -419,10 +411,10 @@ public class AppController {
     }
 
     public void swimmerHasPaid() {
-       System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
+        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
         int input = scanner.nextInt();
 
-        Swimmer swimmerById = listOfSwimmers.getSwimmersIsPaidFalseList().get(input-1);
+        Swimmer swimmerById = listOfSwimmers.getSwimmersIsPaidFalseList().get(input - 1);
 
         swimmerById.setIsPaid(true);
 

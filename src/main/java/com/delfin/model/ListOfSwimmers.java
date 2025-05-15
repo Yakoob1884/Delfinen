@@ -1,14 +1,13 @@
 package delfin.model;
 
 //import java.lang.classfile.instruction.NewMultiArrayInstruction;
+
 import delfin.utils.FileObjectOutputInput;
 
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
-
-
 
 
 public class ListOfSwimmers {
@@ -41,7 +40,7 @@ public class ListOfSwimmers {
         this.listOfSwimmers = (ArrayList<Swimmer>) listOfSwimmersFile.readSwimmerListFromFile();
     }
 
-    public void addSwimmer(Swimmer swimmer){
+    public void addSwimmer(Swimmer swimmer) {
         listOfSwimmers.add(swimmer);
     }
 
@@ -437,7 +436,7 @@ public class ListOfSwimmers {
 
 
         //delfin.model.Training senior competition swimmers
-    //gammel   swimmer_dummies_no_quotes
+        //gammel   swimmer_dummies_no_quotes
         //ny    swimmer_dummies_with_enumset
 
         listOfSwimmers.add(new CompSwimmer("Kirsten", "Jensen", LocalDate.of(1992, 12, 10), false, false, new ArrayList<Training>(Arrays.asList(new Training(SwimmingDiscipline.BREASTSTROKE, LocalDate.of(2025, 2, 14), Duration.parse("PT2M7S")), new Training(SwimmingDiscipline.BREASTSTROKE, LocalDate.of(2025, 5, 10), Duration.parse("PT3M32S")))), EnumSet.of(SwimmingDiscipline.BREASTSTROKE)));
@@ -631,9 +630,6 @@ public class ListOfSwimmers {
         listOfSwimmers.add(new CompSwimmer("Hans", "Thomsen", LocalDate.of(1989, 10, 19), false, true, new ArrayList<Competition>(Arrays.asList(new Competition("Bornholm sommerlejr", LocalDate.of(2024, 7, 14), 6, SwimmingDiscipline.FREESTYLE, Duration.parse("PT4M14S")), new Competition("Vintertræf", LocalDate.of(2025, 2, 19), 6, SwimmingDiscipline.BREASTSTROKE, Duration.parse("PT4M44S")))), EnumSet.of(SwimmingDiscipline.BREASTSTROKE, SwimmingDiscipline.BUTTERFLY)));
 
     }
-
-
-
 
 
     public List<Swimmer> getSwimmersAtOrAboveAge(int age) {

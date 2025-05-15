@@ -5,9 +5,7 @@ import java.util.List;
 
 public interface CompetitionSwimmer extends Swimmer {
 
-
     List<Competition> getCompTime();
-
     List<Training> getTrainingTime();
 
     Duration getFastestTrainingTimeFromDiscipline(Enum<SwimmingDiscipline> discipline);

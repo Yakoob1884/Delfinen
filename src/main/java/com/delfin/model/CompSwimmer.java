@@ -9,7 +9,6 @@ import java.util.EnumSet;
 
 
 public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, Serializable {
-    //Attribute
 
     EnumSet<SwimmingDiscipline> discipline;
     ArrayList<Competition> compTime;
@@ -39,7 +38,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         this.compTime = new ArrayList<>();
     }
 
-    public CompSwimmer(NonCompSwimmer swimmer){
+    public CompSwimmer(NonCompSwimmer swimmer) {
         this.firstName = swimmer.getFirstName();
         this.lastName = swimmer.getLastName();
         this.birthday = swimmer.getBirthday();
@@ -64,56 +63,48 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     public Duration getFastestTrainingTimeBreastStroke() {
 
         return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
-
     }
 
     @Override
     public Training getFastestTrainingBreastStroke() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
-
     }
 
     @Override
     public Duration getFastestTrainingTimeBackStroke() {
 
         return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.BACKSTROKE);
-
     }
 
     @Override
     public Training getFastestTrainingBackstroke() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.BACKSTROKE);
-
     }
 
     @Override
     public Duration getFastestTrainingTimeFreestyle() {
 
         return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.FREESTYLE);
-
     }
 
     @Override
     public Training getFastestTrainingFreestyle() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.FREESTYLE);
-
     }
 
     @Override
     public Duration getFastestTrainingTimeButterfly() {
 
         return getFastestTrainingTimeFromDiscipline(SwimmingDiscipline.BUTTERFLY);
-
     }
 
     @Override
     public Training getFastestTrainingButterfly() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.BUTTERFLY);
-
     }
 
 
@@ -148,47 +139,40 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
 
-
     @Override
     public Duration getFastestCompetitionTimeBreastStroke() {
 
         return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
-
     }
 
     @Override
     public Competition getFastestCompetitionBreastStroke() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
-
     }
 
     @Override
     public Duration getFastestCompetitionTimeBackstroke() {
 
         return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.BACKSTROKE);
-
     }
 
     @Override
     public Competition getFastestCompetitionBackstroke() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BACKSTROKE);
-
     }
 
     @Override
     public Duration getFastestCompetitionTimeFreestyle() {
 
         return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.FREESTYLE);
-
     }
 
     @Override
     public Competition getFastestCompetitionFreestyle() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.FREESTYLE);
-
     }
 
 
@@ -196,18 +180,13 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     public Duration getFastestCompetitionTimeButterfly() {
 
         return getFastestCompetitionTimeFromDiscipline(SwimmingDiscipline.BUTTERFLY);
-
     }
 
     @Override
     public Competition getFastestCompetitionButterfly() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BUTTERFLY);
-
     }
-
-
-
 
 
     @Override
@@ -216,7 +195,6 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         Competition tempCompetition = null;
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
-
         for (Competition competition : compTime) {
             if (competition.getDiscipline() == discipline && competition.getTimeRegister().compareTo(tempDuration) < 1) {
                 tempDuration = competition.getTimeRegister();
@@ -224,10 +202,6 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         }
         return tempDuration;
     }
-
-
-
-
 
 
     @Override
@@ -268,12 +242,12 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public void addTrainingTime (Training training) {
+    public void addTrainingTime(Training training) {
         trainingTime.add(training);
     }
 
     @Override
-    public void addCompTime (Competition comp) {
+    public void addCompTime(Competition comp) {
         compTime.add(comp);
     }
 
@@ -298,14 +272,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         return tempString.toString();
 
 
-
     }
 
 
-
-
-
-
-
-
-    }
+}

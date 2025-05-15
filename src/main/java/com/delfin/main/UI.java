@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.Duration;
 
 
-
 public class UI {
 
     private Scanner scanner;
@@ -29,8 +28,7 @@ public class UI {
     }
 
 
-
-    public void menuOptions () throws IOException {
+    public void menuOptions() throws IOException {
 
 //        NonCompSwimmer comp = new NonCompSwimmer("Mette", "Christensen", LocalDate.of(2012, 4, 23), false, true);
 //        System.out.println(comp);
@@ -40,7 +38,7 @@ public class UI {
 
         boolean run = true;
 
-        while(run) {
+        while (run) {
 
 
             System.out.println("Svømmeklubben Delfinen");
@@ -56,7 +54,7 @@ public class UI {
             System.out.println("0. For at afslutte programmet");
 
 
-            int choice = getValidInt(0,8, false);
+            int choice = getValidInt(0, 8, false);
 
             switch (choice) {
 
@@ -100,15 +98,13 @@ public class UI {
         }
 
 
-
-
     }
 
     public void createSwimmer() {
 
         boolean run = true;
 
-        while(run) {
+        while (run) {
             System.out.println("Opret svømmemedlem: ");
             System.out.println("Vil du oprette en motionist eller en konkurrencesvømmer? ");
             System.out.println("1. for motionist");
@@ -156,7 +152,7 @@ public class UI {
                     System.out.println(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     System.out.println("\nTast ID for at se yderligere info på konkonkurrencesvømmer\nEller 0 for tilbage til menu");
 
-                    List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
+                    List<Swimmer> competitionSwimmerList = controller.viewCompetitionSwimmers();
                     System.out.println("Vælg en svømmer du gerne vil se alle informationer for, ved at indtaste deres ID nummer");
                     int temp = getValidInt(0, competitionSwimmerList.size(), false);
                     if (temp == 0) {
@@ -181,7 +177,7 @@ public class UI {
 
         boolean run = true;
 
-        while(run) {
+        while (run) {
             System.out.println("Registrer tider:");
             System.out.println("Vil du registrer tidsresultat for en træning eller en konkurrence?");
             System.out.println("1. for træningsresultat");
@@ -194,7 +190,7 @@ public class UI {
                 case 1:
 
                     System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
-                    List<Swimmer>competitionSwimmerList = controller.viewCompetitionSwimmers();
+                    List<Swimmer> competitionSwimmerList = controller.viewCompetitionSwimmers();
                     try {
                         addTrainingResult((CompSwimmer) competitionSwimmerList.get(getValidInt(1, competitionSwimmerList.size(), false) - 1));
                     } catch (SwimPassiveException e) {
@@ -204,10 +200,10 @@ public class UI {
                     break;
                 case 2:
                     System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
-                    List<Swimmer>competitionSwimmerList2 = controller.viewCompetitionSwimmers();
+                    List<Swimmer> competitionSwimmerList2 = controller.viewCompetitionSwimmers();
                     try {
                         addCompetitionResult((CompSwimmer) competitionSwimmerList2.get(getValidInt(1, competitionSwimmerList2.size(), false) - 1));
-                    } catch (SwimPassiveException e){
+                    } catch (SwimPassiveException e) {
                         System.err.println("Svømmer er \"passiv\". Du kan ikke registrer ny tid.\nPrøv igen.");
                         break;
                     }
@@ -227,7 +223,7 @@ public class UI {
 
         boolean run = true;
 
-        while(run) {
+        while (run) {
             System.out.println("Rediger svømmere:");
             System.out.println("1. Ændre motionssvømmer til konkurrencesvømmer");
             System.out.println("\n0. for at gå tilbage");
@@ -237,11 +233,11 @@ public class UI {
             switch (choice) {
                 case 1:
 
-                    List<Swimmer>competitionSwimmerList = controller.getNonCompSwimmersList();
+                    List<Swimmer> competitionSwimmerList = controller.getNonCompSwimmersList();
 
                     System.out.print(printListNameBirthday(competitionSwimmerList));
 
-                    NonCompSwimmer tempNonCompSwimmer = (NonCompSwimmer) competitionSwimmerList.get((getValidInt(0, competitionSwimmerList.size(), false))-1);
+                    NonCompSwimmer tempNonCompSwimmer = (NonCompSwimmer) competitionSwimmerList.get((getValidInt(0, competitionSwimmerList.size(), false)) - 1);
 
                     System.out.println(tempNonCompSwimmer);
 
@@ -266,15 +262,13 @@ public class UI {
         }
 
 
-
     }
 
     public void subMenuStatistics() {
         boolean run = true;
 
 
-
-        while(run) {
+        while (run) {
             System.out.println("Vis statistik på konkurrencesvømmere:");
             System.out.println("\nJunior:                                               Senior:");
             System.out.println("  Træningstider:                                        Træningstider:");
@@ -389,7 +383,6 @@ public class UI {
                     break;
 
 
-
                 case 0:
                     run = false;
                     break;
@@ -417,8 +410,7 @@ public class UI {
         if (swimmer instanceof CompSwimmer) {
             CompSwimmer compSwimmer = (CompSwimmer) swimmer;
             return compSwimmer.toString();
-        }
-        else {
+        } else {
             StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
             sb.append("Efternavn: ").append(swimmer.getLastName()).append("\n")
                     .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
@@ -427,7 +419,7 @@ public class UI {
         }
     }
 
-    public String printRestanceSwimmers(List<Swimmer> formatList){
+    public String printRestanceSwimmers(List<Swimmer> formatList) {
         StringBuilder sb = new StringBuilder("Svømmere i restance:\n\n");
         for (Swimmer swimmer : formatList) {
             sb.append(String.format("%-20s  %-20s  %20s  %5b ", swimmer.getLastName(), swimmer.getFirstName(), swimmer.getBirthday(), swimmer.getIsPaid()));
@@ -452,7 +444,7 @@ public class UI {
 
     }
 
-    public void createNonCompSwimmer (){
+    public void createNonCompSwimmer() {
 
         System.out.println("Indtast fornavn");
         String firstName = scanner.nextLine();
@@ -470,7 +462,7 @@ public class UI {
 
     }
 
-    public void createCompSwimmer (){
+    public void createCompSwimmer() {
 
         System.out.println("Indtast fornavn");
         String firstName = scanner.nextLine();
@@ -515,7 +507,7 @@ public class UI {
 
 
     public void addTrainingResult(CompSwimmer swimmer) throws SwimPassiveException {
-        if (!swimmer.getIsActive()){
+        if (!swimmer.getIsActive()) {
             throw new SwimPassiveException("Svømmer er \"passiv\". Du kan ikke registrer ny tid.");
         }
 
@@ -563,8 +555,8 @@ public class UI {
 
     }
 
-    public void addCompetitionResult(CompSwimmer swimmer) throws SwimPassiveException{
-        if (!swimmer.getIsActive()){
+    public void addCompetitionResult(CompSwimmer swimmer) throws SwimPassiveException {
+        if (!swimmer.getIsActive()) {
             throw new SwimPassiveException("Svømmer er \"passiv\". Du kan ikke registrer ny tid.");
         }
 
@@ -618,7 +610,6 @@ public class UI {
     }
 
 
-
     //Metoder til validering af input:
 
     //Validerer at input er en int med en min og max range
@@ -631,7 +622,7 @@ public class UI {
         while (true) {
             input = scanner.nextLine();
 
-            if(input.isEmpty()) {
+            if (input.isEmpty()) {
                 if (useEmpty) {
                     return Integer.MIN_VALUE;
                 } else {
@@ -708,7 +699,7 @@ public class UI {
 
                 }
 
-                } else {
+            } else {
                 System.out.println("Efternavn             Fornavn               Fødselsdato      Træningsdato         Disciplin                  Svømmmetid\n");
 
                 for (StatisticsDataTransferObject dto : dtoList) {
@@ -756,7 +747,6 @@ public class UI {
         printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Senior", TOP_LIST_LENGTH));
 
 
-
     }
 
     public String formatDuration(Duration duration) {
@@ -765,13 +755,6 @@ public class UI {
         return String.format("%02d:%02d", duration.toMinutes(), secondsIsolated.toSeconds());
 
     }
-
-
-
-
-
-
-
 
 
     //Validerer input af varighed. 100 meter må ikke vare timer, men max 59 minutter 0g 59 sekunder.
@@ -791,7 +774,7 @@ public class UI {
             //If: tomt input, else if: input ikke matcher regex, else: hvis input matcher spilt det op i minutter og sekunder: :
             if (input.isEmpty()) {
                 System.err.println("Skriv noget");
-            }else if (!input.matches(regex)) {
+            } else if (!input.matches(regex)) {
                 System.err.println("Ugyldigt input! Skriv minutter:sekunder");
             } else {
                 String[] parts = input.split(":");
@@ -807,12 +790,7 @@ public class UI {
         }
 
 
-
-
     }
-
-
-
 
 
 }
