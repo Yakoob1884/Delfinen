@@ -173,8 +173,8 @@ public class UI {
         int id = 1;
         for (Swimmer swimmer : formatList) {
             sb.append("ID ").append(id).append("\n")
-                    .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
                     .append("Efternavn: ").append(swimmer.getLastName()).append("\n")
+                    .append("Fornavn: ").append(swimmer.getFirstName()).append("\n")
                     .append("Fødselsdato: ").append(swimmer.getBirthday()).append("\n \n");
             id++;
         }
