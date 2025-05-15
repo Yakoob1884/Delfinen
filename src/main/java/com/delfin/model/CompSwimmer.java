@@ -41,7 +41,9 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         this.birthday = swimmer.getBirthday();
         this.isActive = swimmer.getIsActive();
         this.isPaid = swimmer.getIsPaid();
-
+        this.discipline.noneOf(SwimmingDiscipline.class);
+        this.compTime = new ArrayList<>();
+        this.trainingTime = new ArrayList<>();
     }
 
     @Override
