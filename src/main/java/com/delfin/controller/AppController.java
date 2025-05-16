@@ -398,7 +398,7 @@ public class AppController {
         listOfSwimmers.addSwimmer(swimmer);
     }
 
-    public void addNonCompSwimmerToList(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid) {
+    public void addNonCompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid) {
         Swimmer swimmer = new NonCompSwimmer(firstName, lastName, birthday, isActive, isPaid);
         listOfSwimmers.addSwimmer(swimmer);
 

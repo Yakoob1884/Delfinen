@@ -99,7 +99,6 @@ public class UI {
             }
         }
 
-
     }
 
     public void createSwimmer() {
@@ -526,7 +525,7 @@ public class UI {
         System.out.println("Indtast fødselsdato som DD-MM-YYYY");
         LocalDate birthday = getValidatedDate(false, 7);
 
-        controller.addNonCompSwimmerToList(firstName, lastName, birthday, true, false);
+        controller.addNonCompSwimmer(firstName, lastName, birthday, true, false);
         System.out.println("Svømmeren er oprettet");
 
     }
