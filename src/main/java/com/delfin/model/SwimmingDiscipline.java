@@ -1,10 +1,10 @@
 package delfin.model;
 
 public enum SwimmingDiscipline {
-    FREESTYLE("Crawl"),
-    BACKSTROKE("Rygsvømning"),
-    BREASTSTROKE("Brystsvømning"),
-    BUTTERFLY("Butterfly");
+    FREESTYLE    ("Crawl"),
+    BACKSTROKE   ("Rygsvømning"),
+    BREASTSTROKE ("Brystsvømning"),
+    BUTTERFLY    ("Butterfly");
 
     private final String swimmingDisciplineDK;
 

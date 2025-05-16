@@ -5,7 +5,7 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
-//package delfin.main;
+
 
 import delfin.controller.AppController;
 import delfin.model.*;
@@ -420,17 +420,16 @@ public class UI {
         StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
         if (!formatList.isEmpty()) {
 
+            sb.append(" ID  Efternavn            Fornavn              Fødselsdato          Status\n");
             int id = 1;
             for (Swimmer swimmer : formatList) {
-                sb.append("ID ").append(id).append(": ")
-                        .append("Efternavn: ").append(swimmer.getLastName()).append(", ")
-                        .append("Fornavn: ").append(swimmer.getFirstName()).append(", ")
-                        .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n \n");
+
+                sb.append(String.format("%3d  %-20s %-20s %-20s %-10s\n", id, swimmer.getLastName(), swimmer.getFirstName(), swimmer.getBirthday().format(dateFormat), (swimmer.getIsActive()) ? "Aktiv" : "Passiv"));
                 id++;
             }
 
         } else {
-            sb.append("Der er ingen svømmere at vise på denne liste'n");
+            sb.append("Der er ingen svømmere at vise på denne liste");
         }
         return sb.toString();
     }
@@ -501,27 +500,14 @@ public class UI {
     }
 
 
-    public void printSwimmerListLastNameFirstName(List<Swimmer> list, String title) {
-        System.out.println("\n" + title + ": ");
 
-        if (list.isEmpty()) {
-            System.out.println("Ingen data at vise");
-        } else {
-            for (delfin.model.Swimmer swimmer : list) {
-                System.out.printf("%-20s %-20s\n", swimmer.getLastName(), swimmer.getFirstName());
-            }
-        }
-        list.forEach(System.out::println);
-
-
-    }
 
     public void createNonCompSwimmer() {
 
         System.out.println("Indtast fornavn (max 15 bogstaver");
         String firstName = getValidString(15, false);
 
-        System.out.println("Indtast efternavn (max 15 bogstaver");
+        System.out.println("Indtast efternavn (max 15 bogstaver)");
         String lastName = getValidString(15, false);
 
         System.out.println("Indtast fødselsdato som DD-MM-YYYY");
@@ -534,10 +520,10 @@ public class UI {
 
     public void createCompSwimmer() {
 
-        System.out.println("Indtast fornavn (max 15 bogstaver");
+        System.out.println("Indtast fornavn (max 15 bogstaver)");
         String firstName = getValidString(15, false);
 
-        System.out.println("Indtast efternavn (max 15 bogstaver");
+        System.out.println("Indtast efternavn (max 15 bogstaver)");
         String lastName = getValidString(15, false);
 
         System.out.println("Indtast fødselsdato som DD-MM-YYYY");
@@ -886,11 +872,7 @@ public class UI {
                 Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
                 return duration;
             }
-
-
         }
-
-
     }
 
     public LocalDate getValidatedDate(boolean acceptFutureDate, int minYearsRange) {
@@ -921,14 +903,7 @@ public class UI {
                 + "Den indtastede dato er kun " + Math.abs(range.getYears()) + " år væk\nPrøv igen\n");
                 continue;
             }
-
             return userDate;
-
         }
-
-
-
     }
-
-
 }

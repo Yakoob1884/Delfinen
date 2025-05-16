@@ -229,25 +229,6 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
 
-    //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten delfin.model.TimingCompetition eller delfin.model.TimingTraining:
-    public boolean hasResult(SwimmingDiscipline discipline) {
-
-
-        for (TimingCompetition timingCompetition : compTime) {
-            if (timingCompetition.getDiscipline().equals(discipline)) {
-                return true;
-            }
-        }
-
-        for (TimingTraining timingTraining : trainingTime) {
-            if (timingTraining.getDiscipline().equals(discipline)) {
-                return true;
-            }
-        }
-
-        return false;
-
-    }
 
     @Override
     public void addTrainingTime(TimingTraining timingTraining) {

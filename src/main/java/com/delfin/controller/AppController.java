@@ -19,12 +19,10 @@ public class AppController {
     private final double EXTRA_DISCOUNT_PERCENTAGE = 0.75;
 
 
-
     ListOfSwimmers listOfSwimmers;
 
     public AppController(String filename) throws IOException, ClassNotFoundException {
         this.listOfSwimmers = new ListOfSwimmers(filename);
-
     }
 
     public List<Swimmer> getNonCompSwimmersList() {
@@ -58,7 +56,6 @@ public class AppController {
         List<Swimmer> listOfAllSwimmers = listOfSwimmers.getListOfAllSwimmers();
         Collections.sort(listOfAllSwimmers);
 
-
         return listOfAllSwimmers;
     }
 
@@ -69,7 +66,6 @@ public class AppController {
         Collections.sort(listSwimmersIsPaidFalse);
 
         return listSwimmersIsPaidFalse;
-
     }
 
     public List<Swimmer> viewCompetitionSwimmers() {
@@ -77,7 +73,6 @@ public class AppController {
         List<Swimmer> compSwimmersList = listOfSwimmers.getCompSwimmersList();
         Collections.sort(compSwimmersList);
         return compSwimmersList;
-
     }
 
     public double calculateFee(Swimmer swimmer) {
@@ -86,49 +81,6 @@ public class AppController {
         if (swimmer.calculateAge() >= EXTRA_DISCOUNT_START_AGE) return SENIOR_PRICE * EXTRA_DISCOUNT_PERCENTAGE;
 
         return SENIOR_PRICE;
-    }
-
-    public void printAllTestToRemoveAgain() {
-        listOfSwimmers.getListOfAllSwimmers().forEach(System.out::println);
-
-    }
-
-    public List<Swimmer> getSwimmersMaxAge(List<Swimmer> startList, int maxAge) {
-        List<Swimmer> filteredList = new ArrayList<>();
-
-        for (Swimmer swimmer : startList) {
-            if (swimmer.calculateAge() <= maxAge) {
-                filteredList.add(swimmer);
-            }
-        }
-
-        return filteredList;
-    }
-
-    public List<Swimmer> getSwimmersMinAge(List<Swimmer> startList, int minAge) {
-        List<Swimmer> filteredList = new ArrayList<>();
-
-        for (Swimmer swimmer : startList) {
-            if (swimmer.calculateAge() >= minAge) {
-                filteredList.add(swimmer);
-            }
-        }
-
-        return filteredList;
-    }
-
-    public List<Swimmer> getSwimmersHavingResults(List<Swimmer> startList, SwimmingDiscipline discipline) {
-        List<Swimmer> filteredList = new ArrayList<>();
-
-        for (Swimmer swimmer : startList) {
-            if (swimmer instanceof CompSwimmer) {
-//                if (((delfin.model.CompSwimmer) swimmer).hasResults(discipline)) {
-//                    startList.add(swimmer);
-//                }
-            }
-        }
-
-        return filteredList;
     }
 
 
@@ -143,12 +95,8 @@ public class AppController {
 
     public void saveListOfSwimmersToFile() throws IOException {
         listOfSwimmers.saveListOfSwimmersToFile();
-
     }
 
-    public Swimmer getSwimmerByIndex(int index) {
-        return listOfSwimmers.getSwimmerByIndex(index);
-    }
 
     public List<StatisticsDataTransferObject> getTopTrainingJuniorBreaststroke(int topListLength) {
 
@@ -157,8 +105,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestTrainingTimeBreastStroke, getFastestTrainingBreastStroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopTrainingJuniorBackstroke(int topListLength) {
@@ -168,8 +114,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestTrainingTimeBackstroke, getFastestTrainingBackstroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopTrainingJuniorFreestyle(int topListLength) {
@@ -179,8 +123,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestTrainingTimeFreestyle, getFastestTrainingFreestyle, ageGroup, topListLength);
-
-
     }
 
 
@@ -191,8 +133,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestTrainingTimeButterfly, getFastestTrainingButterfly, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopTrainingSeniorBreaststroke(int topListLength) {
@@ -202,8 +142,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestTrainingTimeBreastStroke, getFastestTrainingBreastStroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopTrainingSeniorBackstroke(int topListLength) {
@@ -213,8 +151,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestTrainingTimeBackstroke, getFastestTrainingBackstroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopTrainingSeniorFreestyle(int topListLength) {
@@ -224,8 +160,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestTrainingTimeFreestyle, getFastestTrainingFreestyle, ageGroup, topListLength);
-
-
     }
 
 
@@ -236,8 +170,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestTrainingTimeButterfly, getFastestTrainingButterfly, ageGroup, topListLength);
-
-
     }
 
 
@@ -248,8 +180,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeBreastStroke, getFastestCompetitionBreastStroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopCompetitionJuniorBackstroke(int topListLength) {
@@ -259,8 +189,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeBackstroke, getFastestCompetitionBackstroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopCompetitionJuniorFreestyle(int topListLength) {
@@ -270,8 +198,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeFreestyle, getFastestCompetitionFreestyle, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopCompetitionJuniorButterfly(int topListLength) {
@@ -281,8 +207,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isJunior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeButterfly, getFastestCompetitionButterfly, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopCompetitionSeniorBreaststroke(int topListLength) {
@@ -292,8 +216,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeBreastStroke, getFastestCompetitionBreastStroke, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopCompetitionSeniorBackstroke(int topListLength) {
@@ -303,9 +225,8 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeBackstroke, getFastestCompetitionBackstroke, ageGroup, topListLength);
-
-
     }
+
 
     public List<StatisticsDataTransferObject> getTopCompetitionSeniorFreestyle(int topListLength) {
 
@@ -314,8 +235,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeFreestyle, getFastestCompetitionFreestyle, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> getTopCompetitionSeniorButterfly(int topListLength) {
@@ -325,8 +244,6 @@ public class AppController {
         Function<Integer, Boolean> ageGroup = this::isSenior;
 
         return statisticsDtoMaker(getFastestCompetitionTimeButterfly, getFastestCompetitionButterfly, ageGroup, topListLength);
-
-
     }
 
     public List<StatisticsDataTransferObject> statisticsDtoMaker(Function<CompSwimmer, Duration> getter, Function<CompSwimmer, TimingTraining> getTraining, Function<Integer, Boolean> ageGroup, int topListLength) {
@@ -355,7 +272,6 @@ public class AppController {
             if (tempCompSwimmer != null && tempTimingTraining != null) {
                 dtoList.add(new StatisticsDataTransferObject(tempCompSwimmer, tempTimingTraining));
             }
-
         }
         return dtoList;
     }
@@ -369,30 +285,6 @@ public class AppController {
         return (age < SENIOR_START_AGE);
     }
 
-
-    public List<CompSwimmer> extractJuniorCompSwimmers(List<CompSwimmer> compSwimmerList, int ageForSenior) {
-        List<CompSwimmer> juniorCompSwimmers = new ArrayList<>();
-
-        for (CompSwimmer compSwimmer : compSwimmerList) {
-            if (compSwimmer.calculateAge() < ageForSenior) {
-                juniorCompSwimmers.add(compSwimmer);
-            }
-        }
-        return juniorCompSwimmers;
-    }
-
-    public List<CompSwimmer> extractSeniorCompSwimmers(List<CompSwimmer> compSwimmerList, int ageForSenior) {
-        List<CompSwimmer> seniorCompSwimmers = new ArrayList<>();
-
-        for (CompSwimmer compSwimmer : compSwimmerList) {
-            if (compSwimmer.calculateAge() >= ageForSenior) {
-                seniorCompSwimmers.add(compSwimmer);
-            }
-        }
-        return seniorCompSwimmers;
-    }
-
-
     public void addCompSwimmerToList(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid) {
         Swimmer swimmer = new CompSwimmer(firstName, lastName, birthday, disciplines, isActive, isPaid);
         listOfSwimmers.addSwimmer(swimmer);
@@ -403,21 +295,6 @@ public class AppController {
         listOfSwimmers.addSwimmer(swimmer);
 
     }
-
-    //Kommenteret ud fordi at denne method efterhånden er skrevet ind i senere methods
-    //sidste forekomst af Scanner i AppController ellers er al userinput ordnet i UI class
-
-//    public Swimmer getSwimmerById(Scanner scanner) {
-//        System.out.println(listOfSwimmers.getListOfAllSwimmers());
-//
-//        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
-//        int input = scanner.nextInt();
-//
-//        Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
-//
-//        return swimmerById;
-//
-//    }
 
     public List<Swimmer> returnGetSwimmersIsPaidFalseList() {
         List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalseList();
@@ -441,6 +318,5 @@ public class AppController {
             CompSwimmer tempCompSwimmer = (CompSwimmer) swimmer;
             tempCompSwimmer.setDiscipline(enums);
         }
-
     }
 }

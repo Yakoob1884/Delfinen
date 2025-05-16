@@ -1,10 +1,7 @@
 package delfin.main;
 
 import delfin.controller.AppController;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.Scanner;
 
 

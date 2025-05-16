@@ -19,7 +19,7 @@ public interface CompetitionSwimmer extends Swimmer {
     void setDiscipline(EnumSet<SwimmingDiscipline> enums);
 
 
-    boolean hasResult(SwimmingDiscipline discipline);
+
 
     Duration getFastestTrainingTimeBreastStroke();
     Duration getFastestTrainingTimeBackStroke();
