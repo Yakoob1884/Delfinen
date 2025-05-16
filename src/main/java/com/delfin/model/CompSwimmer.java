@@ -16,27 +16,27 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
     private EnumSet<SwimmingDiscipline> discipline;
     private ArrayList<TimingCompetition> compTime;
-    private ArrayList<TimingTraining> timingTrainingTime;
+    private ArrayList<TimingTraining> trainingTime;
 
 
-    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, List<TimingTraining> timingTrainingTime, EnumSet<SwimmingDiscipline> enums) {
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, List<TimingTraining> trainingTime, EnumSet<SwimmingDiscipline> enums) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = enums;
         this.compTime = new ArrayList<>();
-        this.timingTrainingTime = new ArrayList<>(timingTrainingTime);
+        this.trainingTime = new ArrayList<>(trainingTime);
     }
 
     public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<TimingCompetition> compTime, EnumSet<SwimmingDiscipline> enums) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = enums;
         this.compTime = new ArrayList<>(compTime);
-        this.timingTrainingTime = new ArrayList<>();
+        this.trainingTime = new ArrayList<>();
     }
 
     public CompSwimmer(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = disciplines;
-        this.timingTrainingTime = new ArrayList<>();
+        this.trainingTime = new ArrayList<>();
         this.compTime = new ArrayList<>();
     }
 
@@ -44,7 +44,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         super(swimmer.getFirstName(), swimmer.getLastName(), swimmer.getBirthday(), swimmer.getIsActive(), swimmer.getIsPaid());
         this.discipline = EnumSet.noneOf(SwimmingDiscipline.class);
         this.compTime = new ArrayList<>();
-        this.timingTrainingTime = new ArrayList<>();
+        this.trainingTime = new ArrayList<>();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
     @Override
     public List<TimingTraining> getTrainingTime() {
-        return this.timingTrainingTime;
+        return this.trainingTime;
     }
 
     @Override
@@ -120,7 +120,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
-        for (TimingTraining timingTraining : timingTrainingTime) {
+        for (TimingTraining timingTraining : trainingTime) {
             if (timingTraining.getDiscipline() == discipline && timingTraining.getTimeRegister().compareTo(tempDuration) < 1) {
                 tempDuration = timingTraining.getTimeRegister();
             }
@@ -137,7 +137,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
 
-        for (TimingTraining timingTraining : timingTrainingTime) {
+        for (TimingTraining timingTraining : trainingTime) {
             if (timingTraining.getDiscipline() == discipline && timingTraining.getTimeRegister().compareTo(tempDuration) < 1) {
                 tempDuration = timingTraining.getTimeRegister();
                 tempTimingTraining = timingTraining;
@@ -239,7 +239,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
             }
         }
 
-        for (TimingTraining timingTraining : timingTrainingTime) {
+        for (TimingTraining timingTraining : trainingTime) {
             if (timingTraining.getDiscipline().equals(discipline)) {
                 return true;
             }
@@ -251,7 +251,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
     @Override
     public void addTrainingTime(TimingTraining timingTraining) {
-        timingTrainingTime.add(timingTraining);
+        trainingTime.add(timingTraining);
     }
 
     @Override
@@ -271,11 +271,11 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
             compTime.sort(Comparator.comparing(TimingTraining::getDate));
             tempString.append("\n\nSvømmerens stævneresultater er følgende: " + compTime.toString());
         }
-        if (timingTrainingTime.isEmpty()) {
+        if (trainingTime.isEmpty()) {
             tempString.append("\n\nSvømmeren har ingen registrerede træningstider\n");
         } else {
-            timingTrainingTime.sort(Comparator.comparing(TimingTraining::getDate));
-            tempString.append("\nSvømmerens træningsresultater er følgende: " + timingTrainingTime.toString() + "\n");
+            trainingTime.sort(Comparator.comparing(TimingTraining::getDate));
+            tempString.append("\nSvømmerens træningsresultater er følgende: " + trainingTime.toString() + "\n");
         }
         return tempString.toString();
 

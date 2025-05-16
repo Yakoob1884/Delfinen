@@ -451,8 +451,10 @@ public class UI {
 
 
             List<TimingTraining> timingTrainingList = compSwimmer.getTrainingTime();
-            timingTrainingList.sort(Comparator.comparing(TimingTraining::getDate).reversed());
 
+            if(!timingTrainingList.isEmpty()) {
+                timingTrainingList.sort(Comparator.comparing(TimingTraining::getDate).reversed());
+            }
             if (!timingTrainingList.isEmpty()) {
                 sb.append("\nTræningsdato         Disciplin          Svømmmetid\n");
 
