@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Training implements Serializable {
+public class TimingTraining implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1505202503;
@@ -14,7 +14,7 @@ public class Training implements Serializable {
     private LocalDate date;
     private Duration timeRegister;
 
-    public Training(SwimmingDiscipline discipline, LocalDate date, Duration timeRegister) {
+    public TimingTraining(SwimmingDiscipline discipline, LocalDate date, Duration timeRegister) {
 
         this.discipline = discipline;
         this.date = date;

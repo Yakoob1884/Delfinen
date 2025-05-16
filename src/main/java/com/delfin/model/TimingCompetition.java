@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class Competition extends Training implements Serializable {
+public class TimingCompetition extends TimingTraining implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1505202504;
@@ -13,7 +13,7 @@ public class Competition extends Training implements Serializable {
     private String competitionName;
     private int ranking;
 
-    public Competition(String competitionTitel, LocalDate date, int ranking, SwimmingDiscipline discipline, Duration timeRegister){
+    public TimingCompetition(String competitionTitel, LocalDate date, int ranking, SwimmingDiscipline discipline, Duration timeRegister){
 
         super(discipline, date, timeRegister);
         this.competitionName = competitionTitel;

@@ -1,7 +1,6 @@
 package delfin.main;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -208,6 +207,9 @@ public class UI {
 
                     System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer> competitionSwimmerList = controller.viewCompetitionSwimmers();
+
+                    System.out.println("Vælg ID på svømmeren som skal have tilføjet resultat");
+
                     try {
                         addTrainingResult((CompSwimmer) competitionSwimmerList.get(getValidInt(1, competitionSwimmerList.size(), false) - 1));
                     } catch (SwimPassiveException e) {
@@ -218,6 +220,8 @@ public class UI {
                 case 2:
                     System.out.print(printListNameBirthday(controller.viewCompetitionSwimmers()));
                     List<Swimmer> competitionSwimmerList2 = controller.viewCompetitionSwimmers();
+
+                    System.out.println("Vælg ID på svømmeren som skal have tilføjet resultat");
                     try {
                         addCompetitionResult((CompSwimmer) competitionSwimmerList2.get(getValidInt(1, competitionSwimmerList2.size(), false) - 1));
                     } catch (SwimPassiveException e) {
@@ -447,27 +451,27 @@ public class UI {
             sb.append("\n");
 
 
-            List<Training> trainingList = compSwimmer.getTrainingTime();
-            trainingList.sort(Comparator.comparing(Training::getDate).reversed());
+            List<TimingTraining> timingTrainingList = compSwimmer.getTrainingTime();
+            timingTrainingList.sort(Comparator.comparing(TimingTraining::getDate).reversed());
 
-            if (!trainingList.isEmpty()) {
+            if (!timingTrainingList.isEmpty()) {
                 sb.append("\nTræningsdato         Disciplin          Svømmmetid\n");
 
-                for (Training training : trainingList) {
-                    sb.append(printTimingObjects(training));
+                for (TimingTraining timingTraining : timingTrainingList) {
+                    sb.append(printTimingObjects(timingTraining));
                 }
 
             } else {
                 sb.append("\nSvømmeren har ingen registrerede træningstider\n");
             }
 
-            List<Competition> compList = compSwimmer.getCompTime();
-            compList.sort(Comparator.comparing(Competition::getDate).reversed());
+            List<TimingCompetition> compList = compSwimmer.getCompTime();
+            compList.sort(Comparator.comparing(TimingCompetition::getDate).reversed());
             if (!compList.isEmpty()) {
                 sb.append("\nStævnedato           Disciplin          Svømmmetid     Placering      Stævne                                            \n");
 
-                for (Competition competition : compList) {
-                    sb.append(printTimingObjects(competition));
+                for (TimingCompetition timingCompetition : compList) {
+                    sb.append(printTimingObjects(timingCompetition));
                 }
             } else {
                 sb.append("\nSvømmeren har ingen registrerede konkurrencetider\n");
@@ -611,10 +615,10 @@ public class UI {
         System.out.println("Hvad er træningstiden? \n Indtast som format 00:00");
         Duration duration = getValidDuration();
 
-        Training training = new Training(discipline, date, duration);
+        TimingTraining timingTraining = new TimingTraining(discipline, date, duration);
 
         if (swimmer != null) {
-            swimmer.addTrainingTime(training);
+            swimmer.addTrainingTime(timingTraining);
             System.out.println("Træningsresultat tilføjet til " + swimmer.getFirstName());
         }
 
@@ -661,7 +665,7 @@ public class UI {
 
         Duration duration = getValidDuration();
 
-        Competition comp = new Competition(competitionName, date, ranking, discipline, duration);
+        TimingCompetition comp = new TimingCompetition(competitionName, date, ranking, discipline, duration);
 
         if (swimmer != null) {
             swimmer.addCompTime(comp);
@@ -755,24 +759,24 @@ public class UI {
         if (!dtoList.isEmpty()) {
             System.out.println(title.replace("[]", Integer.toString(dtoList.size())));
 
-            if (dtoList.getFirst().getRelevantTimingSession() instanceof Competition) {
-                System.out.println("Efternavn          Fornavn          Fødselsdato      Stævnedato      Stævne                         Disciplin          Placering         Svømmmetid\n");
+            if (dtoList.getFirst().getRelevantTimingSession() instanceof TimingCompetition) {
+                System.out.println("Efternavn          Fornavn          Fødselsdato      Stævnedato      Stævne                         Disciplin       Placering      Svømmmetid\n");
                 for (StatisticsDataTransferObject dto : dtoList) {
-                    Competition tempCompetition = (Competition) dto.getRelevantTimingSession();
-                    System.out.printf("%-17s  %-15s  %-15s  %-15s %-30s %-17s %2d. %20s\n"
+                    TimingCompetition tempTimingCompetition = (TimingCompetition) dto.getRelevantTimingSession();
+                    System.out.printf("%-17s  %-15s  %-15s  %-15s %-30s %-21s %2d. %15s\n"
                             , dto.getSwimmer().getLastName()
                             , dto.getSwimmer().getFirstName()
                             , dto.getSwimmer().getBirthday().format(dateFormat)
                             , dto.getRelevantTimingSession().getDate().format(dateFormat)
-                            , tempCompetition.getCompetitionName()
+                            , tempTimingCompetition.getCompetitionName()
                             , dto.getRelevantTimingSession().getDiscipline().toString()
-                            , tempCompetition.getRanking()
+                            , tempTimingCompetition.getRanking()
                             , formatDuration(dto.getRelevantTimingSession().getTimeRegister()));
 
                 }
 
             } else {
-                System.out.println("Efternavn             Fornavn               Fødselsdato      Træningsdato         Disciplin                  Svømmmetid\n");
+                System.out.println("Efternavn             Fornavn               Fødselsdato      Træningsdato         Disciplin             Svømmmetid\n");
 
                 for (StatisticsDataTransferObject dto : dtoList) {
                     System.out.printf("%-20s  %-20s  %-15s  %-20s %-15s  %15s\n"
@@ -792,19 +796,19 @@ public class UI {
         }
     }
 
-    public String printTimingObjects(Training timingObject) {
+    public String printTimingObjects(TimingTraining timingObject) {
 
         StringBuilder tempString = new StringBuilder();
-        if (timingObject instanceof Competition) {
+        if (timingObject instanceof TimingCompetition) {
 
-            Competition tempCompetition = (Competition) timingObject;
+            TimingCompetition tempTimingCompetition = (TimingCompetition) timingObject;
 
             tempString.append(String.format("%-20s %-22s  %5s %12d.      %-26s\n"
-                    , tempCompetition.getDate().format(dateFormat)
-                    , tempCompetition.getDiscipline().toString()
-                    , formatDuration(tempCompetition.getTimeRegister())
-                    , tempCompetition.getRanking()
-                    , tempCompetition.getCompetitionName()));
+                    , tempTimingCompetition.getDate().format(dateFormat)
+                    , tempTimingCompetition.getDiscipline().toString()
+                    , formatDuration(tempTimingCompetition.getTimeRegister())
+                    , tempTimingCompetition.getRanking()
+                    , tempTimingCompetition.getCompetitionName()));
         } else {
             tempString.append(String.format("%-20s %-22s  %5s\n"
                     , timingObject.getDate().format(dateFormat)

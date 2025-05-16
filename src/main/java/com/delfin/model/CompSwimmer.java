@@ -15,28 +15,28 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     private static final long serialVersionUID = 1505202502;
 
     private EnumSet<SwimmingDiscipline> discipline;
-    private ArrayList<Competition> compTime;
-    private ArrayList<Training> trainingTime;
+    private ArrayList<TimingCompetition> compTime;
+    private ArrayList<TimingTraining> timingTrainingTime;
 
 
-    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, List<Training> trainingTime, EnumSet<SwimmingDiscipline> enums) {
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, List<TimingTraining> timingTrainingTime, EnumSet<SwimmingDiscipline> enums) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = enums;
         this.compTime = new ArrayList<>();
-        this.trainingTime = new ArrayList<>(trainingTime);
+        this.timingTrainingTime = new ArrayList<>(timingTrainingTime);
     }
 
-    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<Competition> compTime, EnumSet<SwimmingDiscipline> enums) {
+    public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, ArrayList<TimingCompetition> compTime, EnumSet<SwimmingDiscipline> enums) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = enums;
         this.compTime = new ArrayList<>(compTime);
-        this.trainingTime = new ArrayList<>();
+        this.timingTrainingTime = new ArrayList<>();
     }
 
     public CompSwimmer(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid) {
         super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = disciplines;
-        this.trainingTime = new ArrayList<>();
+        this.timingTrainingTime = new ArrayList<>();
         this.compTime = new ArrayList<>();
     }
 
@@ -44,7 +44,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         super(swimmer.getFirstName(), swimmer.getLastName(), swimmer.getBirthday(), swimmer.getIsActive(), swimmer.getIsPaid());
         this.discipline = EnumSet.noneOf(SwimmingDiscipline.class);
         this.compTime = new ArrayList<>();
-        this.trainingTime = new ArrayList<>();
+        this.timingTrainingTime = new ArrayList<>();
     }
 
     @Override
@@ -53,12 +53,12 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public List<Training> getTrainingTime() {
-        return this.trainingTime;
+    public List<TimingTraining> getTrainingTime() {
+        return this.timingTrainingTime;
     }
 
     @Override
-    public List<Competition> getCompTime() {
+    public List<TimingCompetition> getCompTime() {
         return this.compTime;
     }
 
@@ -74,7 +74,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Training getFastestTrainingBreastStroke() {
+    public TimingTraining getFastestTrainingBreastStroke() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
     }
@@ -86,7 +86,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Training getFastestTrainingBackstroke() {
+    public TimingTraining getFastestTrainingBackstroke() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.BACKSTROKE);
     }
@@ -98,7 +98,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Training getFastestTrainingFreestyle() {
+    public TimingTraining getFastestTrainingFreestyle() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.FREESTYLE);
     }
@@ -110,7 +110,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Training getFastestTrainingButterfly() {
+    public TimingTraining getFastestTrainingButterfly() {
 
         return getFastestTrainingFromDiscipline(SwimmingDiscipline.BUTTERFLY);
     }
@@ -120,9 +120,9 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
-        for (Training training : trainingTime) {
-            if (training.getDiscipline() == discipline && training.getTimeRegister().compareTo(tempDuration) < 1) {
-                tempDuration = training.getTimeRegister();
+        for (TimingTraining timingTraining : timingTrainingTime) {
+            if (timingTraining.getDiscipline() == discipline && timingTraining.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = timingTraining.getTimeRegister();
             }
         }
 
@@ -131,19 +131,19 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
 
     @Override
-    public Training getFastestTrainingFromDiscipline(Enum<SwimmingDiscipline> discipline) {
+    public TimingTraining getFastestTrainingFromDiscipline(Enum<SwimmingDiscipline> discipline) {
 
-        Training tempTraining = null;
+        TimingTraining tempTimingTraining = null;
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
 
-        for (Training training : trainingTime) {
-            if (training.getDiscipline() == discipline && training.getTimeRegister().compareTo(tempDuration) < 1) {
-                tempDuration = training.getTimeRegister();
-                tempTraining = training;
+        for (TimingTraining timingTraining : timingTrainingTime) {
+            if (timingTraining.getDiscipline() == discipline && timingTraining.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = timingTraining.getTimeRegister();
+                tempTimingTraining = timingTraining;
             }
         }
-        return tempTraining;
+        return tempTimingTraining;
     }
 
 
@@ -154,7 +154,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Competition getFastestCompetitionBreastStroke() {
+    public TimingCompetition getFastestCompetitionBreastStroke() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BREASTSTROKE);
     }
@@ -166,7 +166,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Competition getFastestCompetitionBackstroke() {
+    public TimingCompetition getFastestCompetitionBackstroke() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BACKSTROKE);
     }
@@ -178,7 +178,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Competition getFastestCompetitionFreestyle() {
+    public TimingCompetition getFastestCompetitionFreestyle() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.FREESTYLE);
     }
@@ -191,7 +191,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public Competition getFastestCompetitionButterfly() {
+    public TimingCompetition getFastestCompetitionButterfly() {
 
         return getFastestCompetitionFromDiscipline(SwimmingDiscipline.BUTTERFLY);
     }
@@ -200,12 +200,12 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     @Override
     public Duration getFastestCompetitionTimeFromDiscipline(Enum<SwimmingDiscipline> discipline) {
 
-        Competition tempCompetition = null;
+        TimingCompetition tempTimingCompetition = null;
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
-        for (Competition competition : compTime) {
-            if (competition.getDiscipline() == discipline && competition.getTimeRegister().compareTo(tempDuration) < 1) {
-                tempDuration = competition.getTimeRegister();
+        for (TimingCompetition timingCompetition : compTime) {
+            if (timingCompetition.getDiscipline() == discipline && timingCompetition.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = timingCompetition.getTimeRegister();
             }
         }
         return tempDuration;
@@ -213,34 +213,34 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
 
 
     @Override
-    public Competition getFastestCompetitionFromDiscipline(Enum<SwimmingDiscipline> discipline) {
+    public TimingCompetition getFastestCompetitionFromDiscipline(Enum<SwimmingDiscipline> discipline) {
 
-        Competition tempCompetition = null;
+        TimingCompetition tempTimingCompetition = null;
         Duration tempDuration = Duration.ofSeconds(Long.MAX_VALUE);
 
 
-        for (Competition competition : compTime) {
-            if (competition.getDiscipline() == discipline && competition.getTimeRegister().compareTo(tempDuration) < 1) {
-                tempDuration = competition.getTimeRegister();
-                tempCompetition = competition;
+        for (TimingCompetition timingCompetition : compTime) {
+            if (timingCompetition.getDiscipline() == discipline && timingCompetition.getTimeRegister().compareTo(tempDuration) < 1) {
+                tempDuration = timingCompetition.getTimeRegister();
+                tempTimingCompetition = timingCompetition;
             }
         }
-        return tempCompetition;
+        return tempTimingCompetition;
     }
 
 
-    //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten delfin.model.Competition eller delfin.model.Training:
+    //Metode der returnerer true hvis en swimmer er registreret med disciplin i enten delfin.model.TimingCompetition eller delfin.model.TimingTraining:
     public boolean hasResult(SwimmingDiscipline discipline) {
 
 
-        for (Competition competition : compTime) {
-            if (competition.getDiscipline().equals(discipline)) {
+        for (TimingCompetition timingCompetition : compTime) {
+            if (timingCompetition.getDiscipline().equals(discipline)) {
                 return true;
             }
         }
 
-        for (Training training : trainingTime) {
-            if (training.getDiscipline().equals(discipline)) {
+        for (TimingTraining timingTraining : timingTrainingTime) {
+            if (timingTraining.getDiscipline().equals(discipline)) {
                 return true;
             }
         }
@@ -250,12 +250,12 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     @Override
-    public void addTrainingTime(Training training) {
-        trainingTime.add(training);
+    public void addTrainingTime(TimingTraining timingTraining) {
+        timingTrainingTime.add(timingTraining);
     }
 
     @Override
-    public void addCompTime(Competition comp) {
+    public void addCompTime(TimingCompetition comp) {
         compTime.add(comp);
     }
 
@@ -268,14 +268,14 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
         if (compTime.isEmpty()) {
             tempString.append("\n\nSvømmeren har ingen registrerede konkurrencetider\n");
         } else {
-            compTime.sort(Comparator.comparing(Training::getDate));
+            compTime.sort(Comparator.comparing(TimingTraining::getDate));
             tempString.append("\n\nSvømmerens stævneresultater er følgende: " + compTime.toString());
         }
-        if (trainingTime.isEmpty()) {
+        if (timingTrainingTime.isEmpty()) {
             tempString.append("\n\nSvømmeren har ingen registrerede træningstider\n");
         } else {
-            trainingTime.sort(Comparator.comparing(Training::getDate));
-            tempString.append("\nSvømmerens træningsresultater er følgende: " + trainingTime.toString() + "\n");
+            timingTrainingTime.sort(Comparator.comparing(TimingTraining::getDate));
+            tempString.append("\nSvømmerens træningsresultater er følgende: " + timingTrainingTime.toString() + "\n");
         }
         return tempString.toString();
 

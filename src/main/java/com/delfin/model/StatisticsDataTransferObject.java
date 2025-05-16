@@ -4,9 +4,9 @@ package delfin.model;
 public class StatisticsDataTransferObject {
 
     private Swimmer compSwimmer;
-    private Training relevantTimingSession;
+    private TimingTraining relevantTimingSession;
 
-    public StatisticsDataTransferObject(CompSwimmer compSwimmer, Training timingSession) {
+    public StatisticsDataTransferObject(CompSwimmer compSwimmer, TimingTraining timingSession) {
 
         this.compSwimmer = compSwimmer;
         this.relevantTimingSession = timingSession;
@@ -16,7 +16,7 @@ public class StatisticsDataTransferObject {
         return this.compSwimmer;
     }
 
-    public Training getRelevantTimingSession() {
+    public TimingTraining getRelevantTimingSession() {
         return this.relevantTimingSession;
     }
 

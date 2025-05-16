@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface CompetitionSwimmer extends Swimmer {
 
-    List<Competition> getCompTime();
-    List<Training> getTrainingTime();
+    List<TimingCompetition> getCompTime();
+    List<TimingTraining> getTrainingTime();
 
     Duration getFastestTrainingTimeFromDiscipline(Enum<SwimmingDiscipline> discipline);
-    Training getFastestTrainingFromDiscipline(Enum<SwimmingDiscipline> discipline);
+    TimingTraining getFastestTrainingFromDiscipline(Enum<SwimmingDiscipline> discipline);
 
     Duration getFastestCompetitionTimeFromDiscipline(Enum<SwimmingDiscipline> discipline);
-    Competition getFastestCompetitionFromDiscipline(Enum<SwimmingDiscipline> discipline);
+    TimingCompetition getFastestCompetitionFromDiscipline(Enum<SwimmingDiscipline> discipline);
 
     EnumSet<SwimmingDiscipline> getDiscipline();
     void setDiscipline(EnumSet<SwimmingDiscipline> enums);
@@ -26,20 +26,20 @@ public interface CompetitionSwimmer extends Swimmer {
     Duration getFastestTrainingTimeFreestyle();
     Duration getFastestTrainingTimeButterfly();
 
-    Training getFastestTrainingBreastStroke();
-    Training getFastestTrainingBackstroke();
-    Training getFastestTrainingFreestyle();
-    Training getFastestTrainingButterfly();
+    TimingTraining getFastestTrainingBreastStroke();
+    TimingTraining getFastestTrainingBackstroke();
+    TimingTraining getFastestTrainingFreestyle();
+    TimingTraining getFastestTrainingButterfly();
 
     Duration getFastestCompetitionTimeBreastStroke();
     Duration getFastestCompetitionTimeBackstroke();
     Duration getFastestCompetitionTimeFreestyle();
     Duration getFastestCompetitionTimeButterfly();
 
-    Competition getFastestCompetitionBreastStroke();
-    Competition getFastestCompetitionBackstroke();
-    Competition getFastestCompetitionFreestyle();
-    Competition getFastestCompetitionButterfly();
+    TimingCompetition getFastestCompetitionBreastStroke();
+    TimingCompetition getFastestCompetitionBackstroke();
+    TimingCompetition getFastestCompetitionFreestyle();
+    TimingCompetition getFastestCompetitionButterfly();
 
 
 
@@ -47,9 +47,9 @@ public interface CompetitionSwimmer extends Swimmer {
 
 
 
-    void addTrainingTime(Training training);
+    void addTrainingTime(TimingTraining timingTraining);
 
-    void addCompTime(Competition comp);
+    void addCompTime(TimingCompetition comp);
 
 
 
