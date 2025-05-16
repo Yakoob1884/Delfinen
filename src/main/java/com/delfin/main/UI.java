@@ -1,7 +1,10 @@
 package delfin.main;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 //package delfin.main;
 
@@ -17,7 +20,7 @@ public class UI {
 
     private Scanner scanner;
     private AppController controller;
-    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private final int TOP_LIST_LENGTH = 5;
 
 
@@ -29,12 +32,6 @@ public class UI {
 
 
     public void menuOptions() throws IOException {
-
-//        NonCompSwimmer comp = new NonCompSwimmer("Mette", "Christensen", LocalDate.of(2012, 4, 23), false, true);
-//        System.out.println(comp);
-//        System.out.println(comp.getClass().getSimpleName());
-//        System.out.println(new Comp);
-
 
         boolean run = true;
 
@@ -77,8 +74,14 @@ public class UI {
                     System.out.println(printRestanceSwimmers(controller.viewRestanceSwimmers()));
                     break;
                 case 7:
-                    System.out.println(printListNameBirthday(controller.returnGetSwimmersIsPaidFalseList()));
-                    controller.swimmerHasPaid();
+                    List<Swimmer> swimmersIsPaidFalseList = controller.returnGetSwimmersIsPaidFalseList();
+                    System.out.println(printListNameBirthday(swimmersIsPaidFalseList));
+                    System.out.println("Vælg et medlem ud fra det givne ID nummer. Tast 0 for at gå tilbage.");
+                    int userInput = getValidInt(0, swimmersIsPaidFalseList.size(), false);
+
+                    if (userInput != 0) {
+                        controller.swimmerHasPaid(userInput);
+                    }
                     break;
                 case 8:
                     System.out.println("Årets forventede totale omsætning er: ");
@@ -87,11 +90,11 @@ public class UI {
                 case 0:
                     controller.saveListOfSwimmersToFile();
 
-                    System.out.println("Programmet afslutter...");
+                    System.out.println("Programmet afslutter og gemmer data...");
                     run = false;
                     break;
                 default:
-                    System.out.println("Fejl. Tast 1-8");
+                    System.out.println("Fejl. Tast 0-8");
 
 
             }
@@ -124,7 +127,7 @@ public class UI {
                     run = false;
                     break;
                 default:
-                    System.out.println("Fejl. Tast 1-2.");
+                    System.out.println("Fejl. Tast 0-2");
 
 
             }
@@ -140,9 +143,12 @@ public class UI {
             System.out.println("Vil se alle svømmere eller kun konkurrencesvømmere? ");
             System.out.println("1. for alle");
             System.out.println("2. for konkurrencesvømmere");
+            System.out.println("3. for motionssvømmere");
+            System.out.println("4. for alle passive medlemmer");
+            System.out.println("5. for alle aktive medlemmer");
             System.out.println("0. for at gå tilbage");
 
-            int choice = getValidInt(0, 2, false);
+            int choice = getValidInt(0, 5, false);
 
             switch (choice) {
                 case 1:
@@ -150,10 +156,9 @@ public class UI {
                     break;
                 case 2:
                     System.out.println(printListNameBirthday(controller.viewCompetitionSwimmers()));
-                    System.out.println("\nTast ID for at se yderligere info på konkonkurrencesvømmer\nEller 0 for tilbage til menu");
 
                     List<Swimmer> competitionSwimmerList = controller.viewCompetitionSwimmers();
-                    System.out.println("Vælg en svømmer du gerne vil se alle informationer for, ved at indtaste deres ID nummer");
+                    System.out.println("Vælg en svømmer du gerne vil se alle informationer for, ved at indtaste deres ID nummer\nEller 0 for tilbage til menu");
                     int temp = getValidInt(0, competitionSwimmerList.size(), false);
                     if (temp == 0) {
                         break;
@@ -162,11 +167,23 @@ public class UI {
 
                     }
                     break;
+                case 3:
+                    System.out.println(printListNameBirthday(controller.getNonCompSwimmersList()));
+
+                    break;
+                case 4:
+                    System.out.println(printListNameBirthday(controller.getPassiveSwimmersList()));
+                    break;
+                case 5:
+                    System.out.println(printListNameBirthday(controller.getActiveSwimmersList()));
+                    break;
+
+
                 case 0:
                     run = false;
                     break;
                 default:
-                    System.out.println("Fejl. Tast 1-2.");
+                    System.out.println("Fejl. Tast 1-5.");
 
 
             }
@@ -194,7 +211,7 @@ public class UI {
                     try {
                         addTrainingResult((CompSwimmer) competitionSwimmerList.get(getValidInt(1, competitionSwimmerList.size(), false) - 1));
                     } catch (SwimPassiveException e) {
-                        System.err.println("Svømmer er \"passiv\". Du kan ikke registrer ny tid.\nPrøv igen.");
+                        System.err.println("Svømmer er \"passiv\". Du kan ikke registrere ny tid.\nPrøv igen.");
                         break;
                     }
                     break;
@@ -233,21 +250,24 @@ public class UI {
             switch (choice) {
                 case 1:
 
-                    List<Swimmer> competitionSwimmerList = controller.getNonCompSwimmersList();
+                    List<Swimmer> nonCompetitionSwimmerList = controller.getNonCompSwimmersList();
 
-                    System.out.print(printListNameBirthday(competitionSwimmerList));
+                    System.out.print(printListNameBirthday(nonCompetitionSwimmerList));
 
-                    NonCompSwimmer tempNonCompSwimmer = (NonCompSwimmer) competitionSwimmerList.get((getValidInt(0, competitionSwimmerList.size(), false)) - 1);
+                    System.out.println("\nTast et ID for at ændre motionisten til konkurrencesvømmer. 0 for exit");
+                    int indexFromOne = getValidInt(0, nonCompetitionSwimmerList.size(), false);
 
-                    System.out.println(tempNonCompSwimmer);
+                    if (indexFromOne != 0) {
 
-                    CompSwimmer compSwimmerConverted = new CompSwimmer(tempNonCompSwimmer);
+                        NonCompSwimmer tempNonCompSwimmer = (NonCompSwimmer) nonCompetitionSwimmerList.get(indexFromOne - 1);
 
-                    System.out.println(compSwimmerConverted);
+                        CompSwimmer compSwimmerConverted = new CompSwimmer(tempNonCompSwimmer);
 
-                    controller.removeSwimmer(tempNonCompSwimmer);
-                    controller.addSwimmer(compSwimmerConverted);
+                        controller.addSwimmingDisciplinesToSwimmer(compSwimmerConverted, getSwimmingDisciplineFromUser());
 
+                        controller.removeSwimmer(tempNonCompSwimmer);
+                        controller.addSwimmer(compSwimmerConverted);
+                    }
 
                     break;
 
@@ -290,91 +310,91 @@ public class UI {
 
             switch (choice) {
                 case 1:
-                    printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), "Top [] Træningstider i Brystsvømning for Junior");
 
                     break;
                 case 2:
-                    printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), "Top [] Træningstider i Rygcrawl for Junior");
 
                     break;
                 case 3:
-                    printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), "Top [] Træningstider i Crawl for Junior");
 
                     break;
                 case 4:
-                    printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), "Top [] Træningstider i Butterfly for Junior");
 
                     break;
                 case 5:
-                    printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Brystsvømning for Junior");
 
                     break;
                 case 6:
-                    printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Rygcrawl for Junior");
 
                     break;
                 case 7:
-                    printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), "Top [] Stævnetider i Crawl for Junior");
 
                     break;
                 case 8:
-                    printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), "Top [] Stævnetider i Butterfly for Junior");
 
                     break;
                 case 9:
-                    printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), "Top [] Træningstider i Brystsvømning for Senior");
 
                     break;
                 case 10:
-                    printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), "Top [] Træningstider i Rygcrawl for Senior");
 
                     break;
                 case 11:
-                    printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), "Top [] Træningstider i Crawl for Senior");
 
                     break;
                 case 12:
-                    printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), "Top [] Træningstider i Butterfly for Senior");
 
                     break;
                 case 13:
-                    printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Brystsvømning for Senior");
 
                     break;
                 case 14:
-                    printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Rygcrawl for Senior");
 
                     break;
                 case 15:
-                    printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), "Top [] Stævnetider i Crawl for Senior");
 
                     break;
                 case 16:
-                    printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), "Top [] Stævnetider i Butterfly for Senior");
 
                     break;
                 case 17:
-                    printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Junior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Junior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Junior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingJuniorBreaststroke(TOP_LIST_LENGTH), "Top [] Træningstider i Brystsvømning for Junior");
+                    printStatisticsDTO(controller.getTopTrainingJuniorBackstroke(TOP_LIST_LENGTH), "Top [] Træningstider i Rygcrawl for Junior");
+                    printStatisticsDTO(controller.getTopTrainingJuniorFreestyle(TOP_LIST_LENGTH), "Top [] Træningstider i Crawl for Junior");
+                    printStatisticsDTO(controller.getTopTrainingJuniorButterfly(TOP_LIST_LENGTH), "Top [] Træningstider i Butterfly for Junior");
 
-                    printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Junior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Junior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Junior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Junior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBreaststroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Brystsvømning for Junior");
+                    printStatisticsDTO(controller.getTopCompetitionJuniorBackstroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Rygcrawl for Junior");
+                    printStatisticsDTO(controller.getTopCompetitionJuniorFreestyle(TOP_LIST_LENGTH), "Top [] Stævnetider i Crawl for Junior");
+                    printStatisticsDTO(controller.getTopCompetitionJuniorButterfly(TOP_LIST_LENGTH), "Top [] Stævnetider i Butterfly for Junior");
 
                     break;
                 case 18:
-                    printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Brystsvømning for Senior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Rygcrawl for Senior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Crawl for Senior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Træningstider i Butterfly for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopTrainingSeniorBreaststroke(TOP_LIST_LENGTH), "Top [] Træningstider i Brystsvømning for Senior");
+                    printStatisticsDTO(controller.getTopTrainingSeniorBackstroke(TOP_LIST_LENGTH), "Top [] Træningstider i Rygcrawl for Senior");
+                    printStatisticsDTO(controller.getTopTrainingSeniorFreestyle(TOP_LIST_LENGTH), "Top [] Træningstider i Crawl for Senior");
+                    printStatisticsDTO(controller.getTopTrainingSeniorButterfly(TOP_LIST_LENGTH), "Top [] Træningstider i Butterfly for Senior");
 
-                    printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Brystsvømning for Senior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Rygcrawl for Senior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Crawl for Senior", TOP_LIST_LENGTH));
-                    printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), String.format("Top [] Stævnetider i Butterfly for Senior", TOP_LIST_LENGTH));
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBreaststroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Brystsvømning for Senior");
+                    printStatisticsDTO(controller.getTopCompetitionSeniorBackstroke(TOP_LIST_LENGTH), "Top [] Stævnetider i Rygcrawl for Senior");
+                    printStatisticsDTO(controller.getTopCompetitionSeniorFreestyle(TOP_LIST_LENGTH), "Top [] Stævnetider i Crawl for Senior");
+                    printStatisticsDTO(controller.getTopCompetitionSeniorButterfly(TOP_LIST_LENGTH), "Top [] Stævnetider i Butterfly for Senior");
 
 
                     break;
@@ -395,13 +415,19 @@ public class UI {
 
     public String printListNameBirthday(List<Swimmer> formatList) {
         StringBuilder sb = new StringBuilder("Listen af svømmere:\n");
-        int id = 1;
-        for (Swimmer swimmer : formatList) {
-            sb.append("ID ").append(id).append(": ")
-                    .append("Efternavn: ").append(swimmer.getLastName()).append(", ")
-                    .append("Fornavn: ").append(swimmer.getFirstName()).append(", ")
-                    .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n \n");
-            id++;
+        if (!formatList.isEmpty()) {
+
+            int id = 1;
+            for (Swimmer swimmer : formatList) {
+                sb.append("ID ").append(id).append(": ")
+                        .append("Efternavn: ").append(swimmer.getLastName()).append(", ")
+                        .append("Fornavn: ").append(swimmer.getFirstName()).append(", ")
+                        .append("Fødselsdato: ").append(swimmer.getBirthday().format(dateFormat)).append("\n \n");
+                id++;
+            }
+
+        } else {
+            sb.append("Der er ingen svømmere at vise på denne liste'n");
         }
         return sb.toString();
     }
@@ -409,7 +435,48 @@ public class UI {
     public String printSingleSwimmerNameBirthday(Swimmer swimmer) {
         if (swimmer instanceof CompSwimmer) {
             CompSwimmer compSwimmer = (CompSwimmer) swimmer;
-            return compSwimmer.toString();
+            StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
+            sb.append("Efternavn            Fornavn            Fødselsdato\n");
+            sb.append(String.format("%-20s %-18s %-15s\n", compSwimmer.getLastName(),compSwimmer.getFirstName(),compSwimmer.getBirthday()));
+
+            sb.append("\nAktuelt aktiv i følgende discipliner:  ");
+
+            for (SwimmingDiscipline discipline : compSwimmer.getDiscipline()) {
+                sb.append(" ").append(discipline);
+            }
+            sb.append("\n");
+
+
+            List<Training> trainingList = compSwimmer.getTrainingTime();
+            trainingList.sort(Comparator.comparing(Training::getDate).reversed());
+
+            if (!trainingList.isEmpty()) {
+                sb.append("\nTræningsdato         Disciplin          Svømmmetid\n");
+
+                for (Training training : trainingList) {
+                    sb.append(printTimingObjects(training));
+                }
+
+            } else {
+                sb.append("\nSvømmeren har ingen registrerede træningstider\n");
+            }
+
+            List<Competition> compList = compSwimmer.getCompTime();
+            compList.sort(Comparator.comparing(Competition::getDate).reversed());
+            if (!compList.isEmpty()) {
+                sb.append("\nStævnedato           Disciplin          Svømmmetid     Placering      Stævne                                            \n");
+
+                for (Competition competition : compList) {
+                    sb.append(printTimingObjects(competition));
+                }
+            } else {
+                sb.append("\nSvømmeren har ingen registrerede konkurrencetider\n");
+            }
+
+            return sb.toString();
+
+            //return compSwimmer.toString();
+
         } else {
             StringBuilder sb = new StringBuilder("Svømmer information:\n\n");
             sb.append("Efternavn: ").append(swimmer.getLastName()).append("\n")
@@ -422,7 +489,7 @@ public class UI {
     public String printRestanceSwimmers(List<Swimmer> formatList) {
         StringBuilder sb = new StringBuilder("Svømmere i restance:\n\n");
         for (Swimmer swimmer : formatList) {
-            sb.append(String.format("%-20s  %-20s  %20s  %5b ", swimmer.getLastName(), swimmer.getFirstName(), swimmer.getBirthday(), swimmer.getIsPaid()));
+            sb.append(String.format("%-15s  %-15s %-15s  %-10s", swimmer.getLastName(), swimmer.getFirstName(), swimmer.getBirthday(), (swimmer.getIsPaid()) ? "Har betalt" : "I restance"));
             sb.append("\n");
         }
         return sb.toString();
@@ -446,16 +513,14 @@ public class UI {
 
     public void createNonCompSwimmer() {
 
-        System.out.println("Indtast fornavn");
-        String firstName = scanner.nextLine();
-        scanner.nextLine();
+        System.out.println("Indtast fornavn (max 15 bogstaver");
+        String firstName = getValidString(15, false);
 
-        System.out.println("Indtast efternavn");
-        String lastName = scanner.nextLine();
+        System.out.println("Indtast efternavn (max 15 bogstaver");
+        String lastName = getValidString(15, false);
 
-        System.out.println("Indtast fødselsdato som YYYY-MM-DD");
-        String birthdayString = scanner.nextLine();
-        LocalDate birthday = LocalDate.parse(birthdayString);
+        System.out.println("Indtast fødselsdato som DD-MM-YYYY");
+        LocalDate birthday = getValidatedDate(false, 7);
 
         controller.addNonCompSwimmerToList(firstName, lastName, birthday, true, false);
         System.out.println("Svømmeren er oprettet");
@@ -464,45 +529,51 @@ public class UI {
 
     public void createCompSwimmer() {
 
-        System.out.println("Indtast fornavn");
-        String firstName = scanner.nextLine();
-        scanner.nextLine();
+        System.out.println("Indtast fornavn (max 15 bogstaver");
+        String firstName = getValidString(15, false);
 
-        System.out.println("Indtast efternavn");
-        String lastName = scanner.nextLine();
+        System.out.println("Indtast efternavn (max 15 bogstaver");
+        String lastName = getValidString(15, false);
 
-        System.out.println("Indtast fødselsdato som YYYY-MM-DD");
-        String birthdayString = scanner.nextLine();
-        LocalDate birthday = LocalDate.parse(birthdayString);
+        System.out.println("Indtast fødselsdato som DD-MM-YYYY");
+        LocalDate birthday = getValidatedDate(false, 7);
+
+        EnumSet<SwimmingDiscipline> disciplines = getSwimmingDisciplineFromUser();
+
+        controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines, true, false);
+        System.out.println("Svømmeren er oprettet");
+    }
+
+
+    public EnumSet<SwimmingDiscipline> getSwimmingDisciplineFromUser() {
 
         EnumSet<SwimmingDiscipline> disciplines = EnumSet.noneOf(SwimmingDiscipline.class);
 
         System.out.println("Er svømmeren aktiv i crawl? \nTryk 1 for ja - Tryk 0 for nej");
-        int freestyle = scanner.nextInt();
+        int freestyle = getValidInt(0, 1, false);
         if (freestyle == 1) {
             disciplines.add(SwimmingDiscipline.FREESTYLE);
         }
 
         System.out.println("Er svømmeren aktiv i rygcrawl? \nTryk 1 for ja - Tryk 0 for nej");
-        int backStroke = scanner.nextInt();
+        int backStroke = getValidInt(0, 1, false);
         if (backStroke == 1) {
             disciplines.add(SwimmingDiscipline.BACKSTROKE);
         }
 
         System.out.println("Er svømmeren aktiv i brystsvømning? \nTryk 1 for ja - Tryk 0 for nej");
-        int breastStroke = scanner.nextInt();
+        int breastStroke = getValidInt(0, 1, false);
         if (breastStroke == 1) {
             disciplines.add(SwimmingDiscipline.BREASTSTROKE);
         }
 
         System.out.println("Er svømmeren aktiv i butterfly? \nTryk 1 for ja - Tryk 0 for nej");
-        int butterfly = scanner.nextInt();
+        int butterfly = getValidInt(0, 1, false);
         if (butterfly == 1) {
             disciplines.add(SwimmingDiscipline.BUTTERFLY);
         }
 
-        controller.addCompSwimmerToList(firstName, lastName, birthday, disciplines, true, false);
-        System.out.println("Svømmeren er oprettet");
+        return disciplines;
     }
 
 
@@ -533,17 +604,12 @@ public class UI {
                 return;
         }
 
-        System.out.println("Hvilken dato er træningsresultatet fra? Indtast dato som YYYY-MM-DD");
-        String dateString = scanner.nextLine();
-        LocalDate date = LocalDate.parse(dateString);
+        System.out.println("Hvilken dato er træningsresultatet fra? Indtast dato som DD-MM-YYYY");
 
-        System.out.println("Hvad er træningstiden? \n Indtast antal minutter");
-        int minutes = scanner.nextInt();
+        LocalDate date = getValidatedDate(false, 0);
 
-        System.out.println("Indtast antal sekunder");
-        int seconds = scanner.nextInt();
-
-        Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
+        System.out.println("Hvad er træningstiden? \n Indtast som format 00:00");
+        Duration duration = getValidDuration();
 
         Training training = new Training(discipline, date, duration);
 
@@ -551,7 +617,7 @@ public class UI {
             swimmer.addTrainingTime(training);
             System.out.println("Træningsresultat tilføjet til " + swimmer.getFirstName());
         }
-        scanner.nextLine();
+
 
     }
 
@@ -560,12 +626,11 @@ public class UI {
             throw new SwimPassiveException("Svømmer er \"passiv\". Du kan ikke registrer ny tid.");
         }
 
-        System.out.println("Hvad er navnet på stævnet svømmeren har deltaget i?");
-        String competitionName = scanner.nextLine();
+        System.out.println("Hvad er navnet på stævnet svømmeren har deltaget i? (max 18 bogstaver)");
+        String competitionName = getValidString(18, false);
 
-        System.out.println("Hvilken dato er stævneresultatet fra? Indtast dato som YYYY-MM-DD");
-        String dateString = scanner.nextLine();
-        LocalDate date = LocalDate.parse(dateString);
+        System.out.println("Hvilken dato er stævneresultatet fra? Indtast dato som DD-MM-YYYY");
+        LocalDate date = getValidatedDate(false, 0);
 
         SwimmingDiscipline discipline = null;
         System.out.println("Hvilken Svømmedisciplin vil du tilføje træningstid for? Tast 1-4\n" +
@@ -590,15 +655,11 @@ public class UI {
         }
 
         System.out.println("Hvilen placering blev svømmeren? Skriv som et heltal");
-        int ranking = scanner.nextInt();
+        int ranking = getValidInt(1,20, false);
 
-        System.out.println("Hvad blev tiden? \n Indtast antal minutter");
-        int minutes = scanner.nextInt();
+        System.out.println("Hvad blev tiden? \n Indtast som format 00:00");
 
-        System.out.println("Indtast antal sekunder");
-        int seconds = scanner.nextInt();
-
-        Duration duration = Duration.ofMinutes(minutes).plusSeconds(seconds);
+        Duration duration = getValidDuration();
 
         Competition comp = new Competition(competitionName, date, ranking, discipline, duration);
 
@@ -664,15 +725,26 @@ public class UI {
                     return "";
                 } else {
                     System.err.println("Skriv noget.");
+                    continue;
                 }
             }
 
             //Tjek at String er indenfor maxLength:
             if (input.length() > maxLength) {
                 System.err.printf("Inputtet er for langt. Det må max være %d tegn. Prøv igen. \n", maxLength);
-            } else {
-                return input;
+                continue;
             }
+
+            if (input.matches(".*\\d.*")) {
+                System.out.println("Den tekst du har indtastet indeholder tal.\nEr det meningen?\n(1) Ja (2) Nej");
+                if (getValidInt(1, 2, false) == 2) {
+                    System.out.println("Prøv igen");
+                    continue;
+                }
+            }
+
+            return input;
+
 
 
         }
@@ -720,6 +792,29 @@ public class UI {
         }
     }
 
+    public String printTimingObjects(Training timingObject) {
+
+        StringBuilder tempString = new StringBuilder();
+        if (timingObject instanceof Competition) {
+
+            Competition tempCompetition = (Competition) timingObject;
+
+            tempString.append(String.format("%-20s %-22s  %5s %12d.      %-26s\n"
+                    , tempCompetition.getDate().format(dateFormat)
+                    , tempCompetition.getDiscipline().toString()
+                    , formatDuration(tempCompetition.getTimeRegister())
+                    , tempCompetition.getRanking()
+                    , tempCompetition.getCompetitionName()));
+        } else {
+            tempString.append(String.format("%-20s %-22s  %5s\n"
+                    , timingObject.getDate().format(dateFormat)
+                    , timingObject.getDiscipline().toString()
+                    , formatDuration(timingObject.getTimeRegister())));
+        }
+    return tempString.toString();
+    }
+
+
     public void printAllTopSwimmerStatistics() {
 
         //training junior 4 disciplines
@@ -752,7 +847,7 @@ public class UI {
     public String formatDuration(Duration duration) {
         Duration secondsIsolated = duration.minusMinutes(duration.toMinutes());
 
-        return String.format("%02d:%02d", duration.toMinutes(), secondsIsolated.toSeconds());
+        return String.format("%2d:%02d", duration.toMinutes(), secondsIsolated.toSeconds());
 
     }
 
@@ -766,7 +861,8 @@ public class UI {
         //regex definerer mønsteret som et input skal matche.
         //^ siger at det skal matche fra start. mulige tal i hhv minutter : sekunder.
         //$ afslutter mønsteret
-        String regex = "^[0-5][0-9]:[0-5][0-9]$";
+        String regex1 = "^[0-5][0-9]:[0-5][0-9]$";
+        String regex2 = "^[0-9]:[0-5][0-9]$";
 
         while (true) {
             input = scanner.nextLine();
@@ -774,7 +870,7 @@ public class UI {
             //If: tomt input, else if: input ikke matcher regex, else: hvis input matcher spilt det op i minutter og sekunder: :
             if (input.isEmpty()) {
                 System.err.println("Skriv noget");
-            } else if (!input.matches(regex)) {
+            } else if (!(input.matches(regex1) || input.matches(regex2))) {
                 System.err.println("Ugyldigt input! Skriv minutter:sekunder");
             } else {
                 String[] parts = input.split(":");
@@ -788,6 +884,43 @@ public class UI {
 
 
         }
+
+
+    }
+
+    public LocalDate getValidatedDate(boolean acceptFutureDate, int minYearsRange) {
+
+        LocalDate todaysDate = LocalDate.now();
+        LocalDate userDate;
+        Period range;
+
+        while (true) {
+
+            String textDate = scanner.nextLine();
+
+            try {
+                userDate = LocalDate.parse(textDate, dateFormat);
+            } catch (DateTimeParseException e) {
+                System.err.println("Du har ikke indtastet en gyldig dato\nPrøv igen\n");
+                continue;
+            }
+
+            if (userDate.compareTo(todaysDate) >= 1 && !acceptFutureDate) {
+                System.err.println("Du har indtastet end fremtidig dato\nPrøv igen\n");
+                continue;
+            }
+
+            range = Period.between(todaysDate, userDate);
+            if (Math.abs(range.getYears()) < minYearsRange) {
+                System.err.println("Du skal indtaste en dato der ligger mindst " + minYearsRange + " år væk\n"
+                + "Den indtastede dato er kun " + Math.abs(range.getYears()) + " år væk\nPrøv igen\n");
+                continue;
+            }
+
+            return userDate;
+
+        }
+
 
 
     }

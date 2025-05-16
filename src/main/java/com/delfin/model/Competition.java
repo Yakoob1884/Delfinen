@@ -1,10 +1,14 @@
 package delfin.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 
 public class Competition extends Training implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1505202504;
 
     private String competitionName;
     private int ranking;

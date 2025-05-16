@@ -1,6 +1,7 @@
 package delfin.model;
 
 import java.time.Duration;
+import java.util.EnumSet;
 import java.util.List;
 
 public interface CompetitionSwimmer extends Swimmer {
@@ -13,6 +14,9 @@ public interface CompetitionSwimmer extends Swimmer {
 
     Duration getFastestCompetitionTimeFromDiscipline(Enum<SwimmingDiscipline> discipline);
     Competition getFastestCompetitionFromDiscipline(Enum<SwimmingDiscipline> discipline);
+
+    EnumSet<SwimmingDiscipline> getDiscipline();
+    void setDiscipline(EnumSet<SwimmingDiscipline> enums);
 
 
     boolean hasResult(SwimmingDiscipline discipline);

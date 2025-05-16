@@ -16,7 +16,7 @@ public class Main {
 
         try {
 
-            AppController controller = new AppController("listCollectionBackup.ser", scanner);
+            AppController controller = new AppController("listCollectionBackup.ser");
             UI uiConsoleMenu = new UI(controller, scanner);
 
             uiConsoleMenu.menuOptions();

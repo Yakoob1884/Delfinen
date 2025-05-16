@@ -18,17 +18,31 @@ public class AppController {
     private final int EXTRA_DISCOUNT_START_AGE = 61;
     private final double EXTRA_DISCOUNT_PERCENTAGE = 0.75;
 
-    Scanner scanner;
+
 
     ListOfSwimmers listOfSwimmers;
 
-    public AppController(String filename, Scanner scanner) throws IOException, ClassNotFoundException {
+    public AppController(String filename) throws IOException, ClassNotFoundException {
         this.listOfSwimmers = new ListOfSwimmers(filename);
-        this.scanner = scanner;
+
     }
 
     public List<Swimmer> getNonCompSwimmersList() {
-        return listOfSwimmers.getNonCompSwimmersList();
+        List<Swimmer> nonCompSwimmersList = listOfSwimmers.getNonCompSwimmersList();
+        Collections.sort(nonCompSwimmersList);
+        return nonCompSwimmersList;
+    }
+
+    public List<Swimmer> getActiveSwimmersList() {
+        List<Swimmer> activeSwimmersList = listOfSwimmers.getActiveSwimmers();
+        Collections.sort(activeSwimmersList);
+        return activeSwimmersList;
+    }
+
+    public List<Swimmer> getPassiveSwimmersList() {
+        List<Swimmer> passiveSwimmersList = listOfSwimmers.getPassiveSwimmers();
+        Collections.sort(passiveSwimmersList);
+        return passiveSwimmersList;
     }
 
     public void addSwimmer(Swimmer swimmer) {
@@ -390,17 +404,20 @@ public class AppController {
 
     }
 
-    public Swimmer getSwimmerById(Scanner scanner) {
-        System.out.println(listOfSwimmers.getListOfAllSwimmers());
+    //Kommenteret ud fordi at denne method efterhånden er skrevet ind i senere methods
+    //sidste forekomst af Scanner i AppController ellers er al userinput ordnet i UI class
 
-        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
-        int input = scanner.nextInt();
-
-        Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
-
-        return swimmerById;
-
-    }
+//    public Swimmer getSwimmerById(Scanner scanner) {
+//        System.out.println(listOfSwimmers.getListOfAllSwimmers());
+//
+//        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
+//        int input = scanner.nextInt();
+//
+//        Swimmer swimmerById = listOfSwimmers.getSwimmerByIndex(input - 1);
+//
+//        return swimmerById;
+//
+//    }
 
     public List<Swimmer> returnGetSwimmersIsPaidFalseList() {
         List<Swimmer> listSwimmersIsPaidFalse = listOfSwimmers.getSwimmersIsPaidFalseList();
@@ -410,14 +427,20 @@ public class AppController {
         return listSwimmersIsPaidFalse;
     }
 
-    public void swimmerHasPaid() {
-        System.out.println("Vælg et medlem ud fra det given ID nummer. Tast 0 for at gå tilbage.");
-        int input = scanner.nextInt();
+    public void swimmerHasPaid(int indexFromOne) {
 
-        Swimmer swimmerById = listOfSwimmers.getSwimmersIsPaidFalseList().get(input - 1);
+        Swimmer swimmerById = returnGetSwimmersIsPaidFalseList().get(indexFromOne - 1);
 
         swimmerById.setIsPaid(true);
-
         System.out.println("Betaling registreret for: " + swimmerById.getFirstName() + " " + swimmerById.getLastName());
+    }
+
+    public void addSwimmingDisciplinesToSwimmer(Swimmer swimmer, EnumSet<SwimmingDiscipline> enums) {
+
+        if (swimmer instanceof CompSwimmer) {
+            CompSwimmer tempCompSwimmer = (CompSwimmer) swimmer;
+            tempCompSwimmer.setDiscipline(enums);
+        }
+
     }
 }

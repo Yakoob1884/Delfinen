@@ -1,18 +1,23 @@
 package delfin.model;
 
 import javax.print.attribute.standard.MediaSize;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Queue;
 
 public class NonCompSwimmer implements Swimmer, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1505202501;
+
     //Attributes
-    String firstName;
-    String lastName;
-    LocalDate birthday;
-    boolean isActive;
-    boolean isPaid;
+    private String firstName;
+    private String lastName;
+    private LocalDate birthday;
+    private boolean isActive;
+    private boolean isPaid;
 
 
     public NonCompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid) {

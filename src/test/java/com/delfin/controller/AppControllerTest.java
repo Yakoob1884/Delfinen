@@ -13,9 +13,8 @@ class AppControllerTest {
 
     @Test
     void calculateFee() throws IOException, ClassNotFoundException {
-        Scanner scanner = new Scanner(System.in);
 
-        AppController controller = new AppController("collectionBackup.ser", scanner);
+        AppController controller = new AppController("collectionBackup.ser");
 
         //Test af en svømmer som er senior, men under 60 år, og aktivt medlem
         assertEquals(1600, controller.calculateFee(new NonCompSwimmer("Sofie", "Andersen", LocalDate.of(1973, 2, 12), true, true)));

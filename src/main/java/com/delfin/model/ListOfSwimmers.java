@@ -13,8 +13,6 @@ import java.util.*;
 
 public class ListOfSwimmers {
 
-    //static final long serialVersionUID =
-
     private final FileObjectOutputInput listOfSwimmersFile;
 
     private ArrayList<Swimmer> listOfSwimmers;
@@ -25,20 +23,19 @@ public class ListOfSwimmers {
 
         this.listOfSwimmers = new ArrayList<>();
 
-        //Call til method der smider dummies på listen
-        //Kommenter ud når bruge swimmers gemt på fil
-        //dummieList();
-
         //Instantiering af filhåndteringsobjekt
         this.listOfSwimmersFile = new FileObjectOutputInput(filename);
 
-        //Write swimmer på listen til fil
-        //Kommenter næsten altid ud, med undtagelse af hvis ønske at gemme dummies til fil
-        //listOfSwimmersFile.writeSwimmerListToFile(listOfSwimmers);
+
 
         //Henter fra backup hvis vi har swimmers der er gemt på fil
         //Kommenter ud hvis bruge dummies fra dummiesList();
         this.listOfSwimmers = (ArrayList<Swimmer>) listOfSwimmersFile.readSwimmerListFromFile();
+
+        //Call til method der smider dummies på listen
+        //Kommenter ud når bruge swimmers gemt på fil
+        //dummieList();
+
     }
 
     public void addSwimmer(Swimmer swimmer) {
@@ -63,6 +60,31 @@ public class ListOfSwimmers {
         return listSwimmersIsPaidFalse;
 
     }
+
+    public List<Swimmer> getPassiveSwimmers() {
+        List<Swimmer> listSwimmersIsPassive = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            if (!swimmer.getIsActive()) {
+                listSwimmersIsPassive.add(swimmer);
+            }
+        }
+
+        return listSwimmersIsPassive;
+    }
+
+    public List<Swimmer> getActiveSwimmers() {
+        List<Swimmer> listSwimmersIsActive = new ArrayList<>();
+
+        for (Swimmer swimmer : listOfSwimmers) {
+            if (swimmer.getIsActive()) {
+                listSwimmersIsActive.add(swimmer);
+            }
+        }
+
+        return listSwimmersIsActive;
+    }
+
 
     public List<Swimmer> getListOfAllSwimmers() {
 

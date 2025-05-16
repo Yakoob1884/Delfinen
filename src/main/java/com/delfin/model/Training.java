@@ -1,11 +1,14 @@
 package delfin.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 
 public class Training implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1505202503;
 
     private SwimmingDiscipline discipline;
     private LocalDate date;

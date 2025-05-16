@@ -1,5 +1,6 @@
 package delfin.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -10,9 +11,12 @@ import java.util.EnumSet;
 
 public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, Serializable {
 
-    EnumSet<SwimmingDiscipline> discipline;
-    ArrayList<Competition> compTime;
-    ArrayList<Training> trainingTime;
+    @Serial
+    private static final long serialVersionUID = 1505202502;
+
+    private EnumSet<SwimmingDiscipline> discipline;
+    private ArrayList<Competition> compTime;
+    private ArrayList<Training> trainingTime;
 
 
     public CompSwimmer(String firstName, String lastName, LocalDate birthday, boolean isActive, boolean isPaid, List<Training> trainingTime, EnumSet<SwimmingDiscipline> enums) {
@@ -30,23 +34,22 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     }
 
     public CompSwimmer(String firstName, String lastName, LocalDate birthday, EnumSet<SwimmingDiscipline> disciplines, boolean isActive, boolean isPaid) {
-        super(firstName, lastName, birthday);
+        super(firstName, lastName, birthday, isActive, isPaid);
         this.discipline = disciplines;
-        this.isActive = isActive;
-        this.isPaid = isPaid;
         this.trainingTime = new ArrayList<>();
         this.compTime = new ArrayList<>();
     }
 
     public CompSwimmer(NonCompSwimmer swimmer) {
-        this.firstName = swimmer.getFirstName();
-        this.lastName = swimmer.getLastName();
-        this.birthday = swimmer.getBirthday();
-        this.isActive = swimmer.getIsActive();
-        this.isPaid = swimmer.getIsPaid();
-        this.discipline.noneOf(SwimmingDiscipline.class);
+        super(swimmer.getFirstName(), swimmer.getLastName(), swimmer.getBirthday(), swimmer.getIsActive(), swimmer.getIsPaid());
+        this.discipline = EnumSet.noneOf(SwimmingDiscipline.class);
         this.compTime = new ArrayList<>();
         this.trainingTime = new ArrayList<>();
+    }
+
+    @Override
+    public void setDiscipline (EnumSet<SwimmingDiscipline> enums) {
+        this.discipline = enums;
     }
 
     @Override
@@ -57,6 +60,11 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     @Override
     public List<Competition> getCompTime() {
         return this.compTime;
+    }
+
+    @Override
+    public EnumSet<SwimmingDiscipline> getDiscipline() {
+        return discipline;
     }
 
     @Override
@@ -255,7 +263,7 @@ public class CompSwimmer extends NonCompSwimmer implements CompetitionSwimmer, S
     public String toString() {
         StringBuilder tempString = new StringBuilder();
         tempString.append(String.format("%-20s  %-20s  %20s", "Efternavn", "Fornavn", "Fødselsdag\n"));
-        tempString.append(String.format("%-20s  %-20s  %19s", this.lastName, this.firstName, this.birthday));
+        tempString.append(String.format("%-20s  %-20s  %19s", this.getLastName(), this.getFirstName(), this.getBirthday()));
         tempString.append("\n\nDeltager i følgende discipliner:" + this.discipline);
         if (compTime.isEmpty()) {
             tempString.append("\n\nSvømmeren har ingen registrerede konkurrencetider\n");
